@@ -35,18 +35,18 @@ function App() {
     <CssBaseline>
       <ThemeProvider theme={theme}>
         <AppHeader />
-          <BrowserRouter>
-            <Routes>
-              {/* TODO:::
-              <UnauthRoute path="/sign-in">
-                <Authentication />
-              </UnauthRoute>
-              <UnauthRoute path="/sign-up">
-                <Authentication />
-              </UnauthRoute> */}
-              <Route path="/" element={<AuthRoutes />} />
-            </Routes>
-          </BrowserRouter>
+        <BrowserRouter>
+          <Routes>
+            {/* TODO:::
+            <UnauthRoute path="/sign-in">
+              <Authentication />
+            </UnauthRoute>
+            <UnauthRoute path="/sign-up">
+              <Authentication />
+            </UnauthRoute> */}
+            <Route path="/" element={<AuthRoutes />} />
+          </Routes>
+        </BrowserRouter>
       </ThemeProvider>
     </CssBaseline>
   );
