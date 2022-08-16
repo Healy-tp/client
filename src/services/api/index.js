@@ -27,15 +27,6 @@ export class Api {
     this.accountId = accountId;
   }
 
-  clearCache(url = null, params = {}) {
-    if (url !== null) {
-      const cacheKey = this._getCacheKey(url, params);
-      this.datasourceResourceCache.delete(cacheKey);
-      return;
-    }
-    this.datasourceResourceCache.clear();
-  }
-
   /* **** internal class methods **** */
   _request(method, url, {
     data = {},

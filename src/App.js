@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 
 import AppHeader from './components/AppHeader';
+import Login from './routes/Login';
 // import AuthRoute from './components/AuthRoute';
 
 import theme from './theme';
@@ -37,13 +38,8 @@ function App() {
         <AppHeader />
         <BrowserRouter>
           <Routes>
-            {/* TODO:::
-            <UnauthRoute path="/sign-in">
-              <Authentication />
-            </UnauthRoute>
-            <UnauthRoute path="/sign-up">
-              <Authentication />
-            </UnauthRoute> */}
+            <Route path="/login" element={<Login />} />
+            {/* <Route path="/sign-up" element={<Signup />} /> */}
             <Route path="/" element={<AuthRoutes />} />
           </Routes>
         </BrowserRouter>

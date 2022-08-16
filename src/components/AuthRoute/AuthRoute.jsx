@@ -14,7 +14,7 @@ const AuthRoute = ({ children, ...props }) => {
         const shouldSignIn = !currentUser;
         
         if (shouldSignIn) {
-          return <Navigate to="/sign-in" />;
+          return <Navigate to="/login" />;
         }
 
         return children;
