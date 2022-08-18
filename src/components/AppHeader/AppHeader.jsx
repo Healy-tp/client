@@ -22,9 +22,15 @@ const AppHeader = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Healy
           </Typography>
-          <Button color="inherit" onClick={goToSignUp}>Sign Up</Button>
+          
           {
-            !currentUser ? (<Button color="inherit" onClick={goToLogin}>Login</Button>) : <AccountMenu currentUser={currentUser} /> 
+            !currentUser ? (
+              <>
+                <Button color="inherit" onClick={goToSignUp}>Sign Up</Button>
+                <Button color="inherit" onClick={goToLogin}>Login</Button>
+              </>
+            ) : 
+            <AccountMenu currentUser={currentUser} /> 
           }
         </Toolbar>
       </AppBar>

@@ -11,7 +11,7 @@ import AppHeader from './components/AppHeader';
 import Login from './routes/Login';
 // import AuthRoute from './components/AuthRoute';
 import { UserProvider } from './contexts/UserContext';
-import SignUpForm from './components/SignUpForm/SignUpForm';
+import SignUp from './routes/SignUp';
 
 import theme from './theme';
 
@@ -42,7 +42,7 @@ function App() {
             <AppHeader />
             <Routes>
               <Route path="/login" element={<Login />} />
-              <Route path="/sign-up" element={<SignUpForm />} />
+              <Route path="/sign-up" element={<SignUp />} />
               <Route path="/" element={<AuthRoutes />} />
             </Routes>
           </UserProvider>
