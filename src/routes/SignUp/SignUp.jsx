@@ -1,19 +1,19 @@
-import {useState, useContext} from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
+import { 
+  Avatar, 
+  Button, 
+  TextField, 
+  Link, 
+  Grid, 
+  Box, 
+  Typography, 
+  Container 
+} from '@mui/material';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
 
+import Snackbar from '../../components/Snackbar';
 import { signUp } from '../../services/users';
 import { UserContext } from '../../contexts/UserContext';
 
@@ -33,26 +33,26 @@ const SignUp = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {firstName, lastName, phoneNumber, email, password, confirmPassword} = formFields;
 
-  const [errorSnackBar, setErrorSnackBar] = useState({
+  const [snackbar, setSnackbar] = useState({
     open: false,
     message: '',
+    type: '',
   });
-  const { open, message } = errorSnackBar;
+  const { open, message, type } = snackbar;
   const navigate = useNavigate();
   
-
   const resetFormFields = () => {
     setFormFields(defaultFormFields)
   }
 
-  const handleClose = () => {
-    setErrorSnackBar({open: false, message: ''});
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: '' });
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     if (password !== confirmPassword) {
-      alert("passwords do not match");
+      setSnackbar({ type: 'error', open: true, message: 'Passwords do not match' });
       return;
     }
     try {
@@ -63,24 +63,23 @@ const SignUp = () => {
         email,
         password,
       });
+      setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
       setCurrentUser(user);
       resetFormFields();
       navigate('/');
-
     } catch (error) {
-      setErrorSnackBar({open: true, message: error.response.data.errors[0].message});
+      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
     }
 
   };
 
   const handleChange = (event) => {
-    const {name, value} = event.target;
-    setFormFields({...formFields, [name]: value})
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value })
   };
 
   return (
     <Container component="main" maxWidth="xs">
-      <CssBaseline />
       <Box
         sx={{
           marginTop: 8,
@@ -90,16 +89,11 @@ const SignUp = () => {
         }}
       >
         <Snackbar
-          anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
           open={open}
-          onClose={handleClose}
+          onClose={handleCloseSnackbar}
           message={message}
-          key={'topcenter'}
-        >
-          <MuiAlert elevation={6} variant="filled" severity="error" sx={{ width: '100%' }}>
-            {message}
-          </MuiAlert>
-        </Snackbar>
+          type={type}
+        />
         <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
           <LockOutlinedIcon />
         </Avatar>

@@ -1,39 +1,38 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Typography } from '@mui/material';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
+import {
+  Box,
+  Button, 
+  Link, 
+  Grid, 
+  TextField,
+  Typography, 
+} from '@mui/material';
 
-import {signIn} from '../../services/users';
+import Snackbar from '../../components/Snackbar';
+import { signIn } from '../../services/users';
 import { UserContext } from '../../contexts/UserContext';
-
 
 const defaultFormFields = {
   email: '',
   password: '',
 }
 
-
 const Login = () => {
-
   const {setCurrentUser} = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {email, password} = formFields;
-  const [errorSnackBar, setErrorSnackBar] = useState({
+  const [snackbar, setSnackBar] = useState({
     open: false,
     message: '',
   });
-  const { open, message } = errorSnackBar;
+  const { open, message } = snackbar;
 
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setErrorSnackBar({open: false, message: ''});
+    setSnackBar({ open: false, message: '' });
   };
 
   const resetFormFields = () => {
@@ -50,7 +49,7 @@ const Login = () => {
       navigate('/');
 
     } catch (error) {
-      setErrorSnackBar({open: true, message: error.response.data.errors[0].message});
+      setSnackBar({open: true, message: error.response.data.errors[0].message});
     }
   }
 
@@ -69,16 +68,11 @@ const Login = () => {
       }}
     >
       <Snackbar
-        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         open={open}
-        onClose={handleClose}
+        handleClose={handleClose}
         message={message}
-        key={'topcenter'}
-      >
-        <MuiAlert elevation={6} variant="filled" severity="error" sx={{ width: '100%' }}>
-          {message}
-        </MuiAlert>
-      </Snackbar>
+        type={"error"}
+      />
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>

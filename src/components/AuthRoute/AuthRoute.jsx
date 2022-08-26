@@ -1,26 +1,18 @@
 import PropTypes from "prop-types";
-import { Navigate, Route } from "react-router-dom";
+import { Navigate, useLocation } from "react-router-dom";
+import { useContext } from 'react';
 
-// import { useAuth } from "../../store/AuthContext"; TODO: add this
+import { UserContext } from '../../contexts/UserContext';
 
-const AuthRoute = ({ children, ...props }) => {
-  // const { currentUser } = useAuth();
-  const currentUser = false;
+const AuthRoute = ({ children }) => {
+  const { currentUser } = useContext(UserContext);
+  const location = useLocation();
 
-  return (
-    <Route
-      {...props}
-      render={() => {
-        const shouldSignIn = !currentUser;
-        
-        if (shouldSignIn) {
-          return <Navigate to="/login" />;
-        }
+  if (!currentUser) {
+    return <Navigate to="/login" replace state={{ from: location }} />;
+  }
 
-        return children;
-      }}
-    />
-  );
+  return children;
 };
 
 AuthRoute.propTypes = {

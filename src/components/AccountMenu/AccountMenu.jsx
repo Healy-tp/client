@@ -1,17 +1,21 @@
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import IconButton from '@mui/material/IconButton';
 import AccountCircle from '@mui/icons-material/AccountCircle';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
+
+import {
+  Menu,
+  MenuItem, 
+  IconButton,
+} from '@mui/material';
 
 import { signOut } from '../../services/users';
 import { UserContext } from '../../contexts/UserContext';
 
-const AccountMenu = ({currentUser}) => {
-
+const AccountMenu = ({ currentUser }) => {
   const {setCurrentUser} = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
+  const navigate = useNavigate();
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -29,7 +33,7 @@ const AccountMenu = ({currentUser}) => {
   return (
     <div>
       <IconButton
-        size="large"
+        size="small"
         aria-label="account of current user"
         aria-controls="menu-appbar"
         aria-haspopup="true"
@@ -37,6 +41,7 @@ const AccountMenu = ({currentUser}) => {
         color="inherit"
       >
         <AccountCircle />
+        {`${currentUser.firstName} ${currentUser.lastName}`}
       </IconButton>
       <Menu
         id="menu-appbar"
@@ -53,8 +58,7 @@ const AccountMenu = ({currentUser}) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem>{currentUser.firstName} {currentUser.lastName}</MenuItem>
-        <MenuItem>My account</MenuItem>
+        <MenuItem onClick={() => navigate('/settings')}>Settings</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
