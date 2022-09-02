@@ -9,6 +9,7 @@ const AuthRoute = ({ children }) => {
   const location = useLocation();
 
   if (!currentUser) {
+    console.log(location);
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
