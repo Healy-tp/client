@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 import {
   Box,
@@ -29,6 +29,9 @@ const Login = () => {
   });
   const { open, message } = snackbar;
 
+  const location = useLocation();
+  const {from} = location.state || {from: {pathname: '/'}};
+
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -46,7 +49,7 @@ const Login = () => {
       const user = await signIn(email, password);
       setCurrentUser(user);
       resetFormFields();
-      navigate('/');
+      navigate(from.pathname);
 
     } catch (error) {
       setSnackBar({open: true, message: error.response.data.errors[0].message});
