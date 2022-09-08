@@ -15,6 +15,8 @@ import Login from './routes/Login';
 import SignUp from './routes/SignUp';
 import Home from './routes/Home';
 import ErrorPage from './routes/404';
+import Admin from './routes/Admin/Admin';
+import ConfirmationPage from './routes/ConfirmationPage';
 
 import './App.css';
 import theme from './theme';
@@ -35,6 +37,13 @@ function AuthRoutes() {
           <AuthRoute children={<Checkout />} />
         }
       />
+
+      <Route 
+        path="/admin" 
+        element={
+          <AuthRoute children={<Admin />} />
+        }
+      />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
@@ -52,6 +61,7 @@ function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/sign/:confirmationCode" element={<ConfirmationPage />} />
                 <Route path="/" element={<Home />} />
                 <Route path="*" element={<AuthRoutes />} />
               </Routes>
