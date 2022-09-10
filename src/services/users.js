@@ -10,6 +10,11 @@ async function signUp(userData) {
   return response;
 }
 
+async function doctorSignUp(userData) {
+  const response = await api.post('http://localhost:8080/doctor/signup', userData);
+  return response;
+}
+
 async function signOut() {
   const response = await api.post('http://localhost:8080/user/signout');
   return response;
@@ -28,6 +33,7 @@ async function verifyUser(confirmationCode, {email}) {
 export {
   signIn,
   signUp,
+  doctorSignUp,
   signOut,
   checkUser,
   verifyUser,

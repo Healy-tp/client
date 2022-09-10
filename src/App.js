@@ -17,6 +17,7 @@ import Home from './routes/Home';
 import ErrorPage from './routes/404';
 import Admin from './routes/Admin/Admin';
 import ConfirmationPage from './routes/ConfirmationPage';
+import NewDoctor from './routes/NewDoctor';
 
 import './App.css';
 import theme from './theme';
@@ -42,6 +43,12 @@ function AuthRoutes() {
         path="/admin" 
         element={
           <AuthRoute children={<Admin />} />
+        }
+      />
+      <Route 
+        path="/admin/new-doctor" 
+        element={
+          <AuthRoute children={<NewDoctor />} />
         }
       />
       <Route path="*" element={<ErrorPage />} />
