@@ -53,7 +53,7 @@ function Home() {
 
   const onChangeDate = (date) => {
     const times = [];
-    const selectedDate = availabilities.filter(a => a.weekday === date.getDay() && a.doctorId === selectedData.doctorId)[0];
+    const selectedDate = availabilities.filter(a => a.weekday === date.getDay() && a.Doctor.id === selectedData.doctorId)[0];
     const dateString = date.toJSON().slice(0, 10);
     const startDt = new Date(`${dateString}T${selectedDate.startHour.slice(0, 5)}:00Z`);
     const endDt = new Date(`${dateString}T${selectedDate.endHour.slice(0, 5)}:00Z`);
@@ -107,7 +107,7 @@ function Home() {
                 disablePast={true}
                 renderInput={(params) => <TextField {...params} />}
                 shouldDisableDate={(date) => {
-                  const filteredDays = availabilities.filter(av => av.doctorId === selectedData.doctorId).map(av => av.weekday);
+                  const filteredDays = availabilities.filter(av => av.Doctor.id === selectedData.doctorId).map(av => av.weekday);
                   return !filteredDays.includes(date.getDay()); // || availabilities.filter(av => new Date(av.validUntil) < date).length > 0;
                 }}
               />
