@@ -1,13 +1,15 @@
 import { useContext, useState } from "react";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import {  
-  Box, Button, Snackbar 
+  Box, Button, Snackbar, Card, CardContent, CardActions, Typography
 } from '@mui/material';
 import { newAppointment } from "../../services/appointments";
+import { crateAppointmentForUser } from '../../services/admin';
 import { useNavigate } from "react-router-dom";
+import ConfirmationCard from "../../components/ConfirmationCard";
 
 
-function Checkout() {
+function Checkout({from}) {
 
   const {selectedData} = useContext(AppointmentContext);
   const navigate = useNavigate();
@@ -27,37 +29,42 @@ function Checkout() {
     e.preventDefault();
     
     try {
-      await newAppointment({
-        arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
-        doctorId: selectedData.doctorId,
-        officeId: selectedData.selectedOffice,
-
-      });
-      setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
-      navigate('/');
+      if (from === 'user') {
+        console.log("pasa por el if")
+        await newAppointment({
+          arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
+          doctorId: selectedData.doctorId,
+          officeId: selectedData.selectedOffice,
+        });
+        setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
+        navigate('/');
+      } else {
+        console.log("pasa por el else")
+        await crateAppointmentForUser({
+          arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
+          doctorId: selectedData.doctorId,
+          officeId: selectedData.selectedOffice,
+          userId: selectedData.user.id,
+        });
+        
+        setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
+        navigate('/admin');
+      }
     } catch (error) {
       console.log(error);
       setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
   }
 
-
   return (
-    <Box component="form" onSubmit={handleSubmit}>
-      <Snackbar
-        open={open}
-        handleClose={handleClose}
-        message={message}
-        type={"error"}
-      />
-      <div>
-      <p>TIME: {selectedData.date.toJSON().slice(0, 10)} {selectedData.selectedTime.toJSON().slice(11,16)}</p>
-      <p>DOCTOR: {selectedData.doctorName}</p>
-      <p>Specialty: {selectedData.doctorSpecialty}</p>
-      <p>Office: {selectedData.selectedOffice}</p>
-      <Button type="submit">Confirm</Button>
-      </div>
-    </Box>
+    <ConfirmationCard 
+      doctorName={selectedData.doctorName}
+      doctorSpecialty={selectedData.doctorSpecialty}
+      date={selectedData.date}
+      selectedTime={selectedData.selectedTime}
+      user={from === 'admin' ? selectedData.user : undefined}
+      handleSubmit={handleSubmit}
+    />
   )
 }
 

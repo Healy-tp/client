@@ -22,6 +22,7 @@ import NewDoctor from './routes/NewDoctor';
 import './App.css';
 import theme from './theme';
 import Checkout from './routes/Checkout';
+import AdminAppointmentForUser from './routes/AdminAppointmentForUser/AdminAppointmentForUser';
 
 function AuthRoutes() {
   return (
@@ -35,7 +36,7 @@ function AuthRoutes() {
       <Route 
         path="/appointment/checkout" 
         element={
-          <AuthRoute children={<Checkout />} />
+          <AuthRoute children={<Checkout from='user'/>} />
         }
       />
 
@@ -51,6 +52,21 @@ function AuthRoutes() {
           <AuthRoute children={<NewDoctor />} />
         }
       />
+
+      <Route 
+        path="/admin/appointment-for-user" 
+        element={
+          <AuthRoute children={<AdminAppointmentForUser />} />
+        }
+      />
+
+      <Route 
+        path="/admin/appointment-for-user/create" 
+        element={
+          <AuthRoute children={<Checkout from='admin'/>} />
+        }
+      />
+
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

@@ -64,7 +64,7 @@ const NewDoctor = () => {
         type={"error"}
       /> */}
       <Typography component="h1" variant="h5">
-        Sign in
+        Create New Doctor
       </Typography>
       <Box component="form" sx={{mt: 1}} onSubmit={handleSubmit}>
         <TextField

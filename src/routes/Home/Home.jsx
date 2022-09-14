@@ -14,8 +14,8 @@ function Home() {
 
   const [availableTimes, setAvailableTimes] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  const [availabilities, setAvailabilities] = useState([])
-  const [appointments, setAppointments] = useState([])
+  const [availabilities, setAvailabilities] = useState([]);
+  const [appointments, setAppointments] = useState([]);
 
   const navigate = useNavigate();
 
