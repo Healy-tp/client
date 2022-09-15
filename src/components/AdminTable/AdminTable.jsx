@@ -9,6 +9,7 @@ import DoctorTableRow from '../DoctorTableRow/DoctorTableRow';
 import AvailabilityTableRow from '../AvailabilityTableRow/AvailabilityTableRow';
 import OfficeTableRow from '../OfficeTableRow/OfficeTableRow';
 import AppointmentTableRow from '../AppointmentTableRow/AppointmentTableRow';
+import UserTableRow from '../UserTableRow/UserTableRow';
 
 
 const AdminTable = ({headers, rows, kind}) => {
@@ -29,6 +30,7 @@ const AdminTable = ({headers, rows, kind}) => {
         <TableBody>
           {rows.map((row) => (
             kind === 'doctor' ? <DoctorTableRow doctor={row} />  : 
+            kind === 'user' ? <UserTableRow user={row} />  : 
             kind === 'office' ? <OfficeTableRow office={row} /> : 
             kind === 'appointment' ? <AppointmentTableRow appt={row} /> :
             kind === 'availability' ? <AvailabilityTableRow av={row} /> : <></>

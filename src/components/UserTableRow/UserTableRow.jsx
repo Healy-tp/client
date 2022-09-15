@@ -5,11 +5,9 @@ import { useContext } from "react";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { useNavigate } from "react-router-dom";
 
-const DoctorTableRow = ({doctor}) => {
+const UserTableRow = ({user}) => {
 
   const [anchorEl, setAnchorEl] = useState(null);
-  const {selectedData, setSelectedData} = useContext(AppointmentContext);
-  const navigate = useNavigate();
   const open = Boolean(anchorEl);
   
   const showMenu = (event) => {
@@ -17,10 +15,8 @@ const DoctorTableRow = ({doctor}) => {
   }
 
   const handleClick = (event) => {
-    // console.log(event.target.id);
-    console.log(doctor);
-    setSelectedData({...selectedData, doctorId: doctor.id, doctorName: `${doctor.firstName} ${doctor.lastName}`, doctorSpecialty: doctor.specialty})
-    navigate('/admin/appointment-for-user');
+    // setSelectedData({...selectedData, doctorId: doctor.id, doctorName: `${doctor.firstName} ${doctor.lastName}`, specialty: doctor.specialty})
+    // navigate('/admin/appointment-for-user');
   };
 
   const handleClose = () => {
@@ -29,16 +25,18 @@ const DoctorTableRow = ({doctor}) => {
 
   return (
     <TableRow
-      key={doctor.id}
+      key={user.id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <TableCell component="th" scope="row">
-        {`${doctor.firstName} ${doctor.lastName}`}
+        {`${user.firstName} ${user.lastName}`}
       </TableCell>
-      <TableCell>{doctor.specialty}</TableCell>
+      <TableCell>{user.email}</TableCell>
+      <TableCell>{user.phoneNumber}</TableCell>
+      <TableCell>{user.status}</TableCell>
       <TableCell>
       <Button
-        id={doctor.id}
+        id={user.id}
         aria-controls={open ? 'basic-menu' : undefined}
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
@@ -55,7 +53,7 @@ const DoctorTableRow = ({doctor}) => {
           'aria-labelledby': 'basic-button',
         }}
       >
-        <MenuItem id={doctor.id} onClick={handleClick}>Make appointment for user</MenuItem>
+        <MenuItem id={user.id} onClick={handleClick}>Action</MenuItem>
       </Menu>
       </TableCell>
     </TableRow>
@@ -63,4 +61,4 @@ const DoctorTableRow = ({doctor}) => {
 }
 
 
-export default DoctorTableRow;
+export default UserTableRow;

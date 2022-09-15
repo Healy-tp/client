@@ -6,6 +6,7 @@ import DoctorsAdmin from "../../components/DoctorsAdmin/DoctorsAdmin";
 import AppointmentsAdmin from "../../components/AppointmentsAdmin";
 import AvailabilitiesAdmin from "../../components/AvailabilitiesAdmin/AvailabilitiesAdmin";
 import OfficesAdmin from "../../components/OfficesAdmin/OfficesAdmin";
+import UsersAdmin from "../../components/UsersAdmin";
 
 
 const Admin = () => {
@@ -33,7 +34,7 @@ const Admin = () => {
 
             {
               value === 0 ? <DoctorsAdmin /> : 
-              value === 1 ? <></> :
+              value === 1 ? <UsersAdmin /> :
               value === 2 ? <OfficesAdmin /> :
               value === 3 ? <AppointmentsAdmin /> : 
                 <AvailabilitiesAdmin />
