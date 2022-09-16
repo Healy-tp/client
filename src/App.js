@@ -18,6 +18,7 @@ import ErrorPage from './routes/404';
 import Admin from './routes/Admin/Admin';
 import ConfirmationPage from './routes/ConfirmationPage';
 import NewDoctor from './routes/NewDoctor';
+import MyAccount from './routes/MyAccount/MyAccount';
 
 import './App.css';
 import theme from './theme';
@@ -64,6 +65,13 @@ function AuthRoutes() {
         path="/admin/appointment-for-user/create" 
         element={
           <AuthRoute children={<Checkout from='admin'/>} />
+        }
+      />
+
+      <Route 
+        path="/my-account" 
+        element={
+          <AuthRoute children={<MyAccount />} />
         }
       />
 
