@@ -1,11 +1,11 @@
-import {Box, Grid, TextField, Autocomplete, Container, Chip, Stack, Button} from '@mui/material';
+import { Box, TextField, Autocomplete, Container, Chip, Stack, Button } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppointmentContext } from '../../contexts/AppointmentContext';
 import { getUsers } from '../../services/admin';
-import {getDoctors, getAvailabilities, getAllAppointments} from '../../services/appointments';
+import { getAvailabilities, getAllAppointments} from '../../services/appointments';
 
 
 const AdminAppointmentForUser = () => {
@@ -116,15 +116,17 @@ const AdminAppointmentForUser = () => {
         <Stack direction="row" spacing={1} justifyContent="center">
           {
             availableTimes.map(t => {
-              return <Chip 
-                        key={t}
-                        label={t.toJSON().slice(11,16)} 
-                        onClick={() => setSelectedData({...selectedData, selectedTime: t})}
-                        clickable={true}
-                        color="primary" 
-                        // disabled={appointments.map((a) => ({doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === selectedData.doctorId).map(a => a.date).includes(t.getTime())}
-                        variant={ t === selectedData.selectedTime ? "filled": "outlined"}
-                      />
+              return (
+                <Chip 
+                  key={t}
+                  label={t.toJSON().slice(11,16)} 
+                  onClick={() => setSelectedData({...selectedData, selectedTime: t})}
+                  clickable={true}
+                  color="primary" 
+                  // disabled={appointments.map((a) => ({doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === selectedData.doctorId).map(a => a.date).includes(t.getTime())}
+                  variant={ t === selectedData.selectedTime ? "filled": "outlined"}
+                />
+              )
             })
           }
         </Stack>

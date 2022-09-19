@@ -18,6 +18,7 @@ import ErrorPage from './routes/404';
 import Admin from './routes/Admin/Admin';
 import ConfirmationPage from './routes/ConfirmationPage';
 import NewDoctor from './routes/NewDoctor';
+import NewOffice from './routes/NewOffice';
 
 import './App.css';
 import theme from './theme';
@@ -39,7 +40,6 @@ function AuthRoutes() {
           <AuthRoute children={<Checkout from='user'/>} />
         }
       />
-
       <Route 
         path="/admin" 
         element={
@@ -52,21 +52,24 @@ function AuthRoutes() {
           <AuthRoute children={<NewDoctor />} />
         }
       />
-
+      <Route 
+        path="/admin/new-office" 
+        element={
+          <AuthRoute children={<NewOffice />} />
+        }
+      />
       <Route 
         path="/admin/appointment-for-user" 
         element={
           <AuthRoute children={<AdminAppointmentForUser />} />
         }
       />
-
       <Route 
         path="/admin/appointment-for-user/create" 
         element={
           <AuthRoute children={<Checkout from='admin'/>} />
         }
       />
-
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );

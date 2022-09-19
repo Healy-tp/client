@@ -17,7 +17,6 @@ import Snackbar from '../../components/Snackbar';
 import { signUp } from '../../services/users';
 import { UserContext } from '../../contexts/UserContext';
 
-
 const defaultFormFields = {
   firstName: '',
   lastName: '',
@@ -90,7 +89,7 @@ const SignUp = () => {
       >
         <Snackbar
           open={open}
-          onClose={handleCloseSnackbar}
+          handleClose={handleCloseSnackbar}
           message={message}
           type={type}
         />

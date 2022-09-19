@@ -1,19 +1,20 @@
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { getOffices } from "../../services/admin";
 import AdminTable from "../AdminTable";
 import { ButtonGroup, Button } from "@mui/material";
 
 export default function OfficesAdmin() {
-
-  const headers = ['Office ID', 'Specialties']
-
   const [offices, setOffices] = useState([]);
+  const navigate = useNavigate();
+
+  const headers = ['ID', 'Specialties', 'Office Number']
 
   useEffect(() => {
     const getOfficesApi = async () => {
-      const response = await getOffices();
-      setOffices(response.data);
+      const { data } = await getOffices();
+      setOffices(data);
     } 
 
     getOfficesApi()
@@ -22,9 +23,7 @@ export default function OfficesAdmin() {
   return (
     <>
       <ButtonGroup variant="contained" aria-label="outlined primary button group">
-        <Button>New</Button>
-        <Button>OtherAction 1</Button>
-        <Button>OtherAction 2</Button>
+        <Button onClick={() => navigate('/admin/new-office')}>New</Button>
       </ButtonGroup>
       <AdminTable headers={headers} rows={offices} kind={'office'}/>
     </>

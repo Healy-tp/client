@@ -1,12 +1,11 @@
 
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { ButtonGroup, Button } from "@mui/material";
 import { getDoctors } from "../../services/appointments";
 import AdminTable from "../AdminTable";
-import { ButtonGroup, Button } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 export default function DoctorsAdmin() {
-
   const headers = ['Name', 'Specialty']
 
   const [doctors, setDoctors] = useState([]);

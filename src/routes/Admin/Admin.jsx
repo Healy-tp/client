@@ -1,4 +1,5 @@
 import { useState, useContext } from "react";
+import _ from 'lodash';
 import ForbiddenPage from "../../components/ForbiddenPage";
 import { UserContext } from "../../contexts/UserContext";
 import { Box, Tab, Tabs } from "@mui/material";
@@ -8,11 +9,36 @@ import AvailabilitiesAdmin from "../../components/AvailabilitiesAdmin/Availabili
 import OfficesAdmin from "../../components/OfficesAdmin/OfficesAdmin";
 import UsersAdmin from "../../components/UsersAdmin";
 
+const TABS = [
+  {
+    component: <DoctorsAdmin />,
+    label: "Doctors",
+    value: 0,
+  },
+  {
+    component: <UsersAdmin />,
+    label: "Users",
+    value: 1,
+  },
+  {
+    component: <OfficesAdmin />,
+    label: "Offices",
+    value: 2,
+  },
+  {
+    component: <AppointmentsAdmin />,
+    label: "Appointments",
+    value: 3,
+  },
+  {
+    component: <AvailabilitiesAdmin />,
+    label: "Availabilities",
+    value: 4,
+  },
+];
 
 const Admin = () => {
-
   const {currentUser} = useContext(UserContext);
-
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -22,27 +48,20 @@ const Admin = () => {
   return (
     <>
       {
-        !currentUser.isAdmin ? <ForbiddenPage /> : (
-          <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-            <Tabs value={value} onChange={handleChange} centered>
-              <Tab label="Doctors" />
-              <Tab label="Users" />
-              <Tab label="Offices" />
-              <Tab label="Appointments" />
-              <Tab label="Availabilities" />
-            </Tabs>
-
-            {
-              value === 0 ? <DoctorsAdmin /> : 
-              value === 1 ? <UsersAdmin /> :
-              value === 2 ? <OfficesAdmin /> :
-              value === 3 ? <AppointmentsAdmin /> : 
-                <AvailabilitiesAdmin />
-            }
-
-          </Box>
-        )
-      
+        !currentUser.isAdmin 
+          ? <ForbiddenPage /> 
+          : (
+            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
+              <Tabs value={value} onChange={handleChange} centered>
+                {_.map(TABS, (tab, i) => (
+                  <Tab key={i} label={tab.label} />
+                ))}
+              </Tabs>
+              { 
+                TABS[value].component 
+              }
+            </Box>
+          )
       }
     </>
   );
