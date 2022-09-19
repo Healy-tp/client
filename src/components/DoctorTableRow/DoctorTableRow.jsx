@@ -17,8 +17,6 @@ const DoctorTableRow = ({doctor}) => {
   }
 
   const handleClick = (event) => {
-    // console.log(event.target.id);
-    console.log(doctor);
     setSelectedData({...selectedData, doctorId: doctor.id, doctorName: `${doctor.firstName} ${doctor.lastName}`, doctorSpecialty: doctor.specialty})
     navigate('/admin/appointment-for-user');
   };

@@ -30,7 +30,6 @@ function Checkout({from}) {
     
     try {
       if (from === 'user') {
-        console.log("pasa por el if")
         await newAppointment({
           arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
           doctorId: selectedData.doctorId,
@@ -39,7 +38,6 @@ function Checkout({from}) {
         setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
         navigate('/');
       } else {
-        console.log("pasa por el else")
         await crateAppointmentForUser({
           arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
           doctorId: selectedData.doctorId,
@@ -51,7 +49,7 @@ function Checkout({from}) {
         navigate('/admin');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
   }
