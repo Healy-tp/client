@@ -58,6 +58,7 @@ const AccountMenu = ({ currentUser }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
+        <MenuItem onClick={() => navigate('/my-account')}>My Account</MenuItem>
         <MenuItem onClick={() => navigate('/settings')}>Settings</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>

@@ -1,12 +1,9 @@
-import { Box, TextField, Autocomplete, Container, Chip, Stack, Button } from '@mui/material';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Scheduler from '../../components/Scheduler/Scheduler';
 import { AppointmentContext } from '../../contexts/AppointmentContext';
 import { getUsers } from '../../services/admin';
-import { getAvailabilities, getAllAppointments} from '../../services/appointments';
-
+import {getAvailabilities, getAllAppointments} from '../../services/appointments';
 
 const AdminAppointmentForUser = () => {
 
@@ -17,12 +14,9 @@ const AdminAppointmentForUser = () => {
   const [appointments, setAppointments] = useState([]);
   const navigate = useNavigate();
 
-  console.log("SELECTED DATA", selectedData);
-
   useEffect(() => {
     const getUsersFromApi = async () => {
       const response = await getUsers();
-      console.log(response);
       setUsers(response);
     }
     const getAvailabilitiesFromApi = async () => {
@@ -67,72 +61,91 @@ const AdminAppointmentForUser = () => {
     setSelectedData({...selectedData, selectedOffice: selectedDate.officeId, selectedTime: null, date})
   }
 
+  const autoCompleteOnChange = (event, newValue) => {
+    setSelectedData({
+      ...selectedData, 
+      user: {
+        name: `${newValue.firstName} ${newValue.lastName}`,
+        id: newValue.id,
+      },
+      datePickerDisabled: newValue ? false: true,
+      selectedTime: null,
+    });
+  }
+
   return (
-    <Container component="main" maxWidth="xs">
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-        }}
-      >
-      </Box>
-        <Autocomplete
-          disablePortal
-          getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
-          onChange={(event, newValue) => {
-            setSelectedData({
-              ...selectedData, 
-              user: {
-                name: `${newValue.firstName} ${newValue.lastName}`,
-                id: newValue.id,
-              },
-              datePickerDisabled: newValue ? false: true,
-              selectedTime: null,
-            });
-          }}
-          id="combo-box-demo"
-          options={users}
-          sx={{ width: 300 }}
-          renderInput={(params) => <TextField {...params} label="User" />}
-        />
+    // <Container component="main" maxWidth="xs">
+    //   <Box
+    //     sx={{
+    //       marginTop: 8,
+    //       display: 'flex',
+    //       flexDirection: 'column',
+    //       alignItems: 'center',
+    //     }}
+    //   >
+    //   </Box>
+    //     <Autocomplete
+    //       disablePortal
+    //       getOptionLabel={(option) => `${option.firstName} ${option.lastName}`}
+    //       onChange={(event, newValue) => {
+    //         setSelectedData({
+    //           ...selectedData, 
+    //           user: {
+    //             name: `${newValue.firstName} ${newValue.lastName}`,
+    //             id: newValue.id,
+    //           },
+    //           datePickerDisabled: newValue ? false: true,
+    //           selectedTime: null,
+    //         });
+    //       }}
+    //       id="combo-box-demo"
+    //       options={users}
+    //       sx={{ width: 300 }}
+    //       renderInput={(params) => <TextField {...params} label="User" />}
+    //     />
 
-        <LocalizationProvider dateAdapter={AdapterDateFns}>
-          <DatePicker
-            label="Date"
-            value={selectedData.date}
-            onChange={onChangeDate}
-            disabled={selectedData.datePickerDisabled}
-            disablePast={true}
-            renderInput={(params) => <TextField {...params} />}
-            shouldDisableDate={(date) => {
-              const filteredDays = availabilities.filter(av => av.Doctor.id === selectedData.doctorId).map(av => av.weekday);
-              return !filteredDays.includes(date.getDay()); // || availabilities.filter(av => new Date(av.validUntil) < date).length > 0;
-            }}
-          />
-        </LocalizationProvider>
+    //     <LocalizationProvider dateAdapter={AdapterDateFns}>
+    //       <DatePicker
+    //         label="Date"
+    //         value={selectedData.date}
+    //         onChange={onChangeDate}
+    //         disabled={selectedData.datePickerDisabled}
+    //         disablePast={true}
+    //         renderInput={(params) => <TextField {...params} />}
+    //         shouldDisableDate={(date) => {
+    //           const filteredDays = availabilities.filter(av => av.Doctor.id === selectedData.doctorId).map(av => av.weekday);
+    //           return !filteredDays.includes(date.getDay()); // || availabilities.filter(av => new Date(av.validUntil) < date).length > 0;
+    //         }}
+    //       />
+    //     </LocalizationProvider>
 
-        <Stack direction="row" spacing={1} justifyContent="center">
-          {
-            availableTimes.map(t => {
-              return (
-                <Chip 
-                  key={t}
-                  label={t.toJSON().slice(11,16)} 
-                  onClick={() => setSelectedData({...selectedData, selectedTime: t})}
-                  clickable={true}
-                  color="primary" 
-                  // disabled={appointments.map((a) => ({doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === selectedData.doctorId).map(a => a.date).includes(t.getTime())}
-                  variant={ t === selectedData.selectedTime ? "filled": "outlined"}
-                />
-              )
-            })
-          }
-        </Stack>
-        <Button color="inherit" onClick={goToAppointmentCheckout}>Take Appointment</Button>
+    //     <Stack direction="row" spacing={1} justifyContent="center">
+    //       {
+    //         availableTimes.map(t => {
+    //           return <Chip 
+    //                     key={t}
+    //                     label={t.toJSON().slice(11,16)} 
+    //                     onClick={() => setSelectedData({...selectedData, selectedTime: t})}
+    //                     clickable={true}
+    //                     color="primary" 
+    //                     // disabled={appointments.map((a) => ({doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === selectedData.doctorId).map(a => a.date).includes(t.getTime())}
+    //                     variant={ t === selectedData.selectedTime ? "filled": "outlined"}
+    //                   />
+    //         })
+    //       }
+    //     </Stack>
+    //     <Button color="inherit" onClick={goToAppointmentCheckout}>Take Appointment</Button>
 
-    </Container>
+    // </Container>
+    <Scheduler 
+      availableTimes={availableTimes}
+      appointments={appointments}
+      availabilities={availabilities}
+      buttonOnClick={goToAppointmentCheckout}
+      datePickerOnChange={onChangeDate}
+      autoCompleteOnChange={autoCompleteOnChange}
+      autoCompleteFields={{label: 'User', options: users}}
+    />
   )
 }
 
