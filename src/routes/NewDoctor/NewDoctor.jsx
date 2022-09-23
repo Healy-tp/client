@@ -7,7 +7,7 @@ import {
 
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { doctorSignUp } from '../../services/users';
+import { createDoctor } from '../../services/admin';
 
 const defaultFormFields = {
   firstName: '',
@@ -31,15 +31,13 @@ const NewDoctor = () => {
     e.preventDefault();
 
     try {
-      const doctor = await doctorSignUp({
+      await createDoctor({
         firstName,
         lastName,
         phoneNumber,
         email,
       });
       // setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
-      // setCurrentUser(user);
-      // resetFormFields();
       navigate('/admin');
     } catch (error) {
       // setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });

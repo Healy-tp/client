@@ -1,10 +1,7 @@
 import { useContext, useState } from "react";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
-import {  
-  Box, Button, Snackbar, Card, CardContent, CardActions, Typography
-} from '@mui/material';
 import { newAppointment } from "../../services/appointments";
-import { crateAppointmentForUser } from '../../services/admin';
+import { createAppointmentForUser } from '../../services/admin';
 import { useNavigate } from "react-router-dom";
 import ConfirmationCard from "../../components/ConfirmationCard";
 
@@ -24,7 +21,6 @@ function Checkout({from}) {
     setSnackbar({ open: false, message: '' });
   };
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -38,7 +34,7 @@ function Checkout({from}) {
         setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
         navigate('/');
       } else {
-        await crateAppointmentForUser({
+        await createAppointmentForUser({
           arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
           doctorId: selectedData.doctorId,
           officeId: selectedData.selectedOffice,

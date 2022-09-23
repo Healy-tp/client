@@ -11,17 +11,15 @@ import OfficeTableRow from '../OfficeTableRow/OfficeTableRow';
 import AppointmentTableRow from '../AppointmentTableRow/AppointmentTableRow';
 import UserTableRow from '../UserTableRow/UserTableRow';
 
-
-const AdminTable = ({headers, rows, kind}) => {
-
+const AdminTable = ({ headers, rows, kind }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
         <TableHead>
           <TableRow>
             {
-              headers.map((h) => (
-                <TableCell>{h}</TableCell>
+              headers.map((h, i) => (
+                <TableCell key={i}>{h}</TableCell>
               ))
             }
             <TableCell align="right"></TableCell>

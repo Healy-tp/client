@@ -5,7 +5,6 @@ import { AppointmentContext } from '../../contexts/AppointmentContext';
 import { getUsers } from '../../services/admin';
 import {getAvailabilities, getAllAppointments} from '../../services/appointments';
 
-
 const AdminAppointmentForUser = () => {
 
   const {selectedData, setSelectedData} = useContext(AppointmentContext);

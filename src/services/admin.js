@@ -1,29 +1,39 @@
 import api from './api';
 
-async function getAvailabilities() {
-  return await api.get('http://localhost:8081/api/admin/availabilities');
+function getAvailabilities() {
+  return api.get('http://localhost:8081/api/admin/availabilities');
 }
 
-async function getOffices() {
-  return await api.get('http://localhost:8081/api/admin/offices');
+function getOffices() {
+  return api.get('http://localhost:8081/api/admin/offices');
 }
 
-async function getAppointments() {
-  return await api.get('http://localhost:8081/api/admin/appointments');
+function getAppointments() {
+  return api.get('http://localhost:8081/api/admin/appointments');
 }
 
-async function crateAppointmentForUser(payload) {
-  return await api.post('http://localhost:8081/api/admin/appointments/create-for-user', payload);
+function createAppointmentForUser(payload) {
+  return api.post('http://localhost:8081/api/admin/appointments/create-for-user', payload);
 }
 
-async function getUsers() {
-  return await api.get('http://localhost:8080/admin/users');
+function createDoctor(userData) {
+  return api.post('http://localhost:8080/doctor/signup', userData);
+}
+
+function createOffice(userData) {
+  return api.post('http://localhost:8081/api/admin/offices/create', userData);
+}
+
+function getUsers() {
+  return api.get('http://localhost:8080/admin/users');
 }
 
 export {
+  createDoctor,
+  createOffice,
   getAvailabilities,
   getOffices,
   getAppointments,
   getUsers,
-  crateAppointmentForUser,
+  createAppointmentForUser,
 }

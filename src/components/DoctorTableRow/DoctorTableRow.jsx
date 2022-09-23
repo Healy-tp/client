@@ -35,26 +35,26 @@ const DoctorTableRow = ({doctor}) => {
       </TableCell>
       <TableCell>{doctor.specialty}</TableCell>
       <TableCell>
-      <Button
-        id={doctor.id}
-        aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup="true"
-        aria-expanded={open ? 'true' : undefined}
-        onClick={showMenu}
-      >
-        Options
-      </Button>
-      <Menu
-        id="basic-menu"
-        anchorEl={anchorEl}
-        open={open}
-        onClose={handleClose}
-        MenuListProps={{
-          'aria-labelledby': 'basic-button',
-        }}
-      >
-        <MenuItem id={doctor.id} onClick={handleClick}>Make appointment for user</MenuItem>
-      </Menu>
+        <Button
+          id={doctor.id}
+          aria-controls={open ? 'basic-menu' : undefined}
+          aria-haspopup="true"
+          aria-expanded={open ? 'true' : undefined}
+          onClick={showMenu}
+        >
+          Options
+        </Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            'aria-labelledby': 'basic-button',
+          }}
+        >
+          <MenuItem id={doctor.id} onClick={handleClick}>Make appointment for user</MenuItem>
+        </Menu>
       </TableCell>
     </TableRow>
   )

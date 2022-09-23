@@ -1,7 +1,4 @@
-import {
-  Box, 
-  Typography, 
-} from '@mui/material';
+import { Box } from '@mui/material';
 import forbiddenImg from '../../assets/forbidden.jpeg';
 
 const ForbiddenPage = () => {
@@ -16,8 +13,6 @@ const ForbiddenPage = () => {
       }}
     >
       <img src={forbiddenImg} alt="Forbidden" width="100%" height="100%" />
-      {/* <Typography variant="h2">Page not found</Typography>
-      <Typography variant="h5">Sorry, the page you requested wasn&#39;t found.</Typography> */}
     </Box>
   );
 }
