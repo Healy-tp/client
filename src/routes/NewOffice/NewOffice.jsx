@@ -16,7 +16,7 @@ import { createOffice } from '../../services/admin';
 import Snackbar from '../../components/Snackbar';
 
 const defaultFormFields = {
-  specialties: [], // Change this to a dropdown with options
+  specialties: [],
   officeNumber: '',
 }
 
