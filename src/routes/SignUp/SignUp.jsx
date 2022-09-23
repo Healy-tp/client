@@ -67,7 +67,7 @@ const SignUp = () => {
       resetFormFields();
       navigate('/');
     } catch (error) {
-      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
+      setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
 
   };

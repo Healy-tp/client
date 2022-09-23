@@ -52,7 +52,7 @@ const Login = () => {
       navigate(from.pathname);
 
     } catch (error) {
-      setSnackBar({open: true, message: error.response.data.errors[0].message});
+      setSnackBar({open: true, message: error.response.data.message });
     }
   }
 

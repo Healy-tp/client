@@ -21,7 +21,7 @@ function createDoctor(userData) {
 }
 
 function createOffice(userData) {
-  return api.post('http://localhost:8081/admin/offices/create', userData);
+  return api.post('http://localhost:8081/api/admin/offices/create', userData);
 }
 
 function getUsers() {

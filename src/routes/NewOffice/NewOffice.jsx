@@ -1,8 +1,13 @@
 import {
   Box,
   Button,
+  Chip,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
   TextField,
-  Typography, 
+  Typography,
 } from '@mui/material';
 
 import { useState } from 'react';
@@ -11,9 +16,29 @@ import { createOffice } from '../../services/admin';
 import Snackbar from '../../components/Snackbar';
 
 const defaultFormFields = {
-  specialties: '', // Change this to a dropdown with options
+  specialties: [], // Change this to a dropdown with options
   officeNumber: '',
 }
+
+// IMPORTANT: This list should match with @common/specialties.js file
+const SPECIALTIES = [
+  'Cardiology',
+  'Dermathology',
+  'Ophthalmology',
+  'Pediatrics',
+  'Psychiatry',
+  'Urology',
+]
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+    },
+  },
+};
 
 const NewOffice = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -48,12 +73,11 @@ const NewOffice = () => {
       setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
       navigate('/admin');
     } catch (error) {
-      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
+      setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
 
   };
 
-  
   return (
     <Box
       sx={{
@@ -72,17 +96,35 @@ const NewOffice = () => {
       <Typography component="h1" variant="h5">
         Create New Office
       </Typography>
-      <Box component="form" sx={{mt: 1}} onSubmit={handleSubmit}>
-        <TextField
-          margin="normal"
-          required
+      <Box component="form" sx={{ mt: 1, width: '450px' }} onSubmit={handleSubmit}>
+        <InputLabel id="specialties-label">Specialties</InputLabel>
+        <Select
+          labelId="specialties-label"
+          id="multiple-specialties"
+          multiple
           fullWidth
-          label="Specialties"
+          name="specialties"
           value={specialties}
-          placeholder="Dermatology, Cardiology, ..."
           onChange={handleChange}
-          autoFocus
-        />
+          input={<OutlinedInput id="specialties" label="Specialties" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          MenuProps={MenuProps}
+        >
+          {SPECIALTIES.map((specialty) => (
+            <MenuItem
+              key={specialty}
+              value={specialty}
+            >
+              {specialty}
+            </MenuItem>
+          ))}
+        </Select>
 
         <TextField
           margin="normal"
@@ -93,16 +135,18 @@ const NewOffice = () => {
           placeholder="123"
           onChange={handleChange}
           autoFocus
+          name="officeNumber"
         />
 
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Create
-        </Button>
+        <div style={{ textAlign: 'center' }}>
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{ mt: 3, mb: 2, width: 150 }}
+          >
+            Create
+          </Button>
+        </div>
       </Box>
     </Box>
   )
