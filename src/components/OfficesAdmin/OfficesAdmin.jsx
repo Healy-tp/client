@@ -22,7 +22,7 @@ export default function OfficesAdmin() {
 
   return (
     <>
-      <ButtonGroup variant="contained" aria-label="outlined primary button group">
+      <ButtonGroup variant="contained" aria-label="outlined primary button group" style={{ marginLeft: 8 }}>
         <Button onClick={() => navigate('/admin/new-office')}>New</Button>
       </ButtonGroup>
       <AdminTable headers={headers} rows={offices} kind={'office'}/>

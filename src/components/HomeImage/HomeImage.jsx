@@ -1,15 +1,13 @@
 import * as React from 'react';
 import HomeImageLayout from './HomeImageLayout';
-import {Button, Typography} from '@mui/material';
+import { Button, Typography}  from '@mui/material';
+import doctorsImg from '../../assets/doctors-main.jpg';
 
-const backgroundImage =
-  'https://previews.123rf.com/images/pitinan/pitinan1908/pitinan190802975/129009452-healthcare-people-group-professional-doctor-working-in-hospital-office-or-clinic-with-other-doctors-.jpg';
-
-export default function HomeImage({onClick}) {
+export default function HomeImage({ onClick} ) {
   return (
     <HomeImageLayout
       sxBackground={{
-        backgroundImage: `url(${backgroundImage})`,
+        backgroundImage: `url(${doctorsImg})`,
         backgroundColor: '#7fc7d9', // Average color of the background image.
         backgroundPosition: 'center',
       }}
@@ -17,7 +15,7 @@ export default function HomeImage({onClick}) {
       {/* Increase the network loading priority of the background image. */}
       <img
         style={{ display: 'none' }}
-        src={backgroundImage}
+        src={doctorsImg}
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2" marked="center">
