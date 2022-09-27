@@ -12,11 +12,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
-import { 
-  Button, 
-  TextField, 
-  Grid,
-} from '@mui/material';
+import MyInfo from './MyInfo';
 
 const drawerWidth = 240;
 
@@ -28,7 +24,7 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const handleChange = () => {};
+  const [selectedMenu, setSelectedMenu] = useState('');
 
   const drawer = (
     <div>
@@ -36,7 +32,7 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         <ListItem key={'My info'} disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => setSelectedMenu('my-info')}>
             <ListItemIcon>
               <PersonIcon />
             </ListItemIcon>
@@ -99,91 +95,9 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Box
-        component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
-      >
-        <Grid container spacing={2}>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                autoComplete="given-name"
-                name="firstName"
-                required
-                fullWidth
-                id="firstName"
-                label="First Name"
-                onChange={handleChange}
-                autoFocus
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                required
-                fullWidth
-                id="lastName"
-                label="Last Name"
-                name="lastName"
-                onChange={handleChange}
-                autoComplete="family-name"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                onChange={handleChange}
-                autoComplete="email"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="phoneNumber"
-                onChange={handleChange}
-                label="Phone Number"
-                type="tel"
-                id="phone-number"
-                // autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                onChange={handleChange}
-                autoComplete="new-password"
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                required
-                fullWidth
-                name="confirmPassword"
-                label="Confirm Password"
-                type="password"
-                onChange={handleChange}
-                id="confirm-password"
-                // autoComplete="new-password"
-              />
-            </Grid>
-          </Grid>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
-          >
-            Sign Up
-          </Button>
-      </Box>
+      {
+        selectedMenu === 'my-info' ? <MyInfo /> : <>Bienvenido a mi cuenta</>
+      }
     </Box>
   );
 }
@@ -200,7 +114,6 @@ ResponsiveDrawer.propTypes = {
 
 
 const MyAccount = () => {
-
 
   return (
     <ResponsiveDrawer />
