@@ -1,7 +1,3 @@
-// import Fab from '@mui/material/Fab';
-// import EditIcon from '@mui/icons-material/Edit';
-// import CancelIcon from '@mui/icons-material/Cancel';
-// import Snackbar from '../../components/Snackbar';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -17,14 +13,6 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import MyInfo from './MyInfo';
-// import { 
-//   Button, 
-//   TextField, 
-//   Grid,
-// } from '@mui/material';
-// import { useContext } from 'react';
-// import { UserContext } from '../../contexts/UserContext';
-// import { updateUser } from '../../services/users';
 
 const drawerWidth = 240;
 
@@ -32,63 +20,11 @@ function ResponsiveDrawer(props) {
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
-  // const {currentUser} = useContext(UserContext);
-  // const [formFields, setFormFields] = useState({});
-
-  // const [disabled, setDisabled] = useState(true);
-
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
   const [selectedMenu, setSelectedMenu] = useState('');
-
-  // const handleChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setFormFields({ ...formFields, [name]: value || undefined});
-  // };
-
-  // const [snackbar, setSnackbar] = useState({
-  //   open: false,
-  //   message: '',
-  //   type: '',
-  // });
-  // const { open, message, type } = snackbar;
-
-  // const resetFormFields = () => {
-  //   setFormFields({});
-  // }
-
-  // const handleCloseSnackbar = () => {
-  //   setSnackbar({ open: false, message: '' });
-  // };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   if (formFields.password !== formFields.confirmPassword) {
-  //     setSnackbar({ type: 'error', open: true, message: 'Passwords do not match' });
-  //     return;
-  //   }
-  //   try {
-  //     const payload = {};
-  //     Object.keys(formFields).map(key => {
-  //       if (formFields[key] !== undefined) {
-  //         payload[key] = formFields[key];
-  //       }
-  //     });
-  //     console.log('payload', payload);
-  //     await updateUser(payload);
-
-  //     setSnackbar({ type: 'success', open: true, message: 'Successfully updated' });
-  //     // setCurrentUser(user);
-  //     resetFormFields();
-  //   } catch (error) {
-  //     setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
-  //   }
-
-  // };
-
-  // console.log(formFields);
 
   const drawer = (
     <div>
