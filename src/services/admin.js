@@ -17,7 +17,7 @@ function createAppointmentForUser(payload) {
 }
 
 function createDoctor(userData) {
-  return api.post('http://localhost:8080/doctor/signup', userData);
+  return api.post('http://localhost:8080/admin/doctor/signup', userData);
 }
 
 function createOffice(userData) {

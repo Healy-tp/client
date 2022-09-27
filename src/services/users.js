@@ -10,6 +10,11 @@ async function signUp(userData) {
   return response;
 }
 
+async function updateUser(userData) {
+  const response = await api.put('http://localhost:8080/user/edit', userData);
+  return response;
+}
+
 async function signOut() {
   const response = await api.post('http://localhost:8080/user/signout');
   return response;
@@ -29,6 +34,7 @@ export {
   signIn,
   signUp,
   signOut,
+  updateUser,
   checkUser,
   verifyUser,
 }

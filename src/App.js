@@ -30,12 +30,6 @@ function AuthRoutes() {
   return (
     <Routes>
       <Route 
-        path="/settings" 
-        element={
-          <AuthRoute children={<></>} />
-        }
-      />
-      <Route 
         path="/appointment/checkout" 
         element={
           <AuthRoute children={<Checkout from='user'/>} />
