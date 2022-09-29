@@ -10,29 +10,51 @@ import {
   TableRow,
   TextField
 } from "@mui/material";
+import { editOffice } from '../../services/admin';
+import Snackbar from '../../components/Snackbar';
+import { SPECIALTIES } from '../../utils/constants';
 
-const OfficeTableRow = ({ office }) => {
+const OfficeTableRow = ({ office, updateRows }) => {
   const defaultEditFields = {
     specialties: office.specialties,
     number: office.number,
   };
 
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    type: '',
+  });
   const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [anchorElSpecialties, setAnchorElSpecialties] = useState(null);
   const [editFields, setEditFields] = useState(defaultEditFields);
+
   const open = Boolean(anchorEl);
+  const openSpecialtiesList = Boolean(anchorElSpecialties);
+
+  const { open: openSnackbar, message, type } = snackbar;
+  const { id, specialties, number } = office;
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleEdit = (event) => {
+  const handleEdit = () => {
     setEditMode(true);
     setAnchorEl(null);
   };
 
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: '' });
+  };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleCloseSpecialtiesList = () => {
+    setAnchorElSpecialties(false);
   };
 
   const handleChange = (event) => {
@@ -40,19 +62,34 @@ const OfficeTableRow = ({ office }) => {
     setEditFields({ ...editFields, [name]: value })
   };
 
-  const handleDelete = (index) => {
+  const handleDeleteSpecialty = (index) => {
     if (editFields.specialties.length > 1) {
       const newSpecialties = editFields.specialties.filter((s, i) => i !== index);
       setEditFields({ ...editFields, specialties: newSpecialties });
+    } else {
+      setSnackbar({ type: 'info', open: true, message: 'Office must have at least one specialty' });
     }
+  };
+
+  const handleAddSpecialty = (s) => {
+    const newSpecialties = _.clone(editFields.specialties);
+    newSpecialties.push(s);
+    setEditFields({ ...editFields, specialties: newSpecialties });
   };
 
   const handleSaveEdition = async () => {
     const originalFields = _.pick(office, ['specialties', 'number']);
     if (!_.isEqual(editFields, originalFields)) {
-      console.log('saving editions');
+      try {
+        await editOffice({ id, ...editFields });
+        setSnackbar({ type: 'success', open: true, message: 'Office successfully updated' });
+        setEditMode(false);
+        await updateRows();
+      } catch (error) {
+        setSnackbar({ type: 'error', open: true, message: error.response.data.message });
+      }
     } else {
-      console.log('nothing changed');
+      setSnackbar({ type: 'info', open: true, message: 'No changes were made' });
     }
   };
 
@@ -61,78 +98,98 @@ const OfficeTableRow = ({ office }) => {
     setEditMode(false);
   };
 
-  const { id, specialties, number } = office;
   return (
-    <TableRow
-      key={id}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-    >
-      <TableCell component="th" scope="row">
-        {id}
-      </TableCell>
-      <TableCell>
-        {editMode
-          ? (
-            <>
-              {_.map(editFields.specialties, (s, index) => <Chip label={s} style={{ margin: 2 }} onDelete={(e) => handleDelete(index)} />)}
-              <Chip style={{ margin: 2 }} label="+" onClick={(e) => console.log('abri el menu')} /> 
-              {/* Add the menu for the add chip and add an icon */}
-            </>
-          )
-          : (
-            _.map(specialties, (s) => <Chip label={s} style={{ margin: 2 }}/>)
-          )
-        }
-      </TableCell>
-      <TableCell>
-        {editMode
-          ? (
-            <TextField
-              value={editFields.number}
-              onChange={handleChange}
-              name="number"
-              size="small"
-            />
-          )
-          : number
-        }
-      </TableCell>
-      <TableCell>
-        {
-          editMode
+    <>
+      <Snackbar
+        open={openSnackbar}
+        handleClose={handleCloseSnackbar}
+        message={message}
+        type={type}
+      />
+      <TableRow
+        key={id}
+        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      >
+        <TableCell component="th" scope="row">
+          {id}
+        </TableCell>
+        <TableCell>
+          {editMode
             ? (
               <>
-                <Button onClick={handleCancelEdit}>Cancel</Button>
-                <Button onClick={handleSaveEdition}>Save</Button>
-              </>
-            )
-            : (
-              <>
-                <Button
-                  id={id}
-                  aria-controls={open ? 'basic-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleClick}
-                >
-                  Options
-                </Button>
+                {_.map(editFields.specialties, (s, index) => <Chip key={index} label={s} style={{ margin: 2 }} onDelete={(e) => handleDeleteSpecialty(index)} />)}
+                <Chip style={{ margin: 2 }} label="+" onClick={(e) => setAnchorElSpecialties(e.currentTarget)} />
                 <Menu
-                  id="basic-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'basic-button',
-                  }}
+                  id="specialties-menu"
+                  open={openSpecialtiesList}
+                  anchorEl={anchorElSpecialties}
+                  onClose={handleCloseSpecialtiesList}
                 >
-                  <MenuItem onClick={handleEdit}>Edit Office</MenuItem>
+                  {_.map(SPECIALTIES, (s, index) =>
+                    <MenuItem
+                      key={index}
+                      disabled={_.includes(editFields.specialties, s)} 
+                      onClick={(e) => handleAddSpecialty(s)}>{s}
+                    </MenuItem>
+                  )}
                 </Menu>
               </>
             )
-        }
-      </TableCell>
-    </TableRow>
+            : (
+              _.map(specialties, (s, i) => <Chip key={i} label={s} style={{ margin: 2 }}/>)
+            )
+          }
+        </TableCell>
+        <TableCell>
+          {editMode
+            ? (
+              <TextField
+                value={editFields.number}
+                onChange={handleChange}
+                name="number"
+                size="small"
+              />
+            )
+            : number
+          }
+        </TableCell>
+        <TableCell>
+          {
+            editMode
+              ? (
+                <>
+                  <Button onClick={handleCancelEdit}>Cancel</Button>
+                  <Button onClick={handleSaveEdition}>Save</Button>
+                </>
+              )
+              : (
+                <>
+                  <Button
+                    id={id}
+                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                  >
+                    Options
+                  </Button>
+                  <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'basic-button',
+                    }}
+                  >
+                    <MenuItem onClick={handleEdit}>Edit Office</MenuItem>
+                  </Menu>
+                </>
+              )
+          }
+        </TableCell>
+      </TableRow>
+    </>
   )
 }
 
