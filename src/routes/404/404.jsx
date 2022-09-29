@@ -15,7 +15,7 @@ const ErrorPage = () => {
         justifyContent: 'center',
       }}
     >
-      <img src={errorImg} alt="Not found" width="200" height="200" />
+      <img src={errorImg} alt="Not found" width="200" height="200" style={{ marginBottom: '18px' }} />
       <Typography variant="h2">Page not found</Typography>
       <Typography variant="h5">Sorry, the page you requested wasn&#39;t found.</Typography>
     </Box>

@@ -22,7 +22,7 @@ export default function DoctorsAdmin() {
 
   return (
     <>
-      <ButtonGroup variant="contained" aria-label="outlined primary button group">
+      <ButtonGroup variant="contained" aria-label="outlined primary button group" style={{ marginLeft: 8 }}>
         <Button onClick={() => navigate('/admin/new-doctor')}>New</Button>
       </ButtonGroup>
       <AdminTable headers={headers} rows={doctors} kind={'doctor'}/>

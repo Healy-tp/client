@@ -1,5 +1,8 @@
-import { Box } from '@mui/material';
-import forbiddenImg from '../../assets/forbidden.jpeg';
+import {
+  Box, 
+  Typography, 
+} from '@mui/material';
+import forbiddenImg from '../../assets/forbidden.png';
 
 const ForbiddenPage = () => {
   return (
@@ -12,7 +15,9 @@ const ForbiddenPage = () => {
         justifyContent: 'center',
       }}
     >
-      <img src={forbiddenImg} alt="Forbidden" width="100%" height="100%" />
+      <img src={forbiddenImg} alt="Not found" width="200" height="200" style={{ marginBottom: '18px' }}/>
+      <Typography variant="h2">Access denied...</Typography>
+      <Typography variant="h5">You do not have permission to view this resource.</Typography>
     </Box>
   );
 }

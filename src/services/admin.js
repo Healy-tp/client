@@ -24,6 +24,10 @@ function createOffice(userData) {
   return api.post('http://localhost:8081/api/admin/offices/create', userData);
 }
 
+function editOffice(officeData) {
+  return api.put('http://localhost:8081/api/admin/offices/edit', officeData);
+}
+
 function getUsers() {
   return api.get('http://localhost:8080/admin/users');
 }
@@ -31,6 +35,7 @@ function getUsers() {
 export {
   createDoctor,
   createOffice,
+  editOffice,
   getAvailabilities,
   getOffices,
   getAppointments,

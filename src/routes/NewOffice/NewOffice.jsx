@@ -13,22 +13,13 @@ import {
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createOffice } from '../../services/admin';
+import { SPECIALTIES } from '../../utils/constants';
 import Snackbar from '../../components/Snackbar';
 
 const defaultFormFields = {
   specialties: [],
   officeNumber: '',
 }
-
-// IMPORTANT: This list should match with @common/specialties.js file
-const SPECIALTIES = [
-  'Cardiology',
-  'Dermathology',
-  'Ophthalmology',
-  'Pediatrics',
-  'Psychiatry',
-  'Urology',
-]
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -75,7 +66,6 @@ const NewOffice = () => {
     } catch (error) {
       setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
-
   };
 
   return (

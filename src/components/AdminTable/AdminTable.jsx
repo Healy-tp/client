@@ -11,7 +11,7 @@ import OfficeTableRow from '../OfficeTableRow/OfficeTableRow';
 import AppointmentTableRow from '../AppointmentTableRow/AppointmentTableRow';
 import UserTableRow from '../UserTableRow/UserTableRow';
 
-const AdminTable = ({ headers, rows, kind }) => {
+const AdminTable = ({ headers, rows, kind, updateRows }) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -29,7 +29,7 @@ const AdminTable = ({ headers, rows, kind }) => {
           {rows.map((row) => (
             kind === 'doctor' ? <DoctorTableRow doctor={row} />  : 
             kind === 'user' ? <UserTableRow user={row} />  : 
-            kind === 'office' ? <OfficeTableRow office={row} /> : 
+            kind === 'office' ? <OfficeTableRow office={row} updateRows={updateRows} /> : 
             kind === 'appointment' ? <AppointmentTableRow appt={row} /> :
             kind === 'availability' ? <AvailabilityTableRow av={row} /> : <></>
           ))}
