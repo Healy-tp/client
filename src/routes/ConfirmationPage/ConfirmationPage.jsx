@@ -1,6 +1,8 @@
-import { Box, TextField, Button } from '@mui/material';
+import { Box, TextField, Button, Container, Card, CardContent, CardActions, Typography } from '@mui/material';
 import { useState } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
+import Snackbar from '../../components/Snackbar';
 
 import { checkUser, verifyUser } from '../../services/users';
 
@@ -15,9 +17,27 @@ const ConfirmationPage = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {email, password, confirmPassword} = formFields;
+  
   const [validCode, setValidCode] = useState(false);
-
+  const [confirmed, setConfirmed] = useState(false);
   const { confirmationCode } = useParams();
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    type: '',
+  });
+  const { open, message, type } = snackbar;
+  
+  const navigate = useNavigate();
+  
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields)
+  }
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: '' });
+  };
 
   useState(() => {
     const checkUserApi = async () => {
@@ -34,16 +54,17 @@ const ConfirmationPage = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (password !== confirmPassword) {
+      setSnackbar({ type: 'error', open: true, message: 'Passwords do not match' });
+      return;
+    }
 
     try {
-      const user = await verifyUser(confirmationCode, formFields);
-      // console.log(user);
-      // setCurrentUser(user);
-      // resetFormFields();
-      // navigate(from.pathname);s
-
+      const response = await verifyUser(confirmationCode, formFields);
+      resetFormFields();
+      setConfirmed(true);
     } catch (error) {
-      // setSnackBar({open: true, message: error.response.data.errors[0].message});
+      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message});
     }
   }
 
@@ -54,9 +75,15 @@ const ConfirmationPage = () => {
   };
 
   return (
-    <>
+    <Container>
+      <Snackbar
+        open={open}
+        handleClose={handleCloseSnackbar}
+        message={message}
+        type={type}
+      />
     {
-      validCode ? (
+      validCode && !confirmed ? (
         <Box component="form" sx={{mt: 1}} onSubmit={handleSubmit}>
           <TextField
             margin="normal"
@@ -99,9 +126,22 @@ const ConfirmationPage = () => {
             Submit
           </Button>
         </Box>
+      ) : 
+      validCode && confirmed ? (
+        <Card sx={{ alignItems: 'center', marginTop: 8, flexDirection: 'column' }}>
+          <CardContent>
+            <Typography variant="h5" component="div">
+              Congrats! Account confirmed.
+            </Typography>
+          </CardContent>
+
+          <CardActions>
+            <Button onClick={() => navigate('/')}>Go back to home</Button>
+          </CardActions>
+        </Card>
       ) : <></>
     }
-    </>
+    </Container>
   );
 }
 

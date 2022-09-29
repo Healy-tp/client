@@ -21,7 +21,6 @@ const MyAppointments = () => {
 
   return (
     <Container>
-
       {
         appointments.map(a => (
           <Card sx={{ alignItems: 'center', marginTop: 2, flexDirection: 'column' }}>

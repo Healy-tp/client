@@ -25,8 +25,8 @@ async function checkUser(confirmationCode) {
   return response;
 }
 
-async function verifyUser(confirmationCode, {email}) {
-  const response = await api.post(`http://localhost:8080/user/${confirmationCode}`, { email });
+async function verifyUser(confirmationCode, {email, password}) {
+  const response = await api.post(`http://localhost:8080/user/${confirmationCode}`, { email, password });
   return response;
 }
 
