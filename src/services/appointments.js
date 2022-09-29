@@ -4,6 +4,10 @@ function getAppointment(appointmentId) {
   return api.get(`/api/appointments/${appointmentId}`);
 }
 
+function getAppointmentByUserId() {
+  return api.get('http://localhost:8081/api/appointment');
+}
+
 function getDoctors() {
   return api.get('http://localhost:8081/api/doctors');
 }
@@ -22,6 +26,7 @@ function newAppointment(payload) {
 
 export {
   getAppointment,
+  getAppointmentByUserId,
   getDoctors,
   getAvailabilities,
   getAllAppointments,

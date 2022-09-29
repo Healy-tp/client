@@ -13,6 +13,7 @@ import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { useState } from 'react';
 import MyInfo from './MyInfo';
+import MyAppointments from './MyAppointments';
 
 const drawerWidth = 240;
 
@@ -40,7 +41,7 @@ function ResponsiveDrawer(props) {
           </ListItemButton>
         </ListItem>
         <ListItem key={'My appointments'} disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={() => setSelectedMenu('my-appointments')}>
             <ListItemIcon>
               <AccessTimeIcon />
             </ListItemIcon>
@@ -96,7 +97,8 @@ function ResponsiveDrawer(props) {
         </Drawer>
       </Box>
       {
-        selectedMenu === 'my-info' ? <MyInfo /> : <>Bienvenido a mi cuenta</>
+        selectedMenu === 'my-info' ? <MyInfo /> : 
+        selectedMenu === 'my-appointments' ? <MyAppointments /> : <>Bienvenido a mi cuenta</>
       }
     </Box>
   );

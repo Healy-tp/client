@@ -14,12 +14,13 @@ const defaultFormFields = {
   lastName: '',
   phoneNumber: '',
   email: '',
+  specialty: '',
 }
 
 const NewDoctor = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {firstName, lastName, phoneNumber, email } = formFields;
+  const {firstName, lastName, phoneNumber, email, specialty } = formFields;
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -114,6 +115,19 @@ const NewDoctor = () => {
           value={phoneNumber}
           onChange={handleChange}
           autoComplete="phoneNumber"
+          autoFocus
+        />
+
+        <TextField
+          margin="normal"
+          required
+          fullWidth
+          id="specialty"
+          label="Specialty"
+          name="specialty"
+          value={specialty}
+          onChange={handleChange}
+          autoComplete="specialty"
           autoFocus
         />
         <Button
