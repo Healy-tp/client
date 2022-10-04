@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Badge from '@mui/material/Badge';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import PersonIcon from '@mui/icons-material/Person';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
@@ -11,9 +12,13 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import MyInfo from './MyInfo';
 import MyAppointments from './MyAppointments';
+import MyMessages from './MyMessages';
+import { UserContext } from '../../contexts/UserContext';
+import { useEffect } from 'react';
+import { getUnreadMessagesCount } from '../../services/notifications';
 
 const drawerWidth = 240;
 
@@ -25,7 +30,22 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
+  const { currentUser } = useContext(UserContext); 
+
   const [selectedMenu, setSelectedMenu] = useState('');
+  const [unreadMessages, setUnreadMessages] = useState(0);
+
+  const goToMyMessages = () => {
+    setSelectedMenu('my-messages');
+  }
+
+  useEffect(() => {
+    const getUnreadMessagesCountFromApi = async () => {
+      const response = await getUnreadMessagesCount();
+      setUnreadMessages(response.count);
+    }
+    getUnreadMessagesCountFromApi();
+  }, []);
 
   const drawer = (
     <div>
@@ -49,9 +69,11 @@ function ResponsiveDrawer(props) {
           </ListItemButton>
         </ListItem>
         <ListItem key={'Messages'} disablePadding>
-        <ListItemButton>
+        <ListItemButton onClick={goToMyMessages}>
             <ListItemIcon>
-              <InboxIcon />
+              <Badge color="primary" badgeContent={unreadMessages}>
+                <MailIcon />
+              </Badge>
             </ListItemIcon>
             <ListItemText primary={'Messages'} />
           </ListItemButton>
@@ -98,7 +120,8 @@ function ResponsiveDrawer(props) {
       </Box>
       {
         selectedMenu === 'my-info' ? <MyInfo /> : 
-        selectedMenu === 'my-appointments' ? <MyAppointments /> : <>Bienvenido a mi cuenta</>
+        selectedMenu === 'my-appointments' ? <MyAppointments nav={goToMyMessages} /> : 
+        selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} /> : <>Bienvenido a mi cuenta</>
       }
     </Box>
   );

@@ -1,23 +1,43 @@
 
 import {  
-  Box, Button, Snackbar, Card, CardContent, CardActions, Typography, Container
+  Box, Button, Snackbar, Card, CardContent, CardActions, Typography, Container, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText
 } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { getAppointmentByUserId } from '../../services/appointments';
+import DialogAlert from '../../components/Dialog';
+import { getAppointmentByUserId, startChat } from '../../services/appointments';
 
 
-const MyAppointments = () => {
+
+const MyAppointments = ({ nav }) => {
 
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
     const getAppointmentsByUserIdFromApi = async () => {
       const response = await getAppointmentByUserId();
-      console.log('response', response.data);
+      // console.log('response', response.data);
       setAppointments(response.data);
     }
     getAppointmentsByUserIdFromApi();
   }, []);
+
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [apptId, setApptId] = useState(-1);
+
+  const handleClickOpen = (selectedAppt) => {
+    setApptId(selectedAppt);
+    setDialogOpen(true);
+  };
+
+  const handleClose = () => {
+    setApptId(-1);
+    setDialogOpen(false);
+  };
+
+  const handleAccept = async () => {
+    await startChat(apptId);
+    nav();
+  }
 
   return (
     <Container>
@@ -47,8 +67,10 @@ const MyAppointments = () => {
             <CardActions>
               <Button size="small">Cancel</Button>
               <Button size="small">Modify</Button>
-              <Button size="small">Message</Button>
+              <Button size="small" onClick={() => handleClickOpen(a.id)}>Message</Button>
             </CardActions>
+            
+            <DialogAlert open={dialogOpen} handleAccept={handleAccept} handleClose={handleClose}/>
           </Card>
         ))
       }

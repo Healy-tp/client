@@ -56,7 +56,7 @@ const MyInfo = () => {
           payload[key] = formFields[key];
         }
       });
-      console.log('payload', payload);
+
       const user = await updateUser(payload);
 
       setSnackbar({ type: 'success', open: true, message: 'Successfully updated' });
