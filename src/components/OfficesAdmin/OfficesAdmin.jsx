@@ -2,10 +2,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import _ from 'lodash';
+import { ButtonGroup, Button } from "@mui/material";
 import { getOffices } from "../../services/admin";
 import AdminTable from "../AdminTable";
-import { ButtonGroup, Button, CircularProgress } from "@mui/material";
-
 
 export default function OfficesAdmin() {
   const [offices, setOffices] = useState([]);
@@ -36,18 +35,13 @@ export default function OfficesAdmin() {
       <ButtonGroup variant="contained" aria-label="outlined primary button group" style={{ marginLeft: 8 }}>
         <Button onClick={() => navigate('/admin/new-office')}>New</Button>
       </ButtonGroup>
-      {isLoading 
-        ? <CircularProgress
-            size={60}
-            sx={{ position: 'absolute', top: '40%', left: '50%' }}
-          />
-        : <AdminTable
-            headers={headers}
-            rows={offices}
-            kind='office'
-            updateRows={getOfficesApi}
-          />
-      }
+      <AdminTable
+        headers={headers}
+        rows={offices}
+        kind='office'
+        updateRows={getOfficesApi}
+        isLoading={isLoading}
+      />
     </>
   );
 }

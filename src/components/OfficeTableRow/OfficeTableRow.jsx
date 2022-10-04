@@ -8,32 +8,25 @@ import {
   MenuItem,
   TableCell,
   TableRow,
-  TextField
+  TextField,
 } from "@mui/material";
 import { editOffice } from '../../services/admin';
-import Snackbar from '../../components/Snackbar';
 import { SPECIALTIES } from '../../utils/constants';
 
-const OfficeTableRow = ({ office, updateRows }) => {
+const OfficeTableRow = ({ isLoading, office, setSnackbar, updateRows }) => {
   const defaultEditFields = {
     specialties: office.specialties,
     number: office.number,
   };
 
-  const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: '',
-    type: '',
-  });
   const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [anchorElSpecialties, setAnchorElSpecialties] = useState(null);
   const [editFields, setEditFields] = useState(defaultEditFields);
 
-  const open = Boolean(anchorEl);
+  const openMenu = Boolean(anchorEl);
   const openSpecialtiesList = Boolean(anchorElSpecialties);
 
-  const { open: openSnackbar, message, type } = snackbar;
   const { id, specialties, number } = office;
   
   const handleClick = (event) => {
@@ -43,10 +36,6 @@ const OfficeTableRow = ({ office, updateRows }) => {
   const handleEdit = () => {
     setEditMode(true);
     setAnchorEl(null);
-  };
-
-  const handleCloseSnackbar = () => {
-    setSnackbar({ open: false, message: '' });
   };
 
   const handleClose = () => {
@@ -100,12 +89,6 @@ const OfficeTableRow = ({ office, updateRows }) => {
 
   return (
     <>
-      <Snackbar
-        open={openSnackbar}
-        handleClose={handleCloseSnackbar}
-        message={message}
-        type={type}
-      />
       <TableRow
         key={id}
         sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -166,9 +149,9 @@ const OfficeTableRow = ({ office, updateRows }) => {
                 <>
                   <Button
                     id={id}
-                    aria-controls={open ? 'basic-menu' : undefined}
+                    aria-controls={openMenu ? 'basic-menu' : undefined}
                     aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
+                    aria-expanded={openMenu ? 'true' : undefined}
                     onClick={handleClick}
                   >
                     Options
@@ -176,7 +159,7 @@ const OfficeTableRow = ({ office, updateRows }) => {
                   <Menu
                     id="basic-menu"
                     anchorEl={anchorEl}
-                    open={open}
+                    open={openMenu}
                     onClose={handleClose}
                     MenuListProps={{
                       'aria-labelledby': 'basic-button',
