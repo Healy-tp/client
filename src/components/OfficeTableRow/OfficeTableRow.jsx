@@ -13,7 +13,7 @@ import {
 import { editOffice } from '../../services/admin';
 import { SPECIALTIES } from '../../utils/constants';
 
-const OfficeTableRow = ({ isLoading, office, setSnackbar, updateRows }) => {
+const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
   const defaultEditFields = {
     specialties: office.specialties,
     number: office.number,
@@ -166,6 +166,7 @@ const OfficeTableRow = ({ isLoading, office, setSnackbar, updateRows }) => {
                     }}
                   >
                     <MenuItem onClick={handleEdit}>Edit Office</MenuItem>
+                    <MenuItem onClick={() => console.log('TODO')}>Delete</MenuItem>
                   </Menu>
                 </>
               )
