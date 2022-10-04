@@ -24,6 +24,10 @@ function newAppointment(payload) {
   return api.post('http://localhost:8081/api/appointment/', payload);
 }
 
+function startChat(apptId) {
+  return api.post(`http://localhost:8081/api/appointment/${apptId}/start-chat`);
+}
+
 export {
   getAppointment,
   getAppointmentByUserId,
@@ -31,4 +35,5 @@ export {
   getAvailabilities,
   getAllAppointments,
   newAppointment,
+  startChat,
 }
