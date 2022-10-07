@@ -6,6 +6,7 @@ import Drawer from '@mui/material/Drawer';
 import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -18,7 +19,7 @@ import MyAppointments from './MyAppointments';
 import MyMessages from './MyMessages';
 import { UserContext } from '../../contexts/UserContext';
 import { useEffect } from 'react';
-import { getUnreadMessagesCount } from '../../services/notifications';
+import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
 
 const drawerWidth = 240;
 
@@ -47,6 +48,14 @@ function ResponsiveDrawer(props) {
     getUnreadMessagesCountFromApi();
   }, []);
 
+  const handleConversationChange = async (convId) => {
+    if (unreadMessages === 0) {
+      return;
+    }
+    const response = await markMessagesAsRead(convId);
+    setUnreadMessages(unreadMessages - response.count);
+  }
+
   const drawer = (
     <div>
       <Toolbar />
@@ -60,14 +69,27 @@ function ResponsiveDrawer(props) {
             <ListItemText primary={'My info'} />
           </ListItemButton>
         </ListItem>
-        <ListItem key={'My appointments'} disablePadding>
-          <ListItemButton onClick={() => setSelectedMenu('my-appointments')}>
-            <ListItemIcon>
-              <AccessTimeIcon />
-            </ListItemIcon>
-            <ListItemText primary={'My appointments'} />
-          </ListItemButton>
-        </ListItem>
+        {
+          currentUser.isDoctor ? (
+            <ListItem key={'My agenda'} disablePadding>
+              <ListItemButton onClick={() => setSelectedMenu('my-agenda')}>
+                <ListItemIcon>
+                  <CalendarMonthIcon />
+                </ListItemIcon>
+                <ListItemText primary={'My Agenda'} />
+              </ListItemButton>
+            </ListItem>
+          ) : (
+            <ListItem key={'My appointments'} disablePadding>
+              <ListItemButton onClick={() => setSelectedMenu('my-appointments')}>
+                <ListItemIcon>
+                  <AccessTimeIcon />
+                </ListItemIcon>
+                <ListItemText primary={'My appointments'} />
+              </ListItemButton>
+            </ListItem>
+          )
+        }
         <ListItem key={'Messages'} disablePadding>
         <ListItemButton onClick={goToMyMessages}>
             <ListItemIcon>
@@ -121,7 +143,7 @@ function ResponsiveDrawer(props) {
       {
         selectedMenu === 'my-info' ? <MyInfo /> : 
         selectedMenu === 'my-appointments' ? <MyAppointments nav={goToMyMessages} /> : 
-        selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} /> : <>Bienvenido a mi cuenta</>
+        selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange}/> : <>Bienvenido a mi cuenta</>
       }
     </Box>
   );

@@ -28,7 +28,7 @@ const defaultFormFields = {
 
 const SignUp = () => {
   
-  const {setCurrentUser} = useContext(UserContext);
+  const {signInUser} = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {firstName, lastName, phoneNumber, email, password, confirmPassword} = formFields;
 
@@ -63,7 +63,7 @@ const SignUp = () => {
         password,
       });
       setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
-      setCurrentUser(user);
+      signInUser(user);
       resetFormFields();
       navigate('/');
     } catch (error) {

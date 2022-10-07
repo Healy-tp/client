@@ -20,7 +20,7 @@ const defaultFormFields = {
 }
 
 const Login = () => {
-  const {setCurrentUser} = useContext(UserContext);
+  const {signInUser} = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const {email, password} = formFields;
   const [snackbar, setSnackBar] = useState({
@@ -47,7 +47,7 @@ const Login = () => {
 
     try {
       const user = await signIn(email, password);
-      setCurrentUser(user);
+      signInUser(user);
       resetFormFields();
       navigate(from.pathname);
 

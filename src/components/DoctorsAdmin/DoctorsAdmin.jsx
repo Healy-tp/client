@@ -14,7 +14,7 @@ export default function DoctorsAdmin() {
   useEffect(() => {
     const getDoctorsApi = async () => {
       const response = await getDoctors();
-      setDoctors(response.data);
+      setDoctors(response);
     } 
 
     getDoctorsApi()

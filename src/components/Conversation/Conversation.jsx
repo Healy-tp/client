@@ -7,14 +7,14 @@ import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
-const Conversation = ({ data }) => {
+const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
 
   const [messages, setMessages] = useState([])
   const [inputText, setInputText] = useState('');
 
   useEffect(() => {
     const getMessagesFromApi = async () => {
-      const response = await getMessages(data.id);
+      const response = await getMessages(convData.id);
       setMessages(response);
     }
     
@@ -28,9 +28,9 @@ const Conversation = ({ data }) => {
 
     try {
       const msgPayload = {
-        toUserId: data.doctorId,
+        toUserId: isDoctor ? convData.userId : convData.doctorId,
         message: inputText,
-        convId: data.id,
+        convId: convData.id,
       }
       const response = await newMessage(msgPayload);
       setMessages([...messages, {...msgPayload, fromUserId: currentUser.id}]);
@@ -41,14 +41,16 @@ const Conversation = ({ data }) => {
     setInputText('');
   }
 
+  
+
   return (
-    <Accordion sx={{marginTop: 2}} >
+    <Accordion sx={{marginTop: 2}} onChange={() => {markMsgsReadCallback(convData.id)}}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>Chat with: {data.Doctor.firstName} {data.Doctor.lastName}</Typography>
+        <Typography>Chat with: {isDoctor ? convData.User.firstName : convData.Doctor.firstName} { isDoctor ? convData.User.lastName :convData.Doctor.lastName}</Typography>
       </AccordionSummary>
       <AccordionDetails>
         {

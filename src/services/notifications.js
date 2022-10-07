@@ -1,7 +1,8 @@
 import api from './api';
 
 function getConversations(isDoctor) {
-  return api.get('http://localhost:8082/api/conversations/', { isDoctor });
+  const params = isDoctor ? { isDoctor } : {};
+  return api.get('http://localhost:8082/api/conversations/', params);
 }
 
 function getMessages(convId) {
@@ -16,9 +17,14 @@ function getUnreadMessagesCount() {
   return api.get('http://localhost:8082/api/messages/unread');
 }
 
+function markMessagesAsRead(convId) {
+  return api.get(`http://localhost:8082/api/messages/${convId}/mark-read`);
+}
+
 export {
   getConversations,
   getMessages,
   newMessage,
   getUnreadMessagesCount,
+  markMessagesAsRead
 }

@@ -13,8 +13,8 @@ const AvailabilitiesAdmin = () => {
   const fetchAvailabilities = async () => {
     try {
       setIsLoading(true);
-      const { data } = await getAvailabilities();
-      const sortedData = _.sortBy(data, ['id']);
+      const response = await getAvailabilities();
+      const sortedData = _.sortBy(response, ['id']);
       setAvailabilities(sortedData);
     } catch (err) {
       console.log('Error while fetching offices: ', err);

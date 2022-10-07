@@ -13,7 +13,7 @@ const AppointmentsAdmin = () => {
   useEffect(() => {
     const getAppointmentsApi = async () => {
       const response = await getAppointments();
-      setAppointments(response.data);
+      setAppointments(response);
     } 
 
     getAppointmentsApi();

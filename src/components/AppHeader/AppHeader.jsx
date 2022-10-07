@@ -2,6 +2,8 @@ import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { AppBar, Button, Box, Toolbar, Typography } from '@mui/material';
+import Link from '@mui/material/Link';
+
 import { UserContext } from '../../contexts/UserContext';
 import AccountMenu from '../AccountMenu';
 
@@ -19,9 +21,12 @@ const AppHeader = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar>
-          <Typography variant="h6" component="div"  sx={{ flexGrow: 1 }}>
+          <Link variant='h6' sx={{ flexGrow: 1 }} href='/' color="inherit" underline='none'>
             Healy
-          </Typography>
+            {/* <Typography variant="h6" component="div"  sx={{ flexGrow: 1 }}>
+              Healy
+            </Typography> */}
+          </Link>
           
           {
             !currentUser ? (
