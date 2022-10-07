@@ -5,10 +5,10 @@ import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
 
 const AuthRoute = ({ children }) => {
-  const { currentUser } = useContext(UserContext);
+  const { currentUser, checkLocalStorage } = useContext(UserContext);
   const location = useLocation();
 
-  if (!currentUser) {
+  if (!currentUser && !checkLocalStorage()) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 

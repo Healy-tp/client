@@ -18,7 +18,7 @@ const drawerWidth = 240;
 
 const MyInfo = () => {
 
-  const {currentUser, setCurrentUser} = useContext(UserContext);
+  const {currentUser, signInUser} = useContext(UserContext);
   const [formFields, setFormFields] = useState({});
 
   const [disabled, setDisabled] = useState(true);
@@ -60,7 +60,7 @@ const MyInfo = () => {
       const user = await updateUser(payload);
 
       setSnackbar({ type: 'success', open: true, message: 'Successfully updated' });
-      setCurrentUser(user);
+      signInUser(user);
       setDisabled(true);
       resetFormFields();
     } catch (error) {

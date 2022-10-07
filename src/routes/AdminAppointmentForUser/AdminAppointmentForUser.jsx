@@ -21,12 +21,12 @@ const AdminAppointmentForUser = () => {
     }
     const getAvailabilitiesFromApi = async () => {
       const response = await getAvailabilities();
-      setAvailabilities(response.data);
+      setAvailabilities(response);
     }
 
     const getAllAppointmentsFromApi = async () => {
       const response = await getAllAppointments();
-      setAppointments(response.data);
+      setAppointments(response);
     }
 
     getUsersFromApi();

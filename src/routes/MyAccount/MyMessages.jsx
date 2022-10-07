@@ -4,14 +4,13 @@ import { getConversations } from "../../services/notifications";
 import Conversation from "../../components/Conversation";
 
 
-const MyMessages = ({ isDoctor }) => {
+const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
 
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
     const getConversationsApi = async () => {
       const response = await getConversations(isDoctor);
-      console.log('CONVERSATIONS', response);
       setConversations(response);
     }
     getConversationsApi();
@@ -21,7 +20,7 @@ const MyMessages = ({ isDoctor }) => {
     <Container>
       {
         conversations.map(c => (
-          <Conversation data={c}/>
+          <Conversation convData={c} isDoctor={isDoctor} markMsgsReadCallback={markMsgsReadCallback}/>
         ))
       }
     </Container>

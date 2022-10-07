@@ -13,7 +13,7 @@ import { signOut } from '../../services/users';
 import { UserContext } from '../../contexts/UserContext';
 
 const AccountMenu = ({ currentUser }) => {
-  const {setCurrentUser} = useContext(UserContext);
+  const {signOutUser} = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const AccountMenu = ({ currentUser }) => {
 
   const handleLogout = () => {
     signOut();
-    setCurrentUser(null);
+    signOutUser(null);
   }
 
   return (

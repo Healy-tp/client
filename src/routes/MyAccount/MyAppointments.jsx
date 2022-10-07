@@ -16,7 +16,7 @@ const MyAppointments = ({ nav }) => {
     const getAppointmentsByUserIdFromApi = async () => {
       const response = await getAppointmentByUserId();
       // console.log('response', response.data);
-      setAppointments(response.data);
+      setAppointments(response);
     }
     getAppointmentsByUserIdFromApi();
   }, []);

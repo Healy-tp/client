@@ -13,7 +13,7 @@ const AvailabilitiesAdmin = () => {
   useEffect(() => {
     const getAvailabilitiesApi = async () => {
       const response = await getAvailabilities();
-      setAvailabilities(response.data);
+      setAvailabilities(response);
     } 
 
     getAvailabilitiesApi();
