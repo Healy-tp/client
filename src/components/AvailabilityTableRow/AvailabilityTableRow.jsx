@@ -1,60 +1,111 @@
 
 import { useState } from "react";
+import _ from 'lodash';
+import moment from 'moment';
 import { Button, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
+// import { FREQUENCIES } from '../../utils/constants';
 
-const AvailabilityTableRow = ({ av }) => {
+const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
+  const defaultEditFields = {
+    frequency: availability.frequency,
+  };
 
+  const [editMode, setEditMode] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const [editFields, setEditFields] = useState(defaultEditFields);
+  const openMenu = Boolean(anchorEl);
+
+  const { id, Doctor, officeId, weekday, startHour, endHour, frequency, validUntil } = availability;
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
+  };
+
+  const handleEdit = () => {
+    setEditMode(true);
+    setAnchorEl(null);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
+  const handleSaveEdition = async () => {
+    const originalFields = _.pick(availability, ['frequency']);
+    if (!_.isEqual(editFields, originalFields)) {
+      try {
+        // await editAvailability({ id, ...editFields });
+        setSnackbar({ type: 'success', open: true, message: 'Availability successfully updated' });
+        setEditMode(false);
+        await updateRows();
+      } catch (error) {
+        setSnackbar({ type: 'error', open: true, message: error.response.data.message });
+      }
+    } else {
+      setSnackbar({ type: 'info', open: true, message: 'No changes were made' });
+    }
+  };
+
+  const handleCancelEdit = () => {
+    setEditFields(defaultEditFields);
+    setEditMode(false);
+  };
+
   return (
     <TableRow
-      key={av.id}
+      key={id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <TableCell component="th" scope="row">
-        {`${av.Doctor.firstName} ${av.Doctor.lastName}`}
+        {`${Doctor.firstName} ${Doctor.lastName}`}
       </TableCell>
-      <TableCell>{av.Doctor.specialty}</TableCell>
-      <TableCell>{av.officeId}</TableCell>
-      <TableCell>{av.weekday}</TableCell>
-      <TableCell>{av.startHour}</TableCell>
-      <TableCell>{av.endHour}</TableCell>
-      <TableCell>{av.frequency}</TableCell>
-      <TableCell>{av.validUntil}</TableCell>
+      <TableCell>{Doctor.specialty}</TableCell>
+      <TableCell>{officeId}</TableCell>
+      <TableCell>{moment().weekday(weekday).format('dddd')}</TableCell>
+      <TableCell>{startHour}</TableCell>
+      <TableCell>{endHour}</TableCell>
+      {/* Editable */}
+      <TableCell>{frequency}</TableCell>
+      {/* Editable */}
+      <TableCell>{validUntil}</TableCell>
       <TableCell>
-        <Button
-          id={av.id}
-          aria-controls={open ? 'basic-menu' : undefined}
-          aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
-          onClick={handleClick}
-        >
-          Options
-        </Button>
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-          <MenuItem onClick={handleClick}>Action</MenuItem>
-        </Menu>
+        {
+          editMode
+            ? (
+              <>
+                <Button onClick={handleCancelEdit}>Cancel</Button>
+                <Button onClick={handleSaveEdition}>Save</Button>
+              </>
+            )
+            : (
+              <>
+                <Button
+                  id={id}
+                  aria-controls={openMenu ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={openMenu ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  Options
+                </Button>
+                <Menu
+                  id="basic-menu"
+                  anchorEl={anchorEl}
+                  open={openMenu}
+                  onClose={handleClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'basic-button',
+                  }}
+                >
+                  <MenuItem onClick={handleEdit}>Edit Availability</MenuItem>
+                  <MenuItem onClick={() => console.log('TODO')}>Delete</MenuItem>
+                </Menu>
+              </>
+            )
+        }
       </TableCell>
     </TableRow>
   )
 }
-
 
 export default AvailabilityTableRow;

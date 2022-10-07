@@ -13,7 +13,7 @@ export default function OfficesAdmin() {
 
   const headers = ['ID', 'Specialties', 'Office Number']
 
-  const getOfficesApi = async () => {
+  const fetchOffices = async () => {
     try {
       setIsLoading(true);
       const { data } = await getOffices();
@@ -27,7 +27,7 @@ export default function OfficesAdmin() {
   }
 
   useEffect(() => {
-    getOfficesApi();
+    fetchOffices();
   }, []);
 
   return (
@@ -39,7 +39,7 @@ export default function OfficesAdmin() {
         headers={headers}
         rows={offices}
         kind='office'
-        updateRows={getOfficesApi}
+        updateRows={fetchOffices}
         isLoading={isLoading}
       />
     </>

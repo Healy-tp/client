@@ -63,7 +63,7 @@ const AdminTable = ({ headers, isLoading, kind, rows, updateRows }) => {
                   kind === 'user' ? <UserTableRow user={row} />  : 
                   kind === 'office' ? <OfficeTableRow office={row} updateRows={updateRows} setSnackbar={setSnackbar} /> : 
                   kind === 'appointment' ? <AppointmentTableRow appt={row} /> :
-                  kind === 'availability' ? <AvailabilityTableRow av={row} /> : <></>
+                  kind === 'availability' ? <AvailabilityTableRow availability={row} updateRows={updateRows} setSnackbar={setSnackbar} /> : <></>
                 ))
               )
           }
