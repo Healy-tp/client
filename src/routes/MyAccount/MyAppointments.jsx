@@ -1,10 +1,6 @@
 
 import {  
-<<<<<<< HEAD
   Button, Card, CardContent, CardActions, Typography, Container, TextField
-=======
-  Button, Card, CardContent, CardActions, Typography, Container
->>>>>>> 08065e4 (A few styling and general improvements)
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -31,12 +27,8 @@ const MyAppointments = ({ nav, isDoctor }) => {
 
   useEffect(() => {
     const getAppointmentsByUserIdFromApi = async () => {
-<<<<<<< HEAD
       const response = await getAppointmentByUserId(isDoctor ? { isDoctor: true } : {});
       console.log(response);
-=======
-      const response = await getAppointmentByUserId();
->>>>>>> 08065e4 (A few styling and general improvements)
       setAppointments(response);
     }
     getAppointmentsByUserIdFromApi();
