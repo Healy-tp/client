@@ -41,8 +41,7 @@ const ConfirmationPage = () => {
   useState(() => {
     const checkUserApi = async () => {
       try {
-        const response = await checkUser(confirmationCode);
-        // console.log(response.status);
+        await checkUser(confirmationCode);
         setValidCode(true);
       } catch (err) {
         // console.log(err.response.status);
@@ -59,7 +58,7 @@ const ConfirmationPage = () => {
     }
 
     try {
-      const response = await verifyUser(confirmationCode, formFields);
+      await verifyUser(confirmationCode, formFields);
       resetFormFields();
       setConfirmed(true);
     } catch (error) {

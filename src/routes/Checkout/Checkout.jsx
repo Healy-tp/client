@@ -6,7 +6,7 @@ import { newAppointment } from "../../services/appointments";
 import { createAppointmentForUser } from '../../services/admin';
 import ConfirmationCard from "../../components/ConfirmationCard";
 import Snackbar from '../../components/Snackbar';
-
+import { dateToString, timeToString } from '../../utils/dateTimeFormatter';
 
 function Checkout({from}) {
 
@@ -33,7 +33,7 @@ function Checkout({from}) {
     try {
       if (from === 'user') {
         await newAppointment({
-          arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
+          arrivalTime: `${dateToString(selectedData.date)} ${timeToString(selectedData.selectedTime)}`,
           doctorId: selectedData.doctorId,
           officeId: selectedData.selectedOffice,
         });
@@ -41,7 +41,7 @@ function Checkout({from}) {
         navigate('/');
       } else {
         await createAppointmentForUser({
-          arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
+          arrivalTime: `${dateToString(selectedData.date)} ${timeToString(selectedData.selectedTime)}`,
           doctorId: selectedData.doctorId,
           officeId: selectedData.selectedOffice,
           userId: selectedData.user.id,

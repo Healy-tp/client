@@ -2,12 +2,17 @@
 import { useState } from "react";
 import _ from 'lodash';
 import moment from 'moment';
-import { Button, Menu, MenuItem, Select, TableCell, TableRow } from "@mui/material";
+import { Button, Menu, MenuItem, Select, TableCell, TableRow, TextField } from "@mui/material";
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
+import { editAvailability } from '../../services/admin';
 import { FREQUENCIES } from '../../utils/constants';
+import { dateToString } from '../../utils/dateTimeFormatter';
 
 const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
   const defaultEditFields = {
     frequency: availability.frequency,
+    validUntil: availability.validUntil,
   };
 
   const [editMode, setEditMode] = useState(false);
@@ -35,11 +40,15 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
     setEditFields({ ...editFields, [name]: value })
   };
 
+  const handleDateChange = (value) => {
+    setEditFields({ ...editFields, validUntil: dateToString(value) });
+  };
+
   const handleSaveEdition = async () => {
     const originalFields = _.pick(availability, ['frequency']);
     if (!_.isEqual(editFields, originalFields)) {
       try {
-        // await editAvailability({ id, ...editFields });
+        await editAvailability({ id, ...editFields });
         setSnackbar({ type: 'success', open: true, message: 'Availability successfully updated' });
         setEditMode(false);
         await updateRows();
@@ -90,11 +99,26 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
               ))}
             </Select>
           )
-          : frequency
+          : `${frequency} min`
         }
       </TableCell>
-      {/* Editable */}
-      <TableCell>{validUntil}</TableCell>
+      <TableCell style={{ width: '190px' }}>
+        {editMode
+          ? (
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DatePicker
+                label="Date"
+                value={editFields.validUntil}
+                onChange={handleDateChange}
+                disablePast={true}
+                renderInput={(params) => <TextField {...params} />}
+                inputFormat="yyyy-MM-dd"
+              />
+            </LocalizationProvider>
+          )
+          : validUntil
+        }
+      </TableCell>
       <TableCell>
         {
           editMode

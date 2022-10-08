@@ -9,6 +9,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import { getAvailabilities, getAllAppointments, updateAppointment } from '../../services/appointments';
+import { dateToString, timeToString } from '../../utils/dateTimeFormatter';
 
 const EditAppointment = () => {
 
@@ -44,7 +45,7 @@ const EditAppointment = () => {
   const onChangeDate = (date) => {
     const times = [];
     const selectedDate = availabilities.filter(a => a.weekday === date.getDay() && a.Doctor.id === doctorId)[0];
-    const dateString = date.toJSON().slice(0, 10);
+    const dateString = dateToString(date);
     const startDt = new Date(`${dateString}T${selectedDate.startHour.slice(0, 5)}:00Z`);
     const endDt = new Date(`${dateString}T${selectedDate.endHour.slice(0, 5)}:00Z`);
     while (startDt < endDt) {
@@ -60,7 +61,7 @@ const EditAppointment = () => {
     
     try {
       await updateAppointment(location.state.appt.id, {
-        arrivalTime: `${selectedData.date.toJSON().slice(0, 10)} ${selectedData.selectedTime.toJSON().slice(11,16)}`,
+        arrivalTime: `${dateToString(selectedData.date)} ${timeToString(selectedData.selectedTime)}`,
         doctorId: doctorId,
         officeId: selectedData.selectedOffice,
       });
@@ -106,7 +107,7 @@ const EditAppointment = () => {
                   return (
                     <Chip 
                       key={t}
-                      label={t.toJSON().slice(11,16)} 
+                      label={timeToString(t)} 
                       onClick={() => setSelectedData({...selectedData, selectedTime: t})}
                       clickable={true}
                       color="primary" 

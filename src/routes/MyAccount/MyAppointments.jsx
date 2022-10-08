@@ -9,6 +9,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 import DialogAlert from '../../components/Dialog';
 import { deleteAppointment, getAppointmentByUserId, startChat } from '../../services/appointments';
+import { dateToString } from '../../utils/dateTimeFormatter';
 import {
   START_CHAT_DIALOG_MSG, 
   START_CHAT_DIALOG_TITLE, 
@@ -96,7 +97,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
         ) : <></>
       }
       {
-        appointments.length > 0 ? appointments.filter(a => isDoctor ? a.arrivalTime.slice(0,10) === selectedDate.toJSON().slice(0,10) : true).map(a => (
+        appointments.length > 0 ? appointments.filter(a => isDoctor ? a.arrivalTime.slice(0,10) === dateToString(selectedDate) : true).map(a => (
           <Card key={a.id} sx={{ alignItems: 'center', marginTop: 2, flexDirection: 'column' }}>
             <CardContent>
               <Typography variant="h6">

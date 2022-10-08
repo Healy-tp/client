@@ -1,10 +1,10 @@
-import {Box, Container} from '@mui/material';
-import {useState, useEffect, useContext} from 'react';
-import {getDoctors, getAvailabilities, getAllAppointments} from '../../services/appointments';
-import { AppointmentContext } from '../../contexts/AppointmentContext';
+import { Box, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useState, useEffect, useContext } from 'react';
+import { getDoctors, getAvailabilities, getAllAppointments } from '../../services/appointments';
+import { AppointmentContext } from '../../contexts/AppointmentContext';
+import { dateToString } from '../../utils/dateTimeFormatter';
 import Scheduler from '../Scheduler/Scheduler';
-
 
 function SchedulerHomeContainer() {
 
@@ -52,7 +52,7 @@ function SchedulerHomeContainer() {
   const onChangeDate = (date) => {
     const times = [];
     const selectedDate = availabilities.filter(a => a.weekday === date.getDay() && a.Doctor.id === selectedData.doctorId)[0];
-    const dateString = date.toJSON().slice(0, 10);
+    const dateString = dateToString(date);
     const startDt = new Date(`${dateString}T${selectedDate.startHour.slice(0, 5)}:00Z`);
     const endDt = new Date(`${dateString}T${selectedDate.endHour.slice(0, 5)}:00Z`);
     while (startDt < endDt) {

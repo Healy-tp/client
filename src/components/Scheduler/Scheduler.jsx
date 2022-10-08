@@ -1,8 +1,9 @@
-import {Box, Grid, TextField, Autocomplete, Chip, Button, Container} from '@mui/material';
+import { Box, Grid, TextField, Autocomplete, Chip, Button, Container } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import {useState, useEffect, useContext} from 'react';
+import { useContext} from 'react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { AppointmentContext } from '../../contexts/AppointmentContext';
+import { timeToString } from '../../utils/dateTimeFormatter';
 
 const Scheduler = ({
   availableTimes,
@@ -62,7 +63,7 @@ const Scheduler = ({
                   return (
                     <Chip 
                       key={t}
-                      label={t.toJSON().slice(11, 16)} 
+                      label={timeToString(t)} 
                       onClick={() => setSelectedData({ ...selectedData, selectedTime: t })}
                       clickable={true}
                       color="primary" 

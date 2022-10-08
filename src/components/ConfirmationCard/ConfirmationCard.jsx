@@ -1,6 +1,7 @@
 import {  
   Button, Card, CardContent, CardActions, Typography
 } from '@mui/material';
+import { dateToString, timeToString } from '../../utils/dateTimeFormatter';
 
 const ConfirmationCard = ({ doctorName, doctorSpecialty, date, selectedTime, handleCancel, handleSubmit, user }) => (
   <Card sx={{ alignItems: 'center', flexDirection: 'column', width: '500px', borderRadius: '10px', padding: '5px' }}>
@@ -17,9 +18,9 @@ const ConfirmationCard = ({ doctorName, doctorSpecialty, date, selectedTime, han
       }
       <br />
       <Typography variant="body2">
-        Date: {date.toJSON().slice(0, 10)}
+        Date: {dateToString(date)}
         <br />
-        Time: {selectedTime.toJSON().slice(11,16)}hs
+        Time: {timeToString(selectedTime)}hs
       </Typography>
     </CardContent>
 

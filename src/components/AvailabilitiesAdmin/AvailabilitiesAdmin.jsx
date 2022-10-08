@@ -17,7 +17,7 @@ const AvailabilitiesAdmin = () => {
       const sortedData = _.sortBy(response, ['id']);
       setAvailabilities(sortedData);
     } catch (err) {
-      console.log('Error while fetching offices: ', err);
+      console.log('Error while fetching availabilities: ', err);
     } finally {
       setIsLoading(false);
     }

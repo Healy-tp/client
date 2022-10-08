@@ -1,5 +1,9 @@
 import api from './api';
 
+function editAvailability(availabilityData) {
+  return api.put('http://localhost:8081/api/admin/availabilities/edit', availabilityData);
+}
+
 function getAvailabilities() {
   return api.get('http://localhost:8081/api/admin/availabilities');
 }
@@ -37,6 +41,7 @@ export {
   createOffice,
   editOffice,
   getAvailabilities,
+  editAvailability,
   getOffices,
   getAppointments,
   getUsers,
