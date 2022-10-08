@@ -3,7 +3,7 @@ import {
 } from '@mui/material';
 
 
-const DialogAlert = ({open, handleClose, handleAccept}) => {
+const DialogAlert = ({open, handleClose, handleAccept, title, msg}) => {
 
   return (
     <Dialog
@@ -13,12 +13,11 @@ const DialogAlert = ({open, handleClose, handleAccept}) => {
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">
-        {"Start conversation with doctor?"}
+        {title}
       </DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
-          Si aceptas, iniciaras una conversacion con el doctor seleccionado. El chat quedara abierto hasta 
-          X dias luego del turno.
+          {msg}
         </DialogContentText>
       </DialogContent>
       <DialogActions>

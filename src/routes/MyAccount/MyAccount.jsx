@@ -11,6 +11,7 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
+import HomeIcon from '@mui/icons-material/Home';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
 import { useContext, useState } from 'react';
@@ -20,6 +21,7 @@ import MyMessages from './MyMessages';
 import { UserContext } from '../../contexts/UserContext';
 import { useEffect } from 'react';
 import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -32,6 +34,7 @@ function ResponsiveDrawer(props) {
   };
 
   const { currentUser } = useContext(UserContext); 
+  const navigate = useNavigate();
 
   const [selectedMenu, setSelectedMenu] = useState('');
   const [unreadMessages, setUnreadMessages] = useState(0);
@@ -58,7 +61,18 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      <Toolbar />
+      <Toolbar 
+        children={
+          <ListItem key={'Back Home'} disablePadding>
+            <ListItemButton onClick={() => navigate('/')}>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary={'Back Home'} />
+            </ListItemButton>
+          </ListItem>
+        }
+      />
       <Divider />
       <List>
         <ListItem key={'My info'} disablePadding>
@@ -142,7 +156,8 @@ function ResponsiveDrawer(props) {
       </Box>
       {
         selectedMenu === 'my-info' ? <MyInfo /> : 
-        selectedMenu === 'my-appointments' ? <MyAppointments nav={goToMyMessages} /> : 
+        selectedMenu === 'my-appointments' ? <MyAppointments nav={goToMyMessages} /> :
+        selectedMenu === 'my-agenda' ? <MyAppointments nav={goToMyMessages} isDoctor={true} /> : 
         selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange}/> : <>Bienvenido a mi cuenta</>
       }
     </Box>
