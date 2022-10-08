@@ -25,6 +25,7 @@ import './App.css';
 import theme from './theme';
 import Checkout from './routes/Checkout';
 import AdminAppointmentForUser from './routes/AdminAppointmentForUser/AdminAppointmentForUser';
+import EditAppointment from './routes/EditAppointment';
 
 function AuthRoutes() {
   return (
@@ -69,6 +70,12 @@ function AuthRoutes() {
         path="/my-account" 
         element={
           <AuthRoute children={<MyAccount />} />
+        }
+      />
+      <Route 
+        path="/my-account/:id/edit" 
+        element={
+          <AuthRoute children={<EditAppointment />} />
         }
       />
       <Route path="*" element={<ErrorPage />} />

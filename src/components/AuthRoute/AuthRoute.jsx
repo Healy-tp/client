@@ -12,6 +12,8 @@ const AuthRoute = ({ children }) => {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }
 
+  console.log('CU', currentUser);
+
   return children;
 };
 

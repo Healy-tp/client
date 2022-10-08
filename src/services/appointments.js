@@ -4,8 +4,8 @@ function getAppointment(appointmentId) {
   return api.get(`/api/appointments/${appointmentId}`);
 }
 
-function getAppointmentByUserId() {
-  return api.get('http://localhost:8081/api/appointment');
+function getAppointmentByUserId(params = {}) {
+  return api.get('http://localhost:8081/api/appointment', params);
 }
 
 function getDoctors() {
@@ -24,6 +24,15 @@ function newAppointment(payload) {
   return api.post('http://localhost:8081/api/appointment/', payload);
 }
 
+function updateAppointment(apptId, payload) {
+  return api.put(`http://localhost:8081/api/appointment/${apptId}`, payload);
+}
+
+function deleteAppointment(apptId) {
+  return api.delete(`http://localhost:8081/api/appointment/${apptId}`);
+}
+
+
 function startChat(apptId) {
   return api.post(`http://localhost:8081/api/appointment/${apptId}/start-chat`);
 }
@@ -36,4 +45,6 @@ export {
   getAllAppointments,
   newAppointment,
   startChat,
+  updateAppointment,
+  deleteAppointment,
 }
