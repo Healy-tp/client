@@ -77,7 +77,7 @@ const MyInfo = () => {
     >
       <Snackbar
         open={open}
-        onClose={handleCloseSnackbar}
+        handleClose={handleCloseSnackbar}
         message={message}
         type={type}
       />

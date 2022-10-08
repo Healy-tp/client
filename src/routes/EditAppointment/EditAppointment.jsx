@@ -117,10 +117,13 @@ const EditAppointment = () => {
                 })
               }
             </Grid>
-            </Grid>
+          </Grid>
 
+          <Grid>
+            <Button variant="contained" color="error" onClick={()=> navigate('/my-account')}>Go Back</Button>
+          </Grid>
           <Grid item>
-            <Button color="inherit" onClick={handleSubmit}>Change Appointment</Button>
+            <Button variant="contained" color="inherit" onClick={handleSubmit}>Change Appointment</Button>
           </Grid>
         </Grid>
       </Box>

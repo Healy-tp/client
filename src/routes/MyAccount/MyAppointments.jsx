@@ -1,6 +1,6 @@
 
 import {  
-  Button, Card, CardContent, CardActions, Typography, Container, TextField
+  Button, Card, CardContent, CardActions, Typography, Container, TextField, Grid
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -17,6 +17,7 @@ import {
 } from './dialogs';
 import { useContext } from 'react';
 import { UserContext } from '../../contexts/UserContext';
+import WelcomePage from './WelcomePage';
 
 
 const MyAppointments = ({ nav, isDoctor }) => {
@@ -28,7 +29,6 @@ const MyAppointments = ({ nav, isDoctor }) => {
   useEffect(() => {
     const getAppointmentsByUserIdFromApi = async () => {
       const response = await getAppointmentByUserId(isDoctor ? { isDoctor: true } : {});
-      console.log(response);
       setAppointments(response);
     }
     getAppointmentsByUserIdFromApi();
@@ -53,6 +53,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
   const handleClose = () => {
     setApptId(-1);
     setMessageDialogOpen(false);
+    setCancelDialogOpen(false);
   };
 
   const handleMessageAccept = async () => {
@@ -66,32 +67,37 @@ const MyAppointments = ({ nav, isDoctor }) => {
     setApptId(-1);
   }
 
-  // console.log('selected date', selectedDate.toJSON());
-
   return (
     <Container sx={{marginTop: 2}}>
       {
         isDoctor ? (
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Date"
-              value={selectedDate}
-              onChange={(date) => {
-                setSelectedDate(date);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-              sx={{marginTop: 2}}
-              shouldDisableDate={(date) => {
-                const filteredDays = appointments.map(a => new Date(a.arrivalTime).getDay());
-                return !filteredDays.includes(date.getDay());
-              }}
-            />
-          </LocalizationProvider>
+          <Grid container spacing={2} maxWidth={'xs'} justifyContent="center" alignItems='center'>
+            <Grid item>
+              <LocalizationProvider dateAdapter={AdapterDateFns}>
+                <DatePicker
+                  label="Date"
+                  value={selectedDate}
+                  onChange={(date) => {
+                    setSelectedDate(date);
+                  }}
+                  renderInput={(params) => <TextField {...params} />}
+                  sx={{marginTop: 2}}
+                  shouldDisableDate={(date) => {
+                    const filteredDays = appointments.map(a => new Date(a.arrivalTime).getDay());
+                    return !filteredDays.includes(date.getDay());
+                  }}
+                />
+              </LocalizationProvider>
+            </Grid>
+            <Grid item>
+              <Button variant='filled'>Manage Agenda for the day</Button>
+            </Grid>
+          </Grid>
         ) : <></>
       }
       {
-        appointments.filter((a) => a.arrivalTime.slice(0,10) === selectedDate.toJSON().slice(0,10)).map(a => (
-          <Card sx={{ alignItems: 'center', marginTop: 2, flexDirection: 'column' }}>
+        appointments.length > 0 ? appointments.filter(a => isDoctor ? a.arrivalTime.slice(0,10) === selectedDate.toJSON().slice(0,10) : true).map(a => (
+          <Card key={a.id} sx={{ alignItems: 'center', marginTop: 2, flexDirection: 'column' }}>
             <CardContent>
               <Typography variant="h6">
                 {
@@ -114,9 +120,9 @@ const MyAppointments = ({ nav, isDoctor }) => {
             </CardContent>
 
             <CardActions>
-              <Button size="small" onClick={() => handleCancelClickOpen(a.id)}>Cancel</Button>
-              <Button size="small" onClick={() => navigate(`/my-account/${a.id}/edit`, { state: { appt: a }})}>Modify</Button>
-              <Button size="small" onClick={() => handleMessageClickOpen(a.id)}>Message</Button>
+              <Button size="small" variant="contained" onClick={() => handleMessageClickOpen(a.id)}>Message</Button>
+              <Button size="small" variant="contained" onClick={() => navigate(`/my-account/${a.id}/edit`, { state: { appt: a }})}>Modify</Button>
+              <Button size="small" color="error" onClick={() => handleCancelClickOpen(a.id)}>Cancel</Button>
             </CardActions>
             
             <DialogAlert 
@@ -135,7 +141,13 @@ const MyAppointments = ({ nav, isDoctor }) => {
               msg={CANCEL_APPT_DIALOG_MSG}
             />
           </Card>
-        ))
+        )) : (
+          <WelcomePage
+            icon='appts'
+            msg1={"Todavia no tienes turnos"}
+            msg2={"Podes ir al inicio para sacar un turno con el medico que necesites"}
+          />
+        )
       }
     </Container>
     

@@ -2,6 +2,7 @@ import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getConversations } from "../../services/notifications";
 import Conversation from "../../components/Conversation";
+import WelcomePage from "./WelcomePage";
 
 
 const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
@@ -19,9 +20,13 @@ const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
   return (
     <Container>
       {
-        conversations.map(c => (
+        conversations.length > 0 ? conversations.map(c => (
           <Conversation convData={c} isDoctor={isDoctor} markMsgsReadCallback={markMsgsReadCallback}/>
-        ))
+        )) : (
+          <WelcomePage 
+            icon='inbox' 
+            msg1='Todavia no tienes mensajes'
+          />)
       }
     </Container>
   );

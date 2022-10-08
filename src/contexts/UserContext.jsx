@@ -19,14 +19,6 @@ export const UserProvider = ({children}) => {
     window.localStorage.removeItem('HEALY');
     setCurrentUser(null);
   }
-
-  const checkLocalStorage = () => {
-    const data = window.localStorage.getItem('HEALY');
-    if (data !== null) {
-      setCurrentUser(JSON.parse(data));
-    }
-    return data;
-  }
   
   useEffect(() => {
     const data = window.localStorage.getItem('HEALY');
@@ -35,6 +27,6 @@ export const UserProvider = ({children}) => {
     }
   }, []);
 
-  const value = {currentUser, setCurrentUser, signInUser, checkLocalStorage, signOutUser};
+  const value = {currentUser, setCurrentUser, signInUser, signOutUser};
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>
 }

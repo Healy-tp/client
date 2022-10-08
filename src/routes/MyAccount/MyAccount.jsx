@@ -22,6 +22,8 @@ import { UserContext } from '../../contexts/UserContext';
 import { useEffect } from 'react';
 import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
 import { useNavigate } from 'react-router-dom';
+import WelcomePage from './WelcomePage';
+
 
 const drawerWidth = 240;
 
@@ -158,7 +160,12 @@ function ResponsiveDrawer(props) {
         selectedMenu === 'my-info' ? <MyInfo /> : 
         selectedMenu === 'my-appointments' ? <MyAppointments nav={goToMyMessages} /> :
         selectedMenu === 'my-agenda' ? <MyAppointments nav={goToMyMessages} isDoctor={true} /> : 
-        selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange}/> : <>Bienvenido a mi cuenta</>
+        selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange}/> : 
+        <WelcomePage 
+          icon={'person'} 
+          msg1={"Bienvenido a tu cuenta!"} 
+          msg2={"Administra tus turnos, tu informacion y mensajes desde aqui."}
+        />
       }
     </Box>
   );
