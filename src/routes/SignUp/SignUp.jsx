@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import _ from 'lodash';
 
 import { 
   Avatar, 
@@ -66,8 +67,9 @@ const SignUp = () => {
       signInUser(user);
       resetFormFields();
       navigate('/');
-    } catch (error) {
-      setSnackbar({ type: 'error', open: true, message: error.response.data.message });
+    } catch (e) {
+      const errorMsg = _.get(e, 'response.data.errors[0].message', 'Something went wrong');
+      setSnackbar({ type: 'error', open: true, message: errorMsg });
     }
 
   };
@@ -144,7 +146,6 @@ const SignUp = () => {
                 label="Phone Number"
                 type="tel"
                 id="phone-number"
-                // autoComplete="new-password"
               />
             </Grid>
             <Grid item xs={12}>
@@ -168,7 +169,6 @@ const SignUp = () => {
                 type="password"
                 onChange={handleChange}
                 id="confirm-password"
-                // autoComplete="new-password"
               />
             </Grid>
           </Grid>

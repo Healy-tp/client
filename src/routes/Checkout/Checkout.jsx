@@ -1,9 +1,11 @@
 import { useContext, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { newAppointment } from "../../services/appointments";
 import { createAppointmentForUser } from '../../services/admin';
-import { useNavigate } from "react-router-dom";
 import ConfirmationCard from "../../components/ConfirmationCard";
+import Snackbar from '../../components/Snackbar';
 
 
 function Checkout({from}) {
@@ -15,15 +17,19 @@ function Checkout({from}) {
     message: '',
     type: '',
   });
-  const { open, message } = snackbar;
+  const { open, message, type } = snackbar;
 
-  const handleClose = () => {
+  const handleCloseSnackbar = () => {
     setSnackbar({ open: false, message: '' });
+  };
+
+  const handleGoBack = () => {
+    navigate('/');
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       if (from === 'user') {
         await newAppointment({
@@ -51,14 +57,24 @@ function Checkout({from}) {
   }
 
   return (
-    <ConfirmationCard 
-      doctorName={selectedData.doctorName}
-      doctorSpecialty={selectedData.doctorSpecialty}
-      date={selectedData.date}
-      selectedTime={selectedData.selectedTime}
-      user={from === 'admin' ? selectedData.user : undefined}
-      handleSubmit={handleSubmit}
-    />
+    <div style={{ height: '80%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Snackbar
+        open={open}
+        handleClose={handleCloseSnackbar}
+        message={message}
+        type={type}
+      />
+      <ConfirmationCard 
+        doctorName={selectedData.doctorName}
+        doctorSpecialty={selectedData.doctorSpecialty}
+        date={selectedData.date}
+        selectedTime={selectedData.selectedTime}
+        user={from === 'admin' ? selectedData.user : undefined}
+        handleCancel={handleGoBack}
+        handleSubmit={handleSubmit}
+      />
+    </div>
+    
   )
 }
 

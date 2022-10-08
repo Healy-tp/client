@@ -1,5 +1,6 @@
 import { useState, useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import _ from 'lodash';
 
 import {
   Box,
@@ -50,9 +51,9 @@ const Login = () => {
       signInUser(user);
       resetFormFields();
       navigate(from.pathname);
-
-    } catch (error) {
-      setSnackBar({open: true, message: error.response.data.message });
+    } catch (e) {
+      const errorMsg = _.get(e, 'response.data.errors[0].message', 'Something went wrong');
+      setSnackBar({ open: true, message: errorMsg });
     }
   }
 
@@ -79,7 +80,7 @@ const Login = () => {
       <Typography component="h1" variant="h5">
         Sign in
       </Typography>
-      <Box component="form" sx={{mt: 1}} onSubmit={handleSubmit}>
+      <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
         <TextField
           margin="normal"
           required
@@ -108,7 +109,7 @@ const Login = () => {
           type="submit"
           fullWidth
           variant="contained"
-          sx={{ mt: 3, mb: 2 }}
+          sx={{ mt: 3, mb: 3 }}
         >
           Sign In
         </Button>
@@ -120,7 +121,7 @@ const Login = () => {
           </Grid>
           <Grid item>
             <Link href="/sign-up" variant="body2">
-              {"Don't have an account? Sign Up"}
+              Create account
             </Link>
           </Grid>
         </Grid>

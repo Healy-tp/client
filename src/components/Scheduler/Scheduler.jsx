@@ -56,27 +56,27 @@ const Scheduler = ({
             </LocalizationProvider>
           </Grid>
           <Grid container marginTop={5} justifyContent={'center'}>
-            <Grid >
+            <Grid>
               {
                 availableTimes.map(t => {
                   return (
                     <Chip 
                       key={t}
-                      label={t.toJSON().slice(11,16)} 
-                      onClick={() => setSelectedData({...selectedData, selectedTime: t})}
+                      label={t.toJSON().slice(11, 16)} 
+                      onClick={() => setSelectedData({ ...selectedData, selectedTime: t })}
                       clickable={true}
                       color="primary" 
                       disabled={appointments.map((a) => ({doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === selectedData.doctorId).map(a => a.date).includes(t.getTime())}
-                      variant={ t === selectedData.selectedTime ? "filled": "outlined"}
+                      variant={ t === selectedData.selectedTime ? "filled" : "outlined"}
+                      style={{ margin: 4 }}
                     />
                   )
                 })
               }
             </Grid>
-            </Grid>
-
+          </Grid>
           <Grid item>
-            <Button color="inherit" onClick={buttonOnClick}>Take Appointment</Button>
+            <Button variant="contained" color="primary" onClick={buttonOnClick}>Take Appointment</Button>
           </Grid>
         </Grid>
       </Box>

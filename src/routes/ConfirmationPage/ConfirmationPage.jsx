@@ -12,7 +12,6 @@ const defaultFormFields = {
   confirmPassword: ''
 }
 
-
 const ConfirmationPage = () => {
 
   const [formFields, setFormFields] = useState(defaultFormFields);
@@ -115,7 +114,6 @@ const ConfirmationPage = () => {
             type="password"
             onChange={handleChange}
             id="confirm-password"
-            // autoComplete="new-password"
           />
           <Button
             type="submit"

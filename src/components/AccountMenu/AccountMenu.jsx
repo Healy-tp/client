@@ -41,7 +41,9 @@ const AccountMenu = ({ currentUser }) => {
         color="inherit"
       >
         <AccountCircle />
-        {`${currentUser.firstName} ${currentUser.lastName}`}
+        <span style={{ marginLeft: '4px' }}>
+          {`${currentUser.firstName} ${currentUser.lastName}`}
+        </span>
       </IconButton>
       <Menu
         id="menu-appbar"
