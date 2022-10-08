@@ -131,6 +131,7 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
                 onChange={handleChange}
                 name="number"
                 size="small"
+                style={{ width: '70px ' }}
               />
             )
             : number

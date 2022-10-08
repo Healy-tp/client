@@ -2,8 +2,8 @@
 import { useState } from "react";
 import _ from 'lodash';
 import moment from 'moment';
-import { Button, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
-// import { FREQUENCIES } from '../../utils/constants';
+import { Button, Menu, MenuItem, Select, TableCell, TableRow } from "@mui/material";
+import { FREQUENCIES } from '../../utils/constants';
 
 const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
   const defaultEditFields = {
@@ -28,6 +28,11 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setEditFields({ ...editFields, [name]: value })
   };
 
   const handleSaveEdition = async () => {
@@ -64,8 +69,30 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
       <TableCell>{moment().weekday(weekday).format('dddd')}</TableCell>
       <TableCell>{startHour}</TableCell>
       <TableCell>{endHour}</TableCell>
-      {/* Editable */}
-      <TableCell>{frequency}</TableCell>
+      <TableCell>
+        {editMode
+          ? (
+            <Select
+              id="select-frequency"
+              name="frequency"
+              value={editFields.frequency}
+              label="Frequency"
+              onChange={handleChange}
+              style={{ width: '70px' }}
+            >
+              {FREQUENCIES.map((freq) => (
+                <MenuItem
+                  key={freq}
+                  value={freq}
+                >
+                  {freq}
+                </MenuItem>
+              ))}
+            </Select>
+          )
+          : frequency
+        }
+      </TableCell>
       {/* Editable */}
       <TableCell>{validUntil}</TableCell>
       <TableCell>

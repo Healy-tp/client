@@ -16,7 +16,7 @@ export default function OfficesAdmin() {
   const fetchOffices = async () => {
     try {
       setIsLoading(true);
-      const { data } = await getOffices();
+      const data = await getOffices();
       const sortedData = _.sortBy(data, ['id']);
       setOffices(sortedData);
     } catch (err) {
