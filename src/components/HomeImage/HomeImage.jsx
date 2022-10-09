@@ -1,7 +1,7 @@
 import * as React from 'react';
 import HomeImageLayout from './HomeImageLayout';
 import { Button, Typography}  from '@mui/material';
-import doctorsImg from '../../assets/doctors-main.jpg';
+import doctorsImg from '../../assets/doctors-main6.webp';
 
 export default function HomeImage({ onClick} ) {
   return (

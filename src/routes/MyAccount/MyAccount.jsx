@@ -1,3 +1,4 @@
+import { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
@@ -14,12 +15,11 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import HomeIcon from '@mui/icons-material/Home';
 import ListItemText from '@mui/material/ListItemText';
 import Toolbar from '@mui/material/Toolbar';
-import { useContext, useState } from 'react';
+
 import MyInfo from './MyInfo';
 import MyAppointments from './MyAppointments';
 import MyMessages from './MyMessages';
 import { UserContext } from '../../contexts/UserContext';
-import { useEffect } from 'react';
 import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
 import { useNavigate } from 'react-router-dom';
 import WelcomePage from './WelcomePage';

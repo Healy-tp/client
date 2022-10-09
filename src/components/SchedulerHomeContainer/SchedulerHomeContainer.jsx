@@ -5,6 +5,7 @@ import { getDoctors, getAvailabilities, getAllAppointments } from '../../service
 import { AppointmentContext } from '../../contexts/AppointmentContext';
 import { dateToString } from '../../utils/dateTimeFormatter';
 import Scheduler from '../Scheduler/Scheduler';
+import curvyLines from '../../assets/curvyLines.png'
 
 function SchedulerHomeContainer() {
 
@@ -84,7 +85,7 @@ function SchedulerHomeContainer() {
       <Container sx={{ mt: 15, mb: 30, display: 'flex', position: 'relative' }}>
         <Box
           component="img"
-          src="/src/assets/background.png"
+          src={curvyLines}
           alt="curvy lines"
           sx={{ pointerEvents: 'none', position: 'absolute', top: -180 }}
         />
