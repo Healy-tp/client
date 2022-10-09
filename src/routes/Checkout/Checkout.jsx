@@ -51,8 +51,8 @@ function Checkout({from}) {
         navigate('/admin');
       }
     } catch (error) {
-      // console.log(error);
-      setSnackbar({ type: 'error', open: true, message: error.response.data.message });
+      console.log(error);
+      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
     }
   }
 

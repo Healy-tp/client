@@ -6,7 +6,6 @@ import { UserContext } from '../../contexts/UserContext';
 
 const parseJwt = (token) => {
   try {
-    console.log('esto', atob(token.split(".")[1]));
     return JSON.parse(atob(token.split(".")[1]));
   } catch (e) {
     return null;
@@ -17,7 +16,7 @@ const parseJwt = (token) => {
 const AuthRoute = ({ children }) => {
   const { currentUser, signOutUser } = useContext(UserContext);
   const location = useLocation();
-  
+
   if (!currentUser) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   } else {

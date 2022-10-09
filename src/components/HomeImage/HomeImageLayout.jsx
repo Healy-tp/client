@@ -4,6 +4,8 @@ import { styled } from '@mui/material/styles';
 
 import Container from '@mui/material/Container';
 import Box from '@mui/material/Box';
+import arrowDown from '../../assets/arrowDown.png';
+import wonder from '../../assets/wonder.png';
 
 const HomeImageLayoutRoot = styled('section')(({ theme }) => ({
   color: theme.palette.common.white,
@@ -43,7 +45,7 @@ function HomeImageLayout(props) {
         }}
       >
         <img
-          src="/static/themes/onepirate/productHeroWonder.png"
+          src={wonder}
           alt="wonder"
           width="147"
           height="80"
@@ -64,7 +66,7 @@ function HomeImageLayout(props) {
         <Background sx={sxBackground} />
         <Box
           component="img"
-          src="/static/themes/onepirate/productHeroArrowDown.png"
+          src={arrowDown}
           height="16"
           width="12"
           alt="arrow down"
