@@ -6,7 +6,6 @@ import { useState } from 'react';
 
 
 const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) => {
-
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleMenu = (event) => {

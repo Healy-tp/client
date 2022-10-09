@@ -1,5 +1,8 @@
 import { useContext, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import _ from 'lodash';
+
 import Box from '@mui/material/Box';
 import Badge from '@mui/material/Badge';
 import Divider from '@mui/material/Divider';
@@ -19,13 +22,19 @@ import Toolbar from '@mui/material/Toolbar';
 import MyInfo from './MyInfo';
 import MyAppointments from './MyAppointments';
 import MyMessages from './MyMessages';
+import WelcomePage from './WelcomePage';
 import { UserContext } from '../../contexts/UserContext';
 import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
-import { useNavigate } from 'react-router-dom';
-import WelcomePage from './WelcomePage';
-
 
 const drawerWidth = 240;
+const itemIconStyle = { minWidth: '20px', marginRight: '5px' };
+
+const MENU_OPTIONS = {
+  MY_INFO: 'my-info',
+  MY_APPOINTMENTS: 'my-appointments',
+  MY_MESSAGES: 'my-messages',
+  MY_AGENDA: 'my-agenda',
+};
 
 function ResponsiveDrawer(props) {
   const { window } = props;
@@ -42,7 +51,7 @@ function ResponsiveDrawer(props) {
   const [unreadMessages, setUnreadMessages] = useState(0);
 
   const goToMyMessages = () => {
-    setSelectedMenu('my-messages');
+    setSelectedMenu(MENU_OPTIONS.MY_MESSAGES);
   }
 
   useEffect(() => {
@@ -63,14 +72,15 @@ function ResponsiveDrawer(props) {
 
   const drawer = (
     <div>
-      <Toolbar 
+      <Toolbar
+        disableGutters
         children={
           <ListItem key={'Back Home'} disablePadding>
             <ListItemButton onClick={() => navigate('/')}>
-              <ListItemIcon>
+              <ListItemIcon style={itemIconStyle}>
                 <HomeIcon />
               </ListItemIcon>
-              <ListItemText primary={'Back Home'} />
+              <ListItemText primary={'Home'} />
             </ListItemButton>
           </ListItem>
         }
@@ -78,8 +88,8 @@ function ResponsiveDrawer(props) {
       <Divider />
       <List>
         <ListItem key={'My info'} disablePadding>
-          <ListItemButton onClick={() => setSelectedMenu('my-info')}>
-            <ListItemIcon>
+          <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_INFO)}>
+            <ListItemIcon style={itemIconStyle}>
               <PersonIcon />
             </ListItemIcon>
             <ListItemText primary={'My info'} />
@@ -88,8 +98,8 @@ function ResponsiveDrawer(props) {
         {
           currentUser.isDoctor ? (
             <ListItem key={'My agenda'} disablePadding>
-              <ListItemButton onClick={() => setSelectedMenu('my-agenda')}>
-                <ListItemIcon>
+              <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AGENDA)}>
+                <ListItemIcon style={itemIconStyle}>
                   <CalendarMonthIcon />
                 </ListItemIcon>
                 <ListItemText primary={'My Agenda'} />
@@ -97,8 +107,8 @@ function ResponsiveDrawer(props) {
             </ListItem>
           ) : (
             <ListItem key={'My appointments'} disablePadding>
-              <ListItemButton onClick={() => setSelectedMenu('my-appointments')}>
-                <ListItemIcon>
+              <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_APPOINTMENTS)}>
+                <ListItemIcon style={itemIconStyle}>
                   <AccessTimeIcon />
                 </ListItemIcon>
                 <ListItemText primary={'My appointments'} />
@@ -107,8 +117,8 @@ function ResponsiveDrawer(props) {
           )
         }
         <ListItem key={'Messages'} disablePadding>
-        <ListItemButton onClick={goToMyMessages}>
-            <ListItemIcon>
+        <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_MESSAGES)}>
+            <ListItemIcon style={itemIconStyle}>
               <Badge color="primary" badgeContent={unreadMessages}>
                 <MailIcon />
               </Badge>
@@ -129,14 +139,13 @@ function ResponsiveDrawer(props) {
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
         aria-label="mailbox folders"
       >
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
           ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
+            keepMounted: true,
           }}
           sx={{
             display: { xs: 'block', sm: 'none' },
@@ -156,37 +165,25 @@ function ResponsiveDrawer(props) {
           {drawer}
         </Drawer>
       </Box>
-      {
-        selectedMenu === 'my-info' ? <MyInfo /> : 
-        selectedMenu === 'my-appointments' ? <MyAppointments nav={goToMyMessages} /> :
-        selectedMenu === 'my-agenda' ? <MyAppointments nav={goToMyMessages} isDoctor={true} /> : 
-        selectedMenu === 'my-messages' ? <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange}/> : 
+      {selectedMenu === MENU_OPTIONS.MY_INFO && <MyInfo />}
+      {selectedMenu === MENU_OPTIONS.MY_APPOINTMENTS && <MyAppointments nav={goToMyMessages} />}
+      {selectedMenu === MENU_OPTIONS.MY_AGENDA && <MyAppointments nav={goToMyMessages} isDoctor={true} />}
+      {selectedMenu === MENU_OPTIONS.MY_MESSAGES && <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange} />}
+      {_.isEmpty(selectedMenu) && (
         <WelcomePage 
           icon={'person'} 
-          msg1={"Bienvenido a tu cuenta!"} 
-          msg2={"Administra tus turnos, tu informacion y mensajes desde aqui."}
+          title={"Bienvenido a tu cuenta!"} 
+          subtitle={"Administra tus turnos, tu informacion y mensajes desde aqui."}
         />
-      }
+      )}
     </Box>
   );
 }
 
 ResponsiveDrawer.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
   window: PropTypes.func,
 };
 
-// export default ResponsiveDrawer;
-
-
-const MyAccount = () => {
-
-  return (
-    <ResponsiveDrawer />
-  )
-}
+const MyAccount = () => <ResponsiveDrawer />;
 
 export default MyAccount;

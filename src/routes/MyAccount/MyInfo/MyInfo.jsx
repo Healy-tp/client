@@ -1,7 +1,7 @@
 import Fab from '@mui/material/Fab';
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
-import Snackbar from '../../components/Snackbar';
+import Snackbar from '../../../components/Snackbar';
 import Box from '@mui/material/Box';
 
 import { useState } from 'react';
@@ -11,8 +11,8 @@ import {
   Grid,
 } from '@mui/material';
 import { useContext } from 'react';
-import { UserContext } from '../../contexts/UserContext';
-import { updateUser } from '../../services/users';
+import { UserContext } from '../../../contexts/UserContext';
+import { updateUser } from '../../../services/users';
 
 const drawerWidth = 240;
 

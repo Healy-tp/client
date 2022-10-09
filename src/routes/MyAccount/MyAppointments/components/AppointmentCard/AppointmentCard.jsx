@@ -1,26 +1,22 @@
 import {  
-  Button, Card, CardContent, CardActions, Typography, Container, TextField, Grid
+  Button, Card, CardContent, CardActions, Typography
 } from '@mui/material';
 
-import { useEffect, useState, useContext } from 'react';
+import { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
-import DialogAlert from '../../components/Dialog';
-import { deleteAppointment, getAppointmentByUserId, startChat } from '../../services/appointments';
-import { dateToString } from '../../utils/dateTimeFormatter';
+import DialogAlert from '../../../../../components/Dialog';
+import { deleteAppointment, startChat } from '../../../../../services/appointments';
 import {
   START_CHAT_DIALOG_MSG, 
   START_CHAT_DIALOG_TITLE, 
   CANCEL_APPT_DIALOG_MSG, 
   CANCEL_APPT_DIALOG_TITLE
 } from './dialogs';
-import { UserContext } from '../../contexts/UserContext';
+import { UserContext } from '../../../../../contexts/UserContext';
 
 
 const AppointmentCard = ({ appt, nav }) => {
-
   const currentUser = useContext(UserContext);
   const isDoctor = currentUser.isDoctor;
   const navigate = useNavigate();

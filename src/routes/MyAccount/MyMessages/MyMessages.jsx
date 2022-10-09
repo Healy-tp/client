@@ -1,8 +1,8 @@
 import { Container } from "@mui/material";
 import { useEffect, useState } from "react";
-import { getConversations } from "../../services/notifications";
-import Conversation from "../../components/Conversation";
-import WelcomePage from "./WelcomePage";
+import { getConversations } from "../../../services/notifications";
+import Conversation from "../../../components/Conversation";
+import WelcomePage from "../WelcomePage";
 
 
 const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
@@ -25,7 +25,7 @@ const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
         )) : (
           <WelcomePage 
             icon='inbox' 
-            msg1='Todavia no tienes mensajes'
+            title='Todavia no tienes mensajes'
           />)
       }
     </Container>

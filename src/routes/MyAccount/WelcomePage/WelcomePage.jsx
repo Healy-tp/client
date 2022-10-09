@@ -8,7 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import InboxIcon from '@mui/icons-material/Inbox';
 import AccessTimeFilledIcon from '@mui/icons-material/AccessTimeFilled';
 
-const WelcomePage = ({icon, msg1, msg2}) => {
+const WelcomePage = ({ icon, title, subtitle }) => {
   return (
     <Container>
       <Box
@@ -25,9 +25,8 @@ const WelcomePage = ({icon, msg1, msg2}) => {
           icon === 'inbox' ? <InboxIcon color="primary" sx={{fontSize: 200, marginTop: '100px', marginBottom: '18px'}} /> :
           icon === 'appts' ? <AccessTimeFilledIcon color="primary" sx={{fontSize: 200, marginTop: '100px', marginBottom: '18px'}} /> : <></>
         }
-        
-        <Typography variant="h2">{msg1}</Typography>
-        <Typography variant="h5">{msg2}</Typography>
+        <Typography variant="h2">{title}</Typography>
+        <Typography variant="h5">{subtitle}</Typography>
       </Box>
     </Container>
   );

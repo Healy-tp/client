@@ -1,14 +1,11 @@
 import { useEffect, useState } from 'react';
-
 import { Container } from '@mui/material';
 
-
-import { getAppointmentByUserId } from '../../services/appointments';
-import { dateToString } from '../../utils/dateTimeFormatter';
-import WelcomePage from './WelcomePage';
-import AppointmentCard from './AppointmentCard';
-import AppointmentsDoctorMenu from './AppointmentsDoctorMenu';
-
+import { getAppointmentByUserId } from '../../../services/appointments';
+import { dateToString } from '../../../utils/dateTimeFormatter';
+import WelcomePage from '../WelcomePage';
+import AppointmentCard from './components/AppointmentCard';
+import AppointmentsDoctorMenu from './components/AppointmentsDoctor';
 
 const MyAppointments = ({ nav, isDoctor }) => {
 
@@ -46,8 +43,8 @@ const MyAppointments = ({ nav, isDoctor }) => {
         )) : (
           <WelcomePage
             icon='appts'
-            msg1={"Todavia no tienes turnos"}
-            msg2={"Podes ir al inicio para sacar un turno con el medico que necesites"}
+            title={"Todavia no tienes turnos"}
+            subtitle={"Podes ir al inicio para sacar un turno con el medico que necesites"}
           />
         )
       }
