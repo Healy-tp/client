@@ -115,22 +115,22 @@ const MyInfo = () => {
             style={{ width: `${fieldsWidth}px` }}
           />
         </Grid>
+        <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '24px' }}>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            disabled={isLoading || !editMode || _.isEqual(formFields, defaultFormFields) || !validateEmail(formFields.email) || !validatePhone(formFields.phoneNumber)}
+            sx={{ mt: 3, mb: 2 }}
+            style={{ width: `${fieldsWidth}px`, borderRadius: '5px' }}
+            loading={isLoading}
+          >
+            Update
+          </LoadingButton>
+          <Fab color="primary" aria-label="edit" onClick={() => setEditMode(!editMode)}>
+            {editMode ? <CancelIcon /> : <EditIcon />}
+          </Fab>
+        </div>
       </Grid>
-      <div style={{ display: 'flex', flexDirection: 'column'}}>
-        <LoadingButton
-          type="submit"
-          variant="contained"
-          disabled={isLoading || !editMode || _.isEqual(formFields, defaultFormFields) || !validateEmail(formFields.email) || !validatePhone(formFields.phoneNumber)}
-          sx={{ mt: 3, mb: 2 }}
-          style={{ width: `${fieldsWidth}px`, borderRadius: '5px' }}
-          loading={isLoading}
-        >
-          Update
-        </LoadingButton>
-        <Fab color="primary" aria-label="edit" onClick={() => setEditMode(!editMode)}>
-          {editMode ? <CancelIcon /> : <EditIcon />}
-        </Fab>
-      </div>
     </Box>
   )
 }

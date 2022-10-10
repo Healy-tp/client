@@ -14,39 +14,45 @@ const MyAppointments = ({ nav, isDoctor }) => {
 
   useEffect(() => {
     const getAppointmentsByUserIdFromApi = async () => {
-      const response = await getAppointmentByUserId(isDoctor ? { isDoctor: true } : {});
+      const params = isDoctor ? { isDoctor: true } : {};
+      const response = await getAppointmentByUserId(params);
       console.log(response);
       setAppointments(response);
     }
     getAppointmentsByUserIdFromApi();
-  }, []);
+  }, [isDoctor]);
 
   const handleDatePickerChange = (date) => {setSelectedDate(date)};
   
   return (
-    <Container sx={{marginTop: 2}}>
+    <Container style={{ margin: 0 }}>
       {
-        isDoctor ? (
+        isDoctor && (
           <AppointmentsDoctorMenu
             appointments={appointments}
             selectedDate={selectedDate}
             handleChange={handleDatePickerChange}
           />
-        ) : <></>
+        )
       }
       {
-        appointments.length > 0 ? appointments.filter(a => isDoctor ? a.arrivalTime.slice(0,10) === dateToString(selectedDate) : true).map(a => (
-          <AppointmentCard 
-            appt={a}
-            nav={nav}
-          />
-        )) : (
-          <WelcomePage
-            icon='appts'
-            title={"Todavia no tienes turnos"}
-            subtitle={"Podes ir al inicio para sacar un turno con el medico que necesites"}
-          />
-        )
+        appointments.length > 0 
+          ? appointments
+            .filter(a => isDoctor ? a.arrivalTime.slice(0,10) === dateToString(selectedDate) : true)
+            .map(a => (
+              <AppointmentCard 
+                appt={a}
+                nav={nav}
+              />
+            )
+          ) 
+          : (
+            <WelcomePage
+              icon='appts'
+              title={"Todavia no tienes turnos"}
+              subtitle={"Podes ir al inicio para sacar un turno con el medico que necesites"}
+            />
+          )
       }
     </Container>
     
