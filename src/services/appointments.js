@@ -13,7 +13,11 @@ function getDoctors() {
 }
 
 function getAvailabilities() {
-  return api.get('http://localhost:8081/api/availability');
+  return api.get('http://localhost:8081/api/availability/all');
+}
+
+function getAvailabilitiesByDoctorId() {
+  return api.get('http://localhost:8081/api/availability/');
 }
 
 function getAllAppointments() {
@@ -46,6 +50,7 @@ export {
   getAppointmentByUserId,
   getDoctors,
   getAvailabilities,
+  getAvailabilitiesByDoctorId,
   getAllAppointments,
   createAvailability,
   newAppointment,

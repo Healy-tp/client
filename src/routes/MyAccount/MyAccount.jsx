@@ -11,6 +11,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import MailIcon from '@mui/icons-material/Mail';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import EventNoteIcon from '@mui/icons-material/EventNote';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -112,7 +113,7 @@ function ResponsiveDrawer(props) {
               <ListItem key={'My Availabilities'} disablePadding>
                 <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AVAILABILITIES)}>
                   <ListItemIcon style={itemIconStyle}>
-                    <CalendarMonthIcon />
+                    <EventNoteIcon />
                   </ListItemIcon>
                   <ListItemText primary={'My Availabilities'} />
                 </ListItemButton>
