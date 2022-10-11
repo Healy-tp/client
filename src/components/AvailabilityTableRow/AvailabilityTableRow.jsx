@@ -45,7 +45,7 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
   };
 
   const handleSaveEdition = async () => {
-    const originalFields = _.pick(availability, ['frequency']);
+    const originalFields = _.pick(availability, ['frequency', 'validUntil']);
     if (!_.isEqual(editFields, originalFields)) {
       try {
         await editAvailability({ id, ...editFields });

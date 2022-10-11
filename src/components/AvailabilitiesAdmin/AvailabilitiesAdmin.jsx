@@ -33,7 +33,8 @@ const AvailabilitiesAdmin = () => {
       rows={availabilities} 
       kind={'availability'} 
       updateRows={fetchAvailabilities}
-      isLoading={isLoading}/>
+      isLoading={isLoading}
+    />
   );
 }
 

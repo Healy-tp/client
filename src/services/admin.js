@@ -4,6 +4,10 @@ function editAvailability(availabilityData) {
   return api.put('http://localhost:8081/api/admin/availabilities/edit', availabilityData);
 }
 
+function editAppointment(apptData) {
+  return api.put('http://localhost:8081/api/admin/appointment/edit', apptData);
+}
+
 function getAvailabilities() {
   return api.get('http://localhost:8081/api/admin/availabilities');
 }
@@ -44,6 +48,7 @@ export {
   editAvailability,
   getOffices,
   getAppointments,
+  editAppointment,
   getUsers,
   createAppointmentForUser,
 }

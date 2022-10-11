@@ -37,6 +37,15 @@ const DAY_LABELS = {
 
 const TIMES = [8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
+// IMPORTANT: This values should match with @appointments/utils/constants.js file
+const APPOINTMENT_STATUS = {
+  CREATED: 'created',
+  TO_CONFIRM: 'to_confirm',
+  CANCELLED: 'cancelled',
+  ATTENDED: 'attended',
+};
+
+
 module.exports = {
   SPECIALTIES,
   FREQUENCIES,
@@ -44,4 +53,5 @@ module.exports = {
   DAYS,
   DAY_LABELS,
   TIMES,
+  APPOINTMENT_STATUS,
 };
