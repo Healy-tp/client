@@ -40,7 +40,6 @@ function deleteAppointment(apptId) {
   return api.delete(`http://localhost:8081/api/appointment/${apptId}`);
 }
 
-
 function startChat(apptId) {
   return api.post(`http://localhost:8081/api/appointment/${apptId}/start-chat`);
 }

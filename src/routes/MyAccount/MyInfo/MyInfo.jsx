@@ -1,27 +1,26 @@
-import Fab from '@mui/material/Fab';
+import _ from 'lodash';
+import { useContext, useState } from 'react';
+
 import EditIcon from '@mui/icons-material/Edit';
 import CancelIcon from '@mui/icons-material/Cancel';
-import Snackbar from '../../../components/Snackbar';
-import Box from '@mui/material/Box';
+import { Box, Fab, Grid, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
-import { useState } from 'react';
-import { 
-  Button, 
-  TextField, 
-  Grid,
-} from '@mui/material';
-import { useContext } from 'react';
+import Snackbar from '../../../components/Snackbar';
 import { UserContext } from '../../../contexts/UserContext';
 import { updateUser } from '../../../services/users';
+import { validateEmail, validatePhone } from '../../../utils/validators';
 
 const drawerWidth = 240;
+const fieldsWidth = 500;
 
 const MyInfo = () => {
-
   const {currentUser, signInUser} = useContext(UserContext);
-  const [formFields, setFormFields] = useState({});
+  const defaultFormFields = _.pick(currentUser, ['id', 'firstName', 'lastName', 'phoneNumber', 'email']);
 
-  const [disabled, setDisabled] = useState(true);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const [editMode, setEditMode] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -35,40 +34,25 @@ const MyInfo = () => {
   });
   const { open, message, type } = snackbar;
 
-  const resetFormFields = () => {
-    setFormFields({});
-  }
-
   const handleCloseSnackbar = () => {
     setSnackbar({ open: false, message: '' });
   };
-
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (formFields.password !== formFields.confirmPassword) {
-      setSnackbar({ type: 'error', open: true, message: 'Passwords do not match' });
-      return;
-    }
     try {
-      const payload = {};
-      Object.keys(formFields).map(key => {
-        if (formFields[key] !== undefined) {
-          payload[key] = formFields[key];
-        }
-      });
-
-      const user = await updateUser(payload);
-
-      setSnackbar({ type: 'success', open: true, message: 'Successfully updated' });
+      setIsLoading(true);
+      const user = await updateUser(formFields);
       signInUser(user);
-      setDisabled(true);
-      resetFormFields();
+      setSnackbar({ type: 'success', open: true, message: 'Successfully updated' });
     } catch (error) {
-      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
+      setSnackbar({ type: 'error', open: true, message: error?.response?.data?.errors[0]?.message || error.message });
+    } finally {
+      setEditMode(false);
+      setIsLoading(false);
     }
-
   };
-
+  
   return (
     <Box
       component="form"
@@ -81,98 +65,72 @@ const MyInfo = () => {
         message={message}
         type={type}
       />
-      <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              autoComplete="given-name"
-              name="firstName"
-              fullWidth
-              disabled={disabled}
-              required
-              defaultValue={`${currentUser.firstName}`}
-              id="firstName"
-              label="First Name"
-              onChange={handleChange}
-              autoFocus
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              fullWidth
-              disabled={disabled}
-              required
-              defaultValue={currentUser.lastName}
-              id="lastName"
-              label="Last Name"
-              name="lastName"
-              onChange={handleChange}
-              autoComplete="family-name"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              disabled={disabled}
-              required
-              defaultValue={currentUser.email}
-              id="email"
-              label="Email Address"
-              name="email"
-              onChange={handleChange}
-              autoComplete="email"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              disabled={disabled}
-              required
-              name="phoneNumber"
-              defaultValue={currentUser.phoneNumber}
-              onChange={handleChange}
-              label="Phone Number"
-              type="tel"
-              id="phone-number"
-              // autoComplete="new-password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              disabled={disabled}
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              onChange={handleChange}
-              autoComplete="new-password"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              fullWidth
-              disabled={disabled}
-              name="confirmPassword"
-              label="Confirm Password"
-              type="password"
-              onChange={handleChange}
-              id="confirm-password"
-              // autoComplete="new-password"
-            />
-          </Grid>
+      <Grid container spacing={3} direction="column">
+        <Grid item>
+          <TextField
+            name="firstName"
+            disabled={!editMode}
+            required
+            defaultValue={`${currentUser.firstName}`}
+            label="First Name"
+            onChange={handleChange}
+            autoFocus
+            style={{ width: `${fieldsWidth}px` }}
+          />
         </Grid>
-        <Button
-          type="submit"
-          fullWidth
-          variant="contained"
-          disabled={disabled}
-          sx={{ mt: 3, mb: 2 }}
-        >
-          Update
-        </Button>
-        <Fab color="primary" aria-label="edit" onClick={() => setDisabled(!disabled)}>
-          {disabled ? <EditIcon /> : <CancelIcon />}
-        </Fab>
+        <Grid item xs={6}>
+          <TextField
+            disabled={!editMode}
+            required
+            defaultValue={currentUser.lastName}
+            label="Last Name"
+            name="lastName"
+            onChange={handleChange}
+            style={{ width: `${fieldsWidth}px` }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            error={!validateEmail(formFields.email)}
+            disabled={!editMode}
+            required
+            defaultValue={currentUser.email}
+            label="Email Address"
+            name="email"
+            onChange={handleChange}
+            autoComplete="email"
+            style={{ width: `${fieldsWidth}px` }}
+          />
+        </Grid>
+        <Grid item xs={6}>
+          <TextField
+            error={!validatePhone(formFields.phoneNumber)}
+            disabled={!editMode}
+            required
+            name="phoneNumber"
+            defaultValue={currentUser.phoneNumber}
+            onChange={handleChange}
+            label="Phone Number"
+            type="tel"
+            style={{ width: `${fieldsWidth}px` }}
+          />
+        </Grid>
+        <div style={{ display: 'flex', flexDirection: 'column', paddingLeft: '24px' }}>
+          <LoadingButton
+            type="submit"
+            variant="contained"
+            disabled={isLoading || !editMode || _.isEqual(formFields, defaultFormFields) || !validateEmail(formFields.email) || !validatePhone(formFields.phoneNumber)}
+            sx={{ mt: 3, mb: 2 }}
+            style={{ width: `${fieldsWidth}px`, borderRadius: '5px' }}
+            loading={isLoading}
+          >
+            Update
+          </LoadingButton>
+          <Fab color="primary" aria-label="edit" onClick={() => setEditMode(!editMode)}>
+            {editMode ? <CancelIcon /> : <EditIcon />}
+          </Fab>
+        </div>
+      </Grid>
     </Box>
   )
 }

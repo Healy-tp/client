@@ -96,7 +96,7 @@ function SchedulerHomeContainer() {
           buttonOnClick={goToAppointmentCheckout}
           datePickerOnChange={onChangeDate}
           autoCompleteOnChange={autoCompleteOnChange}
-          autoCompleteFields={{label: 'Doctor', options: doctors}}
+          autoCompleteFields={{ label: 'Doctor', options: doctors }}
         />
       </Container>
     </Box>
