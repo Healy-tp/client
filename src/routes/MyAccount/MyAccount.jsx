@@ -22,6 +22,8 @@ import Toolbar from '@mui/material/Toolbar';
 import MyInfo from './MyInfo';
 import MyAppointments from './MyAppointments';
 import MyMessages from './MyMessages';
+import MyAvailabilities from './MyAvailabilities';
+
 import WelcomePage from './WelcomePage';
 import { UserContext } from '../../contexts/UserContext';
 import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
@@ -32,6 +34,7 @@ const itemIconStyle = { minWidth: '20px', marginRight: '5px' };
 const MENU_OPTIONS = {
   MY_INFO: 'my-info',
   MY_APPOINTMENTS: 'my-appointments',
+  MY_AVAILABILITIES: 'my-availabilities',
   MY_MESSAGES: 'my-messages',
   MY_AGENDA: 'my-agenda',
 };
@@ -97,14 +100,24 @@ function ResponsiveDrawer(props) {
         </ListItem>
         {
           currentUser.isDoctor ? (
-            <ListItem key={'My agenda'} disablePadding>
-              <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AGENDA)}>
-                <ListItemIcon style={itemIconStyle}>
-                  <CalendarMonthIcon />
-                </ListItemIcon>
-                <ListItemText primary={'My Agenda'} />
-              </ListItemButton>
-            </ListItem>
+            <>
+              <ListItem key={'My agenda'} disablePadding>
+                <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AGENDA)}>
+                  <ListItemIcon style={itemIconStyle}>
+                    <CalendarMonthIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'My Agenda'} />
+                </ListItemButton>
+              </ListItem>
+              <ListItem key={'My Availabilities'} disablePadding>
+                <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AVAILABILITIES)}>
+                  <ListItemIcon style={itemIconStyle}>
+                    <CalendarMonthIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={'My Availabilities'} />
+                </ListItemButton>
+              </ListItem>
+            </>
           ) : (
             <ListItem key={'My appointments'} disablePadding>
               <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_APPOINTMENTS)}>
@@ -168,6 +181,7 @@ function ResponsiveDrawer(props) {
       {selectedMenu === MENU_OPTIONS.MY_INFO && <MyInfo />}
       {selectedMenu === MENU_OPTIONS.MY_APPOINTMENTS && <MyAppointments nav={goToMyMessages} />}
       {selectedMenu === MENU_OPTIONS.MY_AGENDA && <MyAppointments nav={goToMyMessages} isDoctor={true} />}
+      {selectedMenu === MENU_OPTIONS.MY_AVAILABILITIES && <MyAvailabilities />}
       {selectedMenu === MENU_OPTIONS.MY_MESSAGES && <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange} />}
       {_.isEmpty(selectedMenu) && (
         <WelcomePage 

@@ -20,6 +20,10 @@ function getAllAppointments() {
   return api.get('http://localhost:8081/api/appointment/all');
 }
 
+function createAvailability(payload) {
+  return api.post('http://localhost:8081/api/availability/', payload);
+}
+
 function newAppointment(payload) {
   return api.post('http://localhost:8081/api/appointment/', payload);
 }
@@ -43,6 +47,7 @@ export {
   getDoctors,
   getAvailabilities,
   getAllAppointments,
+  createAvailability,
   newAppointment,
   startChat,
   updateAppointment,
