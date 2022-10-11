@@ -13,11 +13,19 @@ function getDoctors() {
 }
 
 function getAvailabilities() {
-  return api.get('http://localhost:8081/api/availability');
+  return api.get('http://localhost:8081/api/availability/all');
+}
+
+function getAvailabilitiesByDoctorId() {
+  return api.get('http://localhost:8081/api/availability/');
 }
 
 function getAllAppointments() {
   return api.get('http://localhost:8081/api/appointment/all');
+}
+
+function createAvailability(payload) {
+  return api.post('http://localhost:8081/api/availability/', payload);
 }
 
 function newAppointment(payload) {
@@ -41,7 +49,9 @@ export {
   getAppointmentByUserId,
   getDoctors,
   getAvailabilities,
+  getAvailabilitiesByDoctorId,
   getAllAppointments,
+  createAvailability,
   newAppointment,
   startChat,
   updateAppointment,
