@@ -10,7 +10,7 @@ import { dateToString, timeToString } from '../../utils/dateTimeFormatter';
 
 function Checkout({from}) {
 
-  const {selectedData} = useContext(AppointmentContext);
+  const {selectedData, setDefaultValues} = useContext(AppointmentContext);
   const navigate = useNavigate();
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -38,6 +38,7 @@ function Checkout({from}) {
           officeId: selectedData.selectedOffice,
         });
         setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
+        setDefaultValues();
         navigate('/');
       } else {
         await createAppointmentForUser({
@@ -45,8 +46,9 @@ function Checkout({from}) {
           doctorId: selectedData.doctorId,
           officeId: selectedData.selectedOffice,
           userId: selectedData.user.id,
+          isExtraAppt: selectedData.extraAppt,
         });
-        
+        setDefaultValues();
         setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
         navigate('/admin');
       }

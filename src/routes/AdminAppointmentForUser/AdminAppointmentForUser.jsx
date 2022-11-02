@@ -41,7 +41,6 @@ const AdminAppointmentForUser = () => {
 
   const goToAppointmentCheckout = () => {
     if (!allSelectedData()) {
-
       return;
     }
     navigate('/admin/appointment-for-user/create')
@@ -74,6 +73,11 @@ const AdminAppointmentForUser = () => {
     });
   }
 
+  const handleCheckboxChange = (event) => {
+    console.log('checkbox', event.target.checked);
+    setSelectedData({...selectedData, extraAppt: event.target.checked});
+  }
+
   return (
     <Scheduler 
       availableTimes={availableTimes}
@@ -83,6 +87,8 @@ const AdminAppointmentForUser = () => {
       datePickerOnChange={onChangeDate}
       autoCompleteOnChange={autoCompleteOnChange}
       autoCompleteFields={{label: 'User', options: users}}
+      isAdmin={true}
+      handleCheckboxChange={handleCheckboxChange}
     />
   )
 }
