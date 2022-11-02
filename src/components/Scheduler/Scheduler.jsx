@@ -1,4 +1,4 @@
-import { Box, Grid, TextField, Autocomplete, Chip, Button, Container } from '@mui/material';
+import { Box, Grid, TextField, Autocomplete, Chip, Button, Container, Checkbox, FormGroup, FormControlLabel } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { useContext} from 'react';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -13,6 +13,8 @@ const Scheduler = ({
   autoCompleteOnChange,
   datePickerOnChange,
   buttonOnClick,
+  isAdmin,
+  handleCheckboxChange,
 }) => {
 
   const {selectedData, setSelectedData} = useContext(AppointmentContext);
@@ -79,6 +81,17 @@ const Scheduler = ({
           <Grid item>
             <Button variant="contained" color="primary" onClick={buttonOnClick}>Take Appointment</Button>
           </Grid>
+          {
+            isAdmin ? (
+              <Grid item>
+                <FormGroup>
+                  <FormControlLabel control={
+                    <Checkbox onChange={handleCheckboxChange}/>
+                  } label="Sobreturno" />
+                </FormGroup>
+              </Grid>
+            ) : <></>
+          }
         </Grid>
       </Box>
     </Container>
