@@ -1,8 +1,21 @@
-import { Container, Accordion, AccordionSummary, 
-  AccordionDetails, Typography, Card, CardContent, TextField, Box, Button } from "@mui/material";
-  import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { 
+  Accordion, 
+  AccordionSummary, 
+  AccordionDetails, 
+  Typography, 
+  Card, 
+  CardContent, 
+  TextField, 
+  Box, 
+  Button, 
+  CardActions,
+  Link,
+} from "@mui/material";
+import SendIcon from '@mui/icons-material/Send';
+import AttachFileIcon from '@mui/icons-material/AttachFile';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useEffect } from "react";
-import { getMessages, newMessage } from "../../services/notifications";
+import { getAttachment, getMessages, newMessage } from "../../services/notifications";
 import { useState } from "react";
 import { useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
@@ -11,6 +24,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
 
   const [messages, setMessages] = useState([])
   const [inputText, setInputText] = useState('');
+  const [attachment, setAttachment] = useState(null);
 
   useEffect(() => {
     const getMessagesFromApi = async () => {
@@ -25,23 +39,43 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
+    const formData = new FormData();
+    formData.append("attachment", attachment);
+    formData.append("toUserId", isDoctor ? convData.userId : convData.doctorId);
+    formData.append("message", inputText);
+    formData.append("convId", convData.id);
     try {
       const msgPayload = {
+        id: messages.length > 0 ? messages[messages.length - 1].id + 1 : 1,
         toUserId: isDoctor ? convData.userId : convData.doctorId,
         message: inputText,
         convId: convData.id,
+        fileName: attachment.name,
       }
-      const response = await newMessage(msgPayload);
+      const response = await newMessage(formData, attachment !== null ? {'Content-Type': 'multipart/form-data'} : {});
       setMessages([...messages, {...msgPayload, fromUserId: currentUser.id}]);
     } catch (err) {
-
+      console.log(err);
     }
-
     setInputText('');
+    setAttachment(null);
   }
 
-  
+  const handleGetAttachment = async (msgId, fileName) => {
+    console.log("message id", msgId, "filename", fileName);
+    try {
+      const response = await getAttachment(msgId); 
+      let url = window.URL.createObjectURL(new Blob([response.data]));
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      // document.body.appendChild(a);
+      a.click();
+    } catch (err) {
+      // TODO: handle Err
+      console.log(err);
+    }
+  }
 
   return (
     <Accordion sx={{marginTop: 2}} onChange={() => {markMsgsReadCallback(convData.id)}}>
@@ -61,15 +95,28 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
                 <CardContent>
                   {m.message}
                 </CardContent>
+                {
+                  m.fileName ? (
+                    <CardActions>
+                      Adjunto:
+                      <Link
+                        component="button"
+                        download
+                        onClick={() => handleGetAttachment(m.id, m.fileName)}
+                      >
+                        {m.fileName}
+                      </Link>
+                    </CardActions>
+                  ) : <></>
+                }
               </Card>
             )
         })
         }
-        <Box component="form" onSubmit={handleSubmit}>
+        <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
           <TextField
             required
             fullWidth
-            sx={{marginTop: 10}}
             value={inputText}
             name="new-message"
             label="New Message"
@@ -79,7 +126,23 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
             }}
             id="new-message"
           />
+          <Button variant="contained" component="label" color="secondary" sx={{borderRadius: 75}}>
+            <AttachFileIcon />
+            <input
+              type="file"
+              onChange={(event) => {
+                setAttachment(event.target.files[0]);
+              }}
+              hidden
+            />
+          </Button>
+          <Button type="submit" onClick={handleSubmit} variant="contained" component="label" sx={{borderRadius: 75}}>
+            <SendIcon />
+          </Button>
         </Box>
+        {
+          attachment && attachment.name
+        }
       </AccordionDetails>
     </Accordion>
   )

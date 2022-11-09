@@ -9,7 +9,11 @@ export class Api {
     return this._request('get', url, { params });
   }
 
-  post(url, data = {}, params = {}) {
+  getFile(url, params = {}) {
+    return this._request('get', url, { responseType: "blob" });
+  }
+
+  post(url, data = {}, params = {}, headers = {}) {
     return this._request('post', url, { data, params });
   }
 
@@ -32,6 +36,7 @@ export class Api {
     data = {},
     params = {},
     headers = {},
+    responseType = null,
   } = {}) {
     // throw error if no url or method given
     if (!url || !method) {
@@ -60,11 +65,12 @@ export class Api {
       headers,
       data,
       params,
+      responseType,
       withCredentials: true,
       // using defaults for responseType and xsrf
     })
       .then(response => {
-        return response.data;
+        return responseType === null ? response.data : response;
       })
   }
 
