@@ -9,12 +9,16 @@ function getMessages(convId) {
   return api.get(`http://localhost:8082/api/messages/${convId}`);
 }
 
-function newMessage(payload) {
-  return api.post('http://localhost:8082/api/messages/new', payload);
+function newMessage(payload, headers = {}) {
+  return api.post('http://localhost:8082/api/messages/new', payload, { headers });
 }
 
 function getUnreadMessagesCount() {
   return api.get('http://localhost:8082/api/messages/unread');
+}
+
+function getAttachment(msgId) {
+  return api.getFile(`http://localhost:8082/api/messages/attachment/${msgId}/download`);
 }
 
 function markMessagesAsRead(convId) {
@@ -26,5 +30,6 @@ export {
   getMessages,
   newMessage,
   getUnreadMessagesCount,
+  getAttachment,
   markMessagesAsRead
 }
