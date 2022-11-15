@@ -44,6 +44,18 @@ function startChat(apptId) {
   return api.post(`http://localhost:8081/api/appointment/${apptId}/start-chat`);
 }
 
+function doctorCancelation(apptId) {
+  return api.post(`http://localhost:8081/api/appointment/${apptId}/doctor-cancelation`)
+}
+
+function doctorDayCancelation(payload) {
+  return api.post(`http://localhost:8081/api/appointment/doctor-day-cancelation`, payload)
+}
+
+function confirmAppointment(apptId) {
+  return api.post(`http://localhost:8081/api/appointment/${apptId}/confirm-appt`)
+}
+
 export {
   getAppointment,
   getAppointmentByUserId,
@@ -56,4 +68,7 @@ export {
   startChat,
   updateAppointment,
   deleteAppointment,
+  doctorCancelation,
+  doctorDayCancelation,
+  confirmAppointment,
 }

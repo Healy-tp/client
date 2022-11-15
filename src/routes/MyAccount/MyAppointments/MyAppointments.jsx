@@ -16,7 +16,6 @@ const MyAppointments = ({ nav, isDoctor }) => {
     const getAppointmentsByUserIdFromApi = async () => {
       const params = isDoctor ? { isDoctor: true } : {};
       const response = await getAppointmentByUserId(params);
-      console.log(response);
       setAppointments(response);
     }
     getAppointmentsByUserIdFromApi();
@@ -38,7 +37,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
       {
         appointments.length > 0 
           ? appointments
-            .filter(a => isDoctor ? a.arrivalTime.slice(0,10) === dateToString(selectedDate) : true)
+            .filter(a => isDoctor ? a.arrivalTime.slice(0,10) === dateToString(new Date(selectedDate.setHours(0))) : true)
             .map(a => (
               <AppointmentCard 
                 appt={a}
