@@ -5,6 +5,17 @@ export const UserContext = createContext({
   setCurrentUser: () => null,
 });
 
+const parseJwt = (token) => {
+  try {
+    console.log('token', token);
+    console.log('token split', token.split("."));
+    console.log('atob', atob(token.split(".")[1]));
+    return JSON.parse(atob(token.split(".")[1]));
+  } catch (e) {
+    return null;
+  }
+};
+
 export const UserProvider = ({children}) => {
   const [currentUser, setCurrentUser] = useState(window.localStorage.getItem('HEALY'));
   
@@ -20,6 +31,17 @@ export const UserProvider = ({children}) => {
   
   useEffect(() => {
     const data = window.localStorage.getItem('HEALY');
+    const parsedData = JSON.parse(data);
+    if (!parsedData) {
+      setCurrentUser(null);
+      return;
+    } 
+    const decodedJwt = parseJwt(parsedData.accessToken);
+    if (decodedJwt && decodedJwt.exp * 1000 < Date.now()) {
+      window.localStorage.clear();
+      setCurrentUser(null);
+      return;
+    }
     if (data !== null) {
       setCurrentUser(JSON.parse(data));
     }

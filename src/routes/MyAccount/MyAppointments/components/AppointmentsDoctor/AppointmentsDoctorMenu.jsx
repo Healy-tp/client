@@ -3,10 +3,14 @@ import { Button, TextField, Grid, Menu, MenuItem } from '@mui/material';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useState } from 'react';
+import DialogAlert from '../../../../../components/Dialog';
+import { doctorDayCancelation } from '../../../../../services/appointments';
+import { CANCEL_DAY_DIALOG_MSG, CANCEL_DAY_DIALOG_TITLE } from '../AppointmentCard/utils/dialogs';
 
 
 const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -15,6 +19,22 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  }
+
+  const handleCancelClickOpen = () => {
+    setDialogOpen(true);
+  }
+
+  const handleCancelDay = async () => {
+    // console.log('selectedDate', selectedDate.toJSON());
+    await doctorDayCancelation({
+      day: selectedDate.toJSON().slice(0, 10),
+    });
+    setDialogOpen(false);
+  }
 
   return (
     <Grid container spacing={2} maxWidth={'xs'} justifyContent="center" alignItems='center'>
@@ -50,9 +70,16 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={() => {}}>Cancel all Appointments</MenuItem>
+          <MenuItem onClick={handleCancelClickOpen}>Cancel all Appointments</MenuItem>
         </Menu>
       </Grid>
+      <DialogAlert 
+        open={dialogOpen}
+        handleClose={handleDialogClose}
+        handleAccept={handleCancelDay}
+        title={CANCEL_DAY_DIALOG_TITLE}
+        msg={CANCEL_DAY_DIALOG_MSG}
+      />
     </Grid>
   )
 }
