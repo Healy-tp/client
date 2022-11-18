@@ -53,8 +53,17 @@ function doctorDayCancelation(payload) {
 }
 
 function confirmAppointment(apptId) {
-  return api.post(`http://localhost:8081/api/appointment/${apptId}/confirm-appt`)
+  return api.post(`http://localhost:8081/api/appointment/${apptId}/confirm-appt`);
 }
+
+function getHistoryWithUser(userId) {
+  return api.get(`http://localhost:8081/api/appointment/history-with-user/${userId}`);
+}
+
+function upsertNotes(apptId, payload) {
+  return api.post(`http://localhost:8081/api/appointment/${apptId}/upsert-notes`, payload);
+}
+
 
 export {
   getAppointment,
@@ -71,4 +80,6 @@ export {
   doctorCancelation,
   doctorDayCancelation,
   confirmAppointment,
+  getHistoryWithUser,
+  upsertNotes,
 }

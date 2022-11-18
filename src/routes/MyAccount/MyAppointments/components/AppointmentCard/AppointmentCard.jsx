@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 
 import {  
-  Button, Card, CardContent, CardActions, Typography
+  Button, Card, CardContent, CardActions, Typography, Link
 } from '@mui/material';
 
 import DialogAlert from '../../../../../components/Dialog';
@@ -74,7 +74,10 @@ const AppointmentCard = ({ appt, nav }) => {
     setApptId(-1);
   }
 
+  console.log('appt', appt);
   const { id, Doctor, User, status, officeId, arrivalTime } = appt;
+  console.log('Doctor', Doctor);
+  console.log('User', User);
   return (
     <Card key={id} sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: 'column' }}>
       <CardContent>
@@ -82,8 +85,16 @@ const AppointmentCard = ({ appt, nav }) => {
           <Typography variant="h6">
             {
               !isDoctor 
-                ? `${Doctor.firstName} ${Doctor.lastName} - ${Doctor.specialty}` 
-                : `${User.firstName} ${User.lastName}`
+                ? (
+                  <Link onClick={() => navigate(`/history-with-user/${appt.doctorId}`, { state: { counterpartId: appt.doctorId} })}>
+                    {Doctor.firstName} {Doctor.lastName} - {Doctor.specialty}
+                  </Link>
+                ) 
+                : (
+                  <Link onClick={() => navigate(`/history-with-user/${User.id}`, { state: { counterpartId: User.id} })}>
+                    {User.firstName} {User.lastName} 
+                  </Link>
+                )
             }
           </Typography>
           <div style={{ backgroundColor: statusColor(status), padding: '5px', borderRadius: '8px' }}>
