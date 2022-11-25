@@ -13,8 +13,12 @@ export default function DoctorsAdmin() {
 
   useEffect(() => {
     const getDoctorsApi = async () => {
-      const response = await getDoctors();
-      setDoctors(response);
+      try {
+        const response = await getDoctors();
+        setDoctors(response);
+      } catch (err) {
+        console.log('could not get doctors from server', err);
+      }
     } 
 
     getDoctorsApi()

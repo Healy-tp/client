@@ -50,8 +50,12 @@ const NewAvailability = ({goBack}) => {
       setAvailableOffices(response);
     }
 
-    fetchAvailabilities();
-    fetchOffices();
+    try {
+      fetchAvailabilities();
+      fetchOffices();
+    } catch (err) {
+      console.log('error getting data from server', err);
+    }
   }, []);
 
   const handleChangeOffice = (event) => {

@@ -64,6 +64,11 @@ function upsertNotes(apptId, payload) {
   return api.post(`http://localhost:8081/api/appointment/${apptId}/upsert-notes`, payload);
 }
 
+function markAssistance(apptId) {
+  return api.get(`http://localhost:8081/api/appointment/mark-assisted/${apptId}`);
+}
+
+
 
 export {
   getAppointment,
@@ -82,4 +87,5 @@ export {
   confirmAppointment,
   getHistoryWithUser,
   upsertNotes,
+  markAssistance,
 }

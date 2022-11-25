@@ -28,8 +28,12 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
 
   useEffect(() => {
     const getMessagesFromApi = async () => {
-      const response = await getMessages(convData.id);
-      setMessages(response);
+      try {
+        const response = await getMessages(convData.id);
+        setMessages(response);
+      } catch (err) {
+        console.log('could not fetch messages from server', err);
+      }
     }
     
     getMessagesFromApi();
@@ -55,7 +59,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       const response = await newMessage(formData, attachment !== null ? {'Content-Type': 'multipart/form-data'} : {});
       setMessages([...messages, {...msgPayload, fromUserId: currentUser.id}]);
     } catch (err) {
-      console.log(err);
+      console.log('could not POST new message', err);
     }
     setInputText('');
     setAttachment(null);
@@ -69,7 +73,6 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       let a = document.createElement('a');
       a.href = url;
       a.download = fileName;
-      // document.body.appendChild(a);
       a.click();
     } catch (err) {
       // TODO: handle Err

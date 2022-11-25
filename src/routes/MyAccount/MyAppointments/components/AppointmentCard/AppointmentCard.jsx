@@ -54,24 +54,36 @@ const AppointmentCard = ({ appt, nav }) => {
   };
 
   const handleMessageAccept = async () => {
-    await startChat(apptId);
-    nav();
+    try {
+      await startChat(apptId);
+      nav();
+    } catch (err) {
+      console.log('error starting chat with user', err);
+    }
   }
 
   const handleCancelAccept = async () => {
-    if (isDoctor) {
-      await doctorCancelation(apptId);
-    } else {
-      await deleteAppointment(apptId);
+    try {
+      if (isDoctor) {
+        await doctorCancelation(apptId);
+      } else {
+        await deleteAppointment(apptId);
+      }
+      setCancelDialogOpen(false);
+      setApptId(-1);
+    } catch (err) {
+      console.log('Error canceling appointment', err);
     }
-    setCancelDialogOpen(false);
-    setApptId(-1);
   }
 
   const handleConfirmAppt = async () => {
-    await confirmAppointment(apptId);
-    setConfirmDialogOpen(false);
-    setApptId(-1);
+    try {
+      await confirmAppointment(apptId);
+      setConfirmDialogOpen(false);
+      setApptId(-1);
+    } catch (err) {
+      console.log('error confirming appointment', err);
+    }
   }
 
   console.log('appt', appt);

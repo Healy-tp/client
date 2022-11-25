@@ -25,8 +25,12 @@ const HistoryWithUser = () => {
 
   useEffect(() => {
     const fetchHistoryWithUserFromApi = async () => {
-      const response = await getHistoryWithUser(counterpartId);
-      setAppointments(response);
+      try {
+        const response = await getHistoryWithUser(counterpartId);
+        setAppointments(response);
+      } catch (err) {
+        console.log('error getting user history', err);
+      }
     }
 
     fetchHistoryWithUserFromApi();
@@ -43,10 +47,14 @@ const HistoryWithUser = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    await upsertNotes(selectedAppointment, {text: inputText});
-    setEditMode(false);
-    setSelectedAppointment(-1);
-    setInputText('');
+    try {
+      await upsertNotes(selectedAppointment, {text: inputText});
+      setEditMode(false);
+      setSelectedAppointment(-1);
+      setInputText('');
+    } catch (err) {
+      console.log('error updating notes', err);
+    }
   }
 
   return (

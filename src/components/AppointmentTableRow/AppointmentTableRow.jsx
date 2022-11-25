@@ -1,10 +1,11 @@
 
 import { useState } from "react";
 import _ from 'lodash';
-import { Button, Menu, MenuItem, Select, TableCell, TableRow } from "@mui/material";
+import { Button, Checkbox, Menu, MenuItem, Select, TableCell, TableRow } from "@mui/material";
 import { dateTimeToString } from '../../utils/dateTimeFormatter';
 import { APPOINTMENT_STATUS } from '../../utils/constants';
 import { editAppointment } from '../../services/admin';
+import { markAssistance } from "../../services/appointments";
 
 const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
   const defaultEditFields = {
@@ -17,7 +18,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
 
   const openMenu = Boolean(anchorEl);
 
-  const { id, Doctor, User, officeId, arrivalTime, status } = appt;
+  const { id, Doctor, User, officeId, arrivalTime, status, assisted } = appt;
   
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -58,6 +59,15 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
     setEditMode(false);
   };
 
+  const handleMarkAssistance = async (apptId) => {
+    try {
+      await markAssistance(apptId);
+      setSnackbar({ type: 'success', open: true, message: 'Successfully marked user assistance' });
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <TableRow
       key={id}
@@ -94,6 +104,9 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
         }
       </TableCell>
       <TableCell>
+        <Checkbox disabled checked={assisted} />
+      </TableCell>
+      <TableCell>
       {editMode
         ? (
           <>
@@ -122,6 +135,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
               }}
             >
               <MenuItem onClick={handleEdit}>Edit Appointment</MenuItem>
+              <MenuItem onClick={() => handleMarkAssistance(id)}>Marcar asistencia</MenuItem>
               <MenuItem onClick={() => console.log('TODO')}>Delete</MenuItem>
             </Menu>
           </>

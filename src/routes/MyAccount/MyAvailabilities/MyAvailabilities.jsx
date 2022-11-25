@@ -15,9 +15,12 @@ const MyAvailabilities = ({ nav }) => {
 
   useEffect(() => {
     const getAvailabilitiesByDoctorIdFromApi = async () => {
-      const response = await getAvailabilitiesByDoctorId();
-      console.log('availabilities', availabilities);
-      setAvailabilities(_.sortBy(response, ['weekday']));
+      try {
+        const response = await getAvailabilitiesByDoctorId();
+        setAvailabilities(_.sortBy(response, ['weekday']));
+      } catch (err) {
+        console.log('could not get availabilities', err);
+      }
     }
     getAvailabilitiesByDoctorIdFromApi();
   }, []);
