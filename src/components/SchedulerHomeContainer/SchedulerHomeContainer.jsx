@@ -33,9 +33,13 @@ function SchedulerHomeContainer() {
       setAppointments(response);
     }
 
-    getDoctorsFromApi();
-    getAvailabilitiesFromApi();
-    getAllAppointmentsFromApi();
+    try {
+      getDoctorsFromApi();
+      getAvailabilitiesFromApi();
+      getAllAppointmentsFromApi();
+    } catch (err) {
+      console.log('error fetching data from server: ', err);
+    }
   }, []);
 
   const allSelectedData = () => {

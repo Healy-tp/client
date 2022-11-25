@@ -30,9 +30,13 @@ const AdminAppointmentForUser = () => {
       setAppointments(response);
     }
 
-    getUsersFromApi();
-    getAvailabilitiesFromApi();
-    getAllAppointmentsFromApi();
+    try {
+      getUsersFromApi();
+      getAvailabilitiesFromApi();
+      getAllAppointmentsFromApi();
+    } catch (err) {
+      console.log('error fetching data from API', err);
+    }
   }, []);
 
   const allSelectedData = () => {

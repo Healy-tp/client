@@ -10,8 +10,12 @@ const UsersAdmin = () => {
 
   useEffect(() => {
     const getUsersFromApi = async () => {
-      const response = await getUsers();
-      setUsers(response);
+      try {
+        const response = await getUsers();
+        setUsers(response);
+      } catch (err) {
+        console.log('error getting users from API: ', err);
+      }
     } 
 
     getUsersFromApi()

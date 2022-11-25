@@ -60,8 +60,12 @@ function ResponsiveDrawer(props) {
 
   useEffect(() => {
     const getUnreadMessagesCountFromApi = async () => {
-      const response = await getUnreadMessagesCount();
-      setUnreadMessages(response.count);
+      try {
+        const response = await getUnreadMessagesCount();
+        setUnreadMessages(response.count);
+      } catch (err) {
+        console.log('error getting unread messages from server', err);
+      }
     }
     getUnreadMessagesCountFromApi();
   }, []);
@@ -70,8 +74,12 @@ function ResponsiveDrawer(props) {
     if (unreadMessages === 0) {
       return;
     }
-    const response = await markMessagesAsRead(convId);
-    setUnreadMessages(unreadMessages - response.count);
+    try {
+      const response = await markMessagesAsRead(convId);
+      setUnreadMessages(unreadMessages - response.count);
+    } catch (err) {
+      console.log('error marking messages unread', err);
+    }
   }
 
   const drawer = (

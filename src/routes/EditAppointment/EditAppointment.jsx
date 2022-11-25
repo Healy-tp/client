@@ -38,8 +38,12 @@ const EditAppointment = () => {
       setAppointments(response);
     }
 
-    getAvailabilitiesFromApi();
-    getAllAppointmentsFromApi();
+    try {
+      getAvailabilitiesFromApi();
+      getAllAppointmentsFromApi();
+    } catch (err) {
+      console.log('error getting data from API', err);
+    }
   }, []);
 
   const onChangeDate = (date) => {
@@ -68,7 +72,7 @@ const EditAppointment = () => {
       // setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
       navigate('/my-account'); 
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       // setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
   }

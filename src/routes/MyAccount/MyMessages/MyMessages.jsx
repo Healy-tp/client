@@ -11,8 +11,12 @@ const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
 
   useEffect(() => {
     const getConversationsApi = async () => {
-      const response = await getConversations(isDoctor);
-      setConversations(response);
+      try {
+        const response = await getConversations(isDoctor);
+        setConversations(response);
+      } catch (err) {
+        console.log('could not get conversations from API', err);
+      }
     }
     getConversationsApi();
   }, []);

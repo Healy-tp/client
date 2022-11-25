@@ -29,11 +29,14 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
   }
 
   const handleCancelDay = async () => {
-    // console.log('selectedDate', selectedDate.toJSON());
-    await doctorDayCancelation({
-      day: selectedDate.toJSON().slice(0, 10),
-    });
-    setDialogOpen(false);
+    try {
+      await doctorDayCancelation({
+        day: selectedDate.toJSON().slice(0, 10),
+      });
+      setDialogOpen(false);
+    } catch (err) {
+      console.log('could not cancel day', err);
+    }
   }
 
   return (

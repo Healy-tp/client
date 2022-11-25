@@ -41,6 +41,7 @@ const NewDoctor = () => {
       // setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
       navigate('/admin');
     } catch (error) {
+      console.log('Could not create new doctor', error);
       // setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
     }
 

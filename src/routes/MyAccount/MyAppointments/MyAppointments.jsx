@@ -14,9 +14,13 @@ const MyAppointments = ({ nav, isDoctor }) => {
 
   useEffect(() => {
     const getAppointmentsByUserIdFromApi = async () => {
-      const params = isDoctor ? { isDoctor: true } : {};
-      const response = await getAppointmentByUserId(params);
-      setAppointments(response);
+      try {
+        const params = isDoctor ? { isDoctor: true } : {};
+        const response = await getAppointmentByUserId(params);
+        setAppointments(response);
+      } catch (err) {
+        console.log('error getting user appointments', err);
+      }
     }
     getAppointmentsByUserIdFromApi();
   }, [isDoctor]);

@@ -44,7 +44,7 @@ const ConfirmationPage = () => {
         await checkUser(confirmationCode);
         setValidCode(true);
       } catch (err) {
-        // console.log(err.response.status);
+        console.log(err.response.status);
       }
     }
     checkUserApi();
