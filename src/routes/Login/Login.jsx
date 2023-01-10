@@ -21,9 +21,9 @@ const defaultFormFields = {
 }
 
 const Login = () => {
-  const {signInUser} = useContext(UserContext);
+  const { signInUser } = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {email, password} = formFields;
+  const { email, password } = formFields;
   const [snackbar, setSnackBar] = useState({
     open: false,
     message: '',

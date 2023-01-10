@@ -15,7 +15,7 @@ const drawerWidth = 240;
 const fieldsWidth = 500;
 
 const MyInfo = () => {
-  const {currentUser, signInUser} = useContext(UserContext);
+  const { currentUser, signInUser } = useContext(UserContext);
   const defaultFormFields = _.pick(currentUser, ['id', 'firstName', 'lastName', 'phoneNumber', 'email']);
 
   const [formFields, setFormFields] = useState(defaultFormFields);

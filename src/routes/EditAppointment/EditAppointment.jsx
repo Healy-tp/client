@@ -18,6 +18,7 @@ const EditAppointment = () => {
     selectedTime: null,
     selectedOffice: null,
   });
+
   const [availableTimes, setAvailableTimes] = useState([]);
   const [availabilities, setAvailabilities] = useState([]);
   const [appointments, setAppointments] = useState([]);
@@ -28,19 +29,19 @@ const EditAppointment = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const getAvailabilitiesFromApi = async () => {
+    const fetchAvailabilities = async () => {
       const response = await getAvailabilities();
       setAvailabilities(response);
     }
 
-    const getAllAppointmentsFromApi = async () => {
+    const fetchAllAppointments = async () => {
       const response = await getAllAppointments();
       setAppointments(response);
     }
 
     try {
-      getAvailabilitiesFromApi();
-      getAllAppointmentsFromApi();
+      fetchAvailabilities();
+      fetchAllAppointments();
     } catch (err) {
       console.log('error getting data from API', err);
     }
@@ -69,30 +70,21 @@ const EditAppointment = () => {
         doctorId: doctorId,
         officeId: selectedData.selectedOffice,
       });
-      // setSnackbar({ type: 'success', open: true, message: 'Appointment made.' });
+      // setSnackbar({ type: 'success', open: true, message: 'Turno modificado correctamente.' });
       navigate('/my-account'); 
     } catch (error) {
-      console.log(error);
       // setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
   }
 
   return (
     <Container>
-      <Box
-        sx={{
-          marginTop: 8,
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          spacing: 2
-        }}
-      >
+      <Box sx={{ marginTop: 8 }}>
         <Grid container spacing={2} maxWidth={'xs'} justifyContent="center" alignItems='center'>
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Date"
+                label="Nueva fecha"
                 value={selectedData.date}
                 onChange={onChangeDate}
                 disablePast={true}
@@ -104,31 +96,34 @@ const EditAppointment = () => {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid container marginTop={5} justifyContent={'center'}>
-            <Grid >
-              {
-                availableTimes.map(t => {
-                  return (
-                    <Chip 
-                      key={t}
-                      label={timeToString(t)} 
-                      onClick={() => setSelectedData({...selectedData, selectedTime: t})}
-                      clickable={true}
-                      color="primary" 
-                      disabled={appointments.map((a) => ({doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === doctorId).map(a => a.date).includes(t.getTime())}
-                      variant={ t === selectedData.selectedTime ? "filled": "outlined"}
-                    />
-                  )
-                })
-              }
-            </Grid>
+          <Grid container margin={2} justifyContent={'center'}>
+            {
+              availableTimes.map(t => {
+                return (
+                  <Chip 
+                    key={t}
+                    style={{ margin: 3 }}
+                    label={ timeToString(t) } 
+                    onClick={() => setSelectedData({...selectedData, selectedTime: t})}
+                    clickable
+                    color="primary" 
+                    disabled={appointments.map((a) => ({ doctorId: a.doctorId, date: new Date(a.arrivalTime).getTime()})).filter(a => a.doctorId === doctorId).map(a => a.date).includes(t.getTime()) }
+                    variant={ t === selectedData.selectedTime ? "filled" : "outlined"}
+                  />
+                )
+              })
+            }
           </Grid>
-
-          <Grid>
-            <Button variant="contained" color="error" onClick={()=> navigate('/my-account')}>Go Back</Button>
-          </Grid>
-          <Grid item>
-            <Button variant="contained" color="inherit" onClick={handleSubmit}>Change Appointment</Button>
+          <Grid container justifyContent={'center'}>
+            <Button variant="contained" color="error" style={{ marginRight: 10 }} onClick={()=> navigate('/my-account')}>Volver</Button>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={handleSubmit}
+              disabled={!selectedData.selectedTime || !selectedData.date}
+            >
+              Modificar
+            </Button>
           </Grid>
         </Grid>
       </Box>

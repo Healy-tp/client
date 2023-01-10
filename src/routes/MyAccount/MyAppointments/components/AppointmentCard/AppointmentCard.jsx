@@ -86,10 +86,7 @@ const AppointmentCard = ({ appt, nav }) => {
     }
   }
 
-  console.log('appt', appt);
   const { id, Doctor, User, status, officeId, arrivalTime } = appt;
-  console.log('Doctor', Doctor);
-  console.log('User', User);
   return (
     <Card key={id} sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: 'column' }}>
       <CardContent>
@@ -135,11 +132,11 @@ const AppointmentCard = ({ appt, nav }) => {
             <Button size="small" color="success" variant="contained" onClick={() => handleConfirmApptClickOpen(id)}>Confirm</Button>    
           ) : <></>
         }
-        <Button size="small" variant="contained" onClick={() => handleMessageClickOpen(id)}>Message</Button>
+        <Button size="small" variant="contained" onClick={() => handleMessageClickOpen(id)}>Enviar mensaje</Button>
         {
-          !isDoctor ? <Button size="small" variant="contained" onClick={() => navigate(`/my-account/${id}/edit`, { state: { appt }})}>Modify</Button> : <></>
+          !isDoctor ? <Button size="small" variant="contained" onClick={() => navigate(`/my-account/${id}/edit`, { state: { appt }})}>Modificar</Button> : <></>
         }
-        <Button size="small" color="error" variant="contained" onClick={() => handleCancelClickOpen(id)}>Cancel</Button>
+        <Button size="small" color="error" variant="contained" onClick={() => handleCancelClickOpen(id)}>Cancelar</Button>
       </CardActions>
       
       <DialogAlert 

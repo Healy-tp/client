@@ -104,7 +104,7 @@ function ResponsiveDrawer(props) {
             <ListItemIcon style={itemIconStyle}>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary={'My info'} />
+            <ListItemText primary={'Mi informacion'} />
           </ListItemButton>
         </ListItem>
         {
@@ -115,7 +115,7 @@ function ResponsiveDrawer(props) {
                   <ListItemIcon style={itemIconStyle}>
                     <CalendarMonthIcon />
                   </ListItemIcon>
-                  <ListItemText primary={'My Agenda'} />
+                  <ListItemText primary={'Mi agenda'} />
                 </ListItemButton>
               </ListItem>
               <ListItem key={'My Availabilities'} disablePadding>
@@ -123,7 +123,7 @@ function ResponsiveDrawer(props) {
                   <ListItemIcon style={itemIconStyle}>
                     <EventNoteIcon />
                   </ListItemIcon>
-                  <ListItemText primary={'My Availabilities'} />
+                  <ListItemText primary={'Mis disponibilidades'} />
                 </ListItemButton>
               </ListItem>
             </>
@@ -133,7 +133,7 @@ function ResponsiveDrawer(props) {
                 <ListItemIcon style={itemIconStyle}>
                   <AccessTimeIcon />
                 </ListItemIcon>
-                <ListItemText primary={'My appointments'} />
+                <ListItemText primary={'Mis turnos'} />
               </ListItemButton>
             </ListItem>
           )
@@ -145,7 +145,7 @@ function ResponsiveDrawer(props) {
                 <MailIcon />
               </Badge>
             </ListItemIcon>
-            <ListItemText primary={'Messages'} />
+            <ListItemText primary={'Mensajes'} />
           </ListItemButton>
         </ListItem>
       </List>

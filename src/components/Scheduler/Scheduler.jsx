@@ -45,7 +45,7 @@ const Scheduler = ({
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Date"
+                label="Fecha"
                 value={selectedData.date}
                 onChange={datePickerOnChange}
                 disabled={selectedData.datePickerDisabled}
@@ -79,7 +79,14 @@ const Scheduler = ({
             </Grid>
           </Grid>
           <Grid item>
-            <Button variant="contained" color="primary" onClick={buttonOnClick}>Take Appointment</Button>
+            <Button 
+              variant="contained" 
+              color="primary" 
+              onClick={buttonOnClick}
+              disabled={!selectedData.selectedTime || !selectedData.doctorId || !selectedData.date}
+            >
+              Sacar turno
+            </Button>
           </Grid>
           {
             isAdmin ? (

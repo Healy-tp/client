@@ -7,16 +7,13 @@ export const UserContext = createContext({
 
 const parseJwt = (token) => {
   try {
-    console.log('token', token);
-    console.log('token split', token.split("."));
-    console.log('atob', atob(token.split(".")[1]));
     return JSON.parse(atob(token.split(".")[1]));
   } catch (e) {
     return null;
   }
 };
 
-export const UserProvider = ({children}) => {
+export const UserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(window.localStorage.getItem('HEALY'));
   
   const signInUser = (user) => {

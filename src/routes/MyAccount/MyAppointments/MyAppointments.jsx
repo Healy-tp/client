@@ -13,7 +13,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
-    const getAppointmentsByUserIdFromApi = async () => {
+    const getAppointmentsByUserId = async () => {
       try {
         const params = isDoctor ? { isDoctor: true } : {};
         const response = await getAppointmentByUserId(params);
@@ -22,10 +22,10 @@ const MyAppointments = ({ nav, isDoctor }) => {
         console.log('error getting user appointments', err);
       }
     }
-    getAppointmentsByUserIdFromApi();
+    getAppointmentsByUserId();
   }, [isDoctor]);
 
-  const handleDatePickerChange = (date) => {setSelectedDate(date)};
+  const handleDatePickerChange = (date) => { setSelectedDate(date) };
   
   return (
     <Container style={{ margin: 0 }}>
