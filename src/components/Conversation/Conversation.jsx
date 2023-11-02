@@ -44,7 +44,6 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("attachment", attachment);
     formData.append("toUserId", isDoctor ? convData.userId : convData.doctorId);
     formData.append("message", inputText);
     formData.append("convId", convData.id);
@@ -54,9 +53,12 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         toUserId: isDoctor ? convData.userId : convData.doctorId,
         message: inputText,
         convId: convData.id,
-        fileName: attachment.name,
       }
-      const response = await newMessage(formData, attachment !== null ? {'Content-Type': 'multipart/form-data'} : {});
+      if (attachment) {
+        formData.append("attachment", attachment);
+        msgPayload['fileName'] = attachment.name;
+      }
+      const response = await newMessage(formData, {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`});
       setMessages([...messages, {...msgPayload, fromUserId: currentUser.id}]);
     } catch (err) {
       console.log('could not POST new message', err);

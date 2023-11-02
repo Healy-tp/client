@@ -87,7 +87,6 @@ const NewAvailability = ({goBack}) => {
   const validateRequest = () => {
     console.log('validate request', startHour, endHour);
     if (startHour >= endHour) {
-      console.log('pasa aca')
       setSnackbar({type: 'error', open: true, message: 'Comienzo y salida invalidos'});
       return false;
     }
@@ -102,11 +101,10 @@ const NewAvailability = ({goBack}) => {
         frequency,
         officeId: selectedOffice,
         validUntil: getValidUntil(),
-        startHour: `${startHour}:00`,
-        endHour: `${endHour}:00`,
+        startHour: startHour,
+        endHour: endHour,
       }
       const response = await createAvailability(payload);
-      // console.log(response);
       setDialogOpen(false);
       goBack();
 

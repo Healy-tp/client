@@ -14,7 +14,7 @@ export class Api {
   }
 
   post(url, data = {}, params = {}, headers = {}) {
-    return this._request('post', url, { data, params });
+    return this._request('post', url, { data, params, headers });
   }
 
   put(url, data = {}, params = {}) {
