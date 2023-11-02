@@ -1,7 +1,8 @@
 import api from './api';
+import config from './config';
 
 function getOffices() {
-  return api.get('http://localhost:8000/api/offices');
+  return api.get(`${config.apiUrl}/api/offices`);
 }
 
 

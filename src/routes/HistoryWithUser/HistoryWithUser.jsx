@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../contexts/UserContext';
-import { getHistoryWithUser, upsertNotes } from '../../services/appointments';
+import { getHistoryWithUser, upsertNotes, exportToPDF } from '../../services/appointments';
 
 
 const HistoryWithUser = () => {
@@ -19,6 +19,7 @@ const HistoryWithUser = () => {
   const navigate = useNavigate();
 
   const [appointments, setAppointments] = useState([]);
+  const [notesToExport, setNotesToExport] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(-1);
   const [inputText, setInputText] = useState('');
@@ -27,6 +28,7 @@ const HistoryWithUser = () => {
     const fetchHistoryWithUserFromApi = async () => {
       try {
         const response = await getHistoryWithUser(counterpartId);
+        setNotesToExport(response.some(a => a.notes));
         setAppointments(response);
       } catch (err) {
         console.log('error getting user history', err);
@@ -56,6 +58,19 @@ const HistoryWithUser = () => {
       console.log('error updating notes', err);
     }
   }
+
+  const handleExportToPDF = async (event) => {
+    event.preventDefault();
+    try {
+      await exportToPDF({
+        doctorId: appointments[0].doctorId,
+        userId: appointments[0].userId,
+      });
+    } catch (err) {
+      console.log('error exporting to pdf', err);
+    }
+  }
+  console.log(process.env.NODE_ENV);
 
   return (
     <Container sx={{spacing: 2}}>
@@ -127,10 +142,22 @@ const HistoryWithUser = () => {
                   </Box>
                 ) : <></>
               }            
-              
             </Card>
           )
         })
+      }
+      {
+        notesToExport ? (
+          <Button 
+            onClick={handleExportToPDF} 
+            variant="contained" 
+            component="label"
+            size="small"
+            sx={{justifyContent: "center"}}
+          >
+            Export to PDF
+          </Button>
+        ) : <></>
       }
     </Container>
   )
