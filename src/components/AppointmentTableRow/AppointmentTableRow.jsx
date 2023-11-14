@@ -77,7 +77,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
       <TableCell>{`${Doctor.firstName} ${Doctor.lastName}`}</TableCell>
       <TableCell>{Doctor.specialty}</TableCell>
       <TableCell>{officeId}</TableCell>
-      <TableCell>{dateTimeToString(arrivalTime)}</TableCell>
+      <TableCell>{arrivalTime ? dateTimeToString(arrivalTime) : 'Extra Appointment'}</TableCell>
       <TableCell>
         {editMode
           ? (

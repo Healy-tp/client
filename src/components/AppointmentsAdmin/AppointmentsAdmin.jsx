@@ -1,7 +1,7 @@
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { useEffect, useState } from "react";
-import _ from 'lodash';
+import _, { filter } from 'lodash';
 import { getAppointments } from "../../services/admin";
 import AdminTable from "../AdminTable";
 import { Container, TextField } from '@mui/material';
@@ -27,9 +27,14 @@ const AppointmentsAdmin = () => {
     }
   }
 
+  const filterFn = (a, date) => {
+    if (a.arrivalTime) return date.toJSON().slice(0, 10) === a.arrivalTime.slice(0, 10)
+    return a.extraAppt === date.toJSON().slice(0, 10)
+  }
+
   const handleOnChange = (date) => {
     setSelectedDate(date);
-    const filtered = appointments.filter(a => date.toJSON().slice(0, 10) === a.arrivalTime.slice(0, 10));
+    const filtered = appointments.filter(a => filterFn(a, date));
     setFilteredAppointments(filtered);
   }
 

@@ -1,6 +1,7 @@
 import { useRef } from 'react';
 import SchedulerHomeContainer from '../../components/SchedulerHomeContainer/SchedulerHomeContainer';
 import HomeImage from '../../components/HomeImage';
+import AppFooter from '../../components/AppFooter';
 
 
 function Home() {
@@ -16,6 +17,7 @@ function Home() {
       <div ref={ref}>
         <SchedulerHomeContainer />
       </div>
+      <AppFooter />
     </>
   )
 }

@@ -62,15 +62,25 @@ const HistoryWithUser = () => {
   const handleExportToPDF = async (event) => {
     event.preventDefault();
     try {
-      await exportToPDF({
+      const response = await exportToPDF({
         doctorId: appointments[0].doctorId,
         userId: appointments[0].userId,
       });
+      let url = window.URL.createObjectURL(new Blob([response.data]));
+      let a = document.createElement('a');
+      a.href = url;
+      a.download = 'history.pdf';
+      a.click();
     } catch (err) {
       console.log('error exporting to pdf', err);
     }
   }
-  console.log(process.env.NODE_ENV);
+
+  const filterFn = (a) => {
+    const now = new Date();
+    const apptDate = a.arrivalTime || a.extraAppt;
+    return new Date(apptDate) <= now ? a.status === 'confirmed' && a.assisted : a.status === 'confirmed';
+  }
 
   return (
     <Container sx={{spacing: 2}}>
@@ -81,11 +91,13 @@ const HistoryWithUser = () => {
         Historial de turnos con {isDoctor ? 'Paciente' : 'Doctor' }: {isDoctor ? userFullName : doctorFullName }
       </Typography>
       {
-        appointments.map((a) => {
+        appointments
+        .filter(filterFn)
+        .map((a) => {
           return (
             <Card sx={{marginTop: 8}}>
               <Typography variant="h4">
-                Fecha: {a.arrivalTime.slice(0, 10)} - Horario: {a.arrivalTime.slice(11, 16)} 
+                Fecha: {a.arrivalTime ? a.arrivalTime.slice(0, 10) : a.extraAppt} - Horario: {a.arrivalTime ? a.arrivalTime.slice(11, 16) : 'Extra Appointment'} 
               </Typography>
 
               <Typography variant="h6" sx={{marginTop: 2}}>

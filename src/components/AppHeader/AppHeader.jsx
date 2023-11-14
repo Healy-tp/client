@@ -6,7 +6,9 @@ import Link from '@mui/material/Link';
 
 import { UserContext } from '../../contexts/UserContext';
 import AccountMenu from '../AccountMenu';
+import  { Avatar } from '@mui/material'
 
+import LogoImage from '../../assets/logo.png';
 
 const AppHeader = () => {
 
@@ -21,10 +23,10 @@ const AppHeader = () => {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
         <Toolbar style={{ justifyContent: 'space-between' }}>
-          <div>
-            <Link variant='h6' sx={{ flexGrow: 1 }} href='/' color="inherit" underline='none'>
-              Healy
-            </Link>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <a href='/'>
+              <Avatar alt="Logo" variant='square' src={LogoImage} style={{ width: 80, height: 80 }}  href='/'/>
+            </a>
           </div>
           {
             !currentUser 

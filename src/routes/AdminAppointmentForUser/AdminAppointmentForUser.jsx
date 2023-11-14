@@ -78,7 +78,6 @@ const AdminAppointmentForUser = () => {
   }
 
   const handleCheckboxChange = (event) => {
-    console.log('checkbox', event.target.checked);
     setSelectedData({...selectedData, extraAppt: event.target.checked});
   }
 

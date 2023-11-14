@@ -7,7 +7,7 @@ const cardWidth = 500;
 
 const AvailabilityCard = ({ av }) => {
 
-  const { id, weekday, startHour, endHour, officeId, frequency, validUntil } = av;
+  const { id, weekday, startHour, endHour, Office, frequency, validUntil } = av;
   return (
     <Card key={id} sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: 'column' }}>
       <CardContent>
@@ -18,7 +18,7 @@ const AvailabilityCard = ({ av }) => {
         </div>
         <br />
         <Typography variant="body">
-          {`Consultorio ID: ${officeId} (Cambiar a office #)`}
+          {`Consultorio #: ${Office.number}`}
         </Typography>
         <br />
         <Typography variant="body">

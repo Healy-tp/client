@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import _ from 'lodash';
 
 import {  
-  Button, Card, CardContent, CardActions, Typography, Link
+  Button, Card, CardContent, CardActions, Typography, Link, Snackbar
 } from '@mui/material';
 
 import DialogAlert from '../../../../../components/Dialog';
@@ -31,6 +31,12 @@ const AppointmentCard = ({ appt, nav }) => {
   const [confirmApptDialogOpen, setConfirmDialogOpen] = useState(false);
   const [apptId, setApptId] = useState(-1);
 
+  const [snackbar, setSnackBar] = useState({
+    open: false,
+    message: '',
+  });
+  const { open, message } = snackbar;
+
   const handleMessageClickOpen = (selectedAppt) => {
     setApptId(selectedAppt);
     setMessageDialogOpen(true);
@@ -51,6 +57,7 @@ const AppointmentCard = ({ appt, nav }) => {
     setMessageDialogOpen(false);
     setCancelDialogOpen(false);
     setConfirmDialogOpen(false);
+    setSnackBar({open: false, message: ''});
   };
 
   const handleMessageAccept = async () => {
@@ -59,6 +66,8 @@ const AppointmentCard = ({ appt, nav }) => {
       nav();
     } catch (err) {
       console.log('error starting chat with user', err);
+      const errorMsg = _.get(err, 'response.data.errors[0].message', 'Something went wrong');
+      setSnackBar({ open: true, message: errorMsg });
     }
   }
 
@@ -86,7 +95,7 @@ const AppointmentCard = ({ appt, nav }) => {
     }
   }
 
-  const { id, Doctor, User, status, officeId, arrivalTime } = appt;
+  const { id, Doctor, User, status, Office, arrivalTime } = appt;
   return (
     <Card key={id} sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: 'column' }}>
       <CardContent>
@@ -114,15 +123,15 @@ const AppointmentCard = ({ appt, nav }) => {
         </div>
         <br />
         <Typography variant="body">
-          {`Office: ${officeId}`}
+          {`Office: ${Office.number}`}
         </Typography>
         <br />
         <Typography variant="body">
-          {`Date: ${arrivalTime.slice(0,10)}`}
+          {`Date: ${ arrivalTime ? arrivalTime.slice(0,10) : null}`}
         </Typography>
         <br />
         <Typography variant="body">
-          {`Time: ${arrivalTime.slice(11, 16)}`}
+          {`Time: ${ arrivalTime ? arrivalTime.slice(11, 16) : null}`}
         </Typography>
       </CardContent>
 
@@ -161,6 +170,13 @@ const AppointmentCard = ({ appt, nav }) => {
         handleClose={handleClose}
         title={CONFIRM_APPT_DIALOG_TITLE}
         msg={CONFIRM_APPT_DIALOG_MSG}
+      />
+
+      <Snackbar
+        open={open}
+        handleClose={handleClose}
+        message={message}
+        type={"error"}
       />
     </Card>
   )

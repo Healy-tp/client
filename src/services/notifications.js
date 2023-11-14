@@ -11,7 +11,7 @@ function getMessages(convId) {
 }
 
 function newMessage(payload, headers = {}) {
-  return api.post(`${config.apiUrl}/api/messages/new`, payload, null, headers);
+  return api.post(`http://localhost:8082/api/messages/new`, payload, null, headers);
 }
 
 function getUnreadMessagesCount() {

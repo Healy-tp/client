@@ -10,7 +10,7 @@ export class Api {
   }
 
   getFile(url, params = {}) {
-    return this._request('get', url, { responseType: "blob" });
+    return this._request('get', url, { params, responseType: "blob" });
   }
 
   post(url, data = {}, params = {}, headers = {}) {
@@ -71,6 +71,13 @@ export class Api {
     })
       .then(response => {
         return responseType === null ? response.data : response;
+      })
+      .catch(err => {
+        if (err.response.status === 401) {
+          window.location.href = '/login';
+          return Promise.reject(err);
+        }
+        throw err;
       })
   }
 

@@ -83,7 +83,7 @@ const Scheduler = ({
               variant="contained" 
               color="primary" 
               onClick={buttonOnClick}
-              disabled={!selectedData.selectedTime || !selectedData.doctorId || !selectedData.date}
+              disabled={!selectedData.extraAppt ? (!selectedData.selectedTime || !selectedData.doctorId || !selectedData.date) : (!selectedData.doctorId || !selectedData.date)}
             >
               Sacar turno
             </Button>

@@ -1,3 +1,4 @@
+import moment from 'moment';
 import { Button, TextField, Grid, Menu, MenuItem } from '@mui/material';
 
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
@@ -39,6 +40,10 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
     }
   }
 
+  const disableFn = (a) => {
+    return moment(a.arrivalTime || a.extraAppt).utc().day();
+  }
+
   return (
     <Grid container spacing={2} maxWidth={'xs'} justifyContent="center" alignItems='center'>
       <Grid item>
@@ -50,7 +55,7 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
             renderInput={(params) => <TextField {...params} />}
             sx={{marginTop: 2}}
             shouldDisableDate={(date) => {
-              const filteredDays = appointments.map(a => new Date(a.arrivalTime).getDay());
+              const filteredDays = appointments.map(disableFn);
               return !filteredDays.includes(date.getDay());
             }}
           />

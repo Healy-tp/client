@@ -66,7 +66,7 @@ function markAssistance(apptId) {
 }
 
 function exportToPDF(payload) {
-  return api.get(`http://localhost:8081/api/appointment/export-history-with-user`, payload);
+  return api.getFile(`${config.apiUrl}/api/appointment/export-history-with-user`, payload);
 }
 
 
