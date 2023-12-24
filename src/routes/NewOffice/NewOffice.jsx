@@ -8,18 +8,18 @@ import {
   Select,
   TextField,
   Typography,
-} from '@mui/material';
+} from "@mui/material";
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createOffice } from '../../services/admin';
-import { SPECIALTIES } from '../../utils/constants';
-import Snackbar from '../../components/Snackbar';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createOffice } from "../../services/admin";
+import { SPECIALTIES } from "../../utils/constants";
+import Snackbar from "../../components/Snackbar";
 
 const defaultFormFields = {
   specialties: [],
-  officeNumber: '',
-}
+  officeNumber: "",
+};
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -35,8 +35,8 @@ const NewOffice = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    type: '',
+    message: "",
+    type: "",
   });
 
   const { specialties, officeNumber } = formFields;
@@ -45,12 +45,12 @@ const NewOffice = () => {
   const navigate = useNavigate();
 
   const handleCloseSnackbar = () => {
-    setSnackbar({ open: false, message: '' });
+    setSnackbar({ open: false, message: "" });
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value })
+    setFormFields({ ...formFields, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -61,10 +61,18 @@ const NewOffice = () => {
         specialties,
         officeNumber,
       });
-      setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
-      navigate('/admin');
+      setSnackbar({
+        type: "success",
+        open: true,
+        message: "Successfully registered",
+      });
+      navigate("/admin");
     } catch (error) {
-      setSnackbar({ type: 'error', open: true, message: error.response.data.message });
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: error.response.data.message,
+      });
     }
   };
 
@@ -72,9 +80,9 @@ const NewOffice = () => {
     <Box
       sx={{
         marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Snackbar
@@ -86,7 +94,11 @@ const NewOffice = () => {
       <Typography component="h1" variant="h5">
         Create New Office
       </Typography>
-      <Box component="form" sx={{ mt: 1, width: '450px' }} onSubmit={handleSubmit}>
+      <Box
+        component="form"
+        sx={{ mt: 1, width: "450px" }}
+        onSubmit={handleSubmit}
+      >
         <InputLabel id="specialties-label">Specialties</InputLabel>
         <Select
           labelId="specialties-label"
@@ -98,7 +110,7 @@ const NewOffice = () => {
           onChange={handleChange}
           input={<OutlinedInput id="specialties" label="Specialties" />}
           renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
                 <Chip key={value} label={value} />
               ))}
@@ -107,10 +119,7 @@ const NewOffice = () => {
           MenuProps={MenuProps}
         >
           {SPECIALTIES.map((specialty) => (
-            <MenuItem
-              key={specialty}
-              value={specialty}
-            >
+            <MenuItem key={specialty} value={specialty}>
               {specialty}
             </MenuItem>
           ))}
@@ -128,7 +137,7 @@ const NewOffice = () => {
           name="officeNumber"
         />
 
-        <div style={{ textAlign: 'center' }}>
+        <div style={{ textAlign: "center" }}>
           <Button
             type="submit"
             variant="contained"
@@ -139,7 +148,7 @@ const NewOffice = () => {
         </div>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 export default NewOffice;

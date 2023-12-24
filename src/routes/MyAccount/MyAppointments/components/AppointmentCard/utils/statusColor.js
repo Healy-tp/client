@@ -1,5 +1,5 @@
-import theme from '../../../../../../theme';
-import { APPOINTMENT_STATUS } from '../../../../../../utils/constants';
+import theme from "../../../../../../theme";
+import { APPOINTMENT_STATUS } from "../../../../../../utils/constants";
 
 const statusColor = (status) => {
   switch (status) {
@@ -14,6 +14,6 @@ const statusColor = (status) => {
     default:
       return theme.palette.primary.light;
   }
-}
+};
 
 export default statusColor;

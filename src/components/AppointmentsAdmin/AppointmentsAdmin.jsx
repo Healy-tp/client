@@ -1,10 +1,10 @@
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { useEffect, useState } from "react";
-import _, { filter } from 'lodash';
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import React, { useEffect, useState } from "react";
+import _ from "lodash";
 import { getAppointments } from "../../services/admin";
 import AdminTable from "../AdminTable";
-import { Container, TextField } from '@mui/material';
+import { Container, TextField } from "@mui/material";
 
 const AppointmentsAdmin = () => {
   const [appointments, setAppointments] = useState([]);
@@ -12,31 +12,40 @@ const AppointmentsAdmin = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
 
-  const headers = ['Users Name', 'Doctors Name', 'Doctors Specialty', 'Office ID', 'Arrival Time', 'Status', 'Assisted']
+  const headers = [
+    "Users Name",
+    "Doctors Name",
+    "Doctors Specialty",
+    "Office ID",
+    "Arrival Time",
+    "Status",
+    "Assisted",
+  ];
 
   const fetchAppointments = async () => {
     try {
       setIsLoading(true);
       const response = await getAppointments();
-      const sortedData = _.sortBy(response, ['id']);
+      const sortedData = _.sortBy(response, ["id"]);
       setAppointments(sortedData);
     } catch (err) {
-      console.log('Error while fetching appointments: ', err);
+      console.log("Error while fetching appointments: ", err);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   const filterFn = (a, date) => {
-    if (a.arrivalTime) return date.toJSON().slice(0, 10) === a.arrivalTime.slice(0, 10)
-    return a.extraAppt === date.toJSON().slice(0, 10)
-  }
+    if (a.arrivalTime)
+      return date.toJSON().slice(0, 10) === a.arrivalTime.slice(0, 10);
+    return a.extraAppt === date.toJSON().slice(0, 10);
+  };
 
   const handleOnChange = (date) => {
     setSelectedDate(date);
-    const filtered = appointments.filter(a => filterFn(a, date));
+    const filtered = appointments.filter((a) => filterFn(a, date));
     setFilteredAppointments(filtered);
-  }
+  };
 
   useEffect(() => {
     fetchAppointments();
@@ -50,18 +59,18 @@ const AppointmentsAdmin = () => {
           value={selectedDate}
           onChange={handleOnChange}
           renderInput={(params) => <TextField {...params} />}
-          sx={{marginTop: 2}}
+          sx={{ marginTop: 2 }}
         />
       </LocalizationProvider>
-      <AdminTable 
-        headers={headers} 
-        rows={filteredAppointments} 
-        kind={'appointment'}
+      <AdminTable
+        headers={headers}
+        rows={filteredAppointments}
+        kind={"appointment"}
         updateRows={fetchAppointments}
         isLoading={isLoading}
       />
     </Container>
   );
-}
+};
 
 export default AppointmentsAdmin;

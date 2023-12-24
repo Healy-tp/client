@@ -1,5 +1,5 @@
-import api from './api';
-import config from './config';
+import api from "./api";
+import config from "./config";
 
 function getAppointmentByUserId(params = {}) {
   return api.get(`${config.apiUrl}/api/appointment`, params);
@@ -42,11 +42,16 @@ function startChat(apptId) {
 }
 
 function doctorCancelation(apptId) {
-  return api.post(`${config.apiUrl}/api/appointment/${apptId}/doctor-cancelation`)
+  return api.post(
+    `${config.apiUrl}/api/appointment/${apptId}/doctor-cancelation`,
+  );
 }
 
 function doctorDayCancelation(payload) {
-  return api.post(`${config.apiUrl}/api/appointment/doctor-day-cancelation`, payload)
+  return api.post(
+    `${config.apiUrl}/api/appointment/doctor-day-cancelation`,
+    payload,
+  );
 }
 
 function confirmAppointment(apptId) {
@@ -54,11 +59,16 @@ function confirmAppointment(apptId) {
 }
 
 function getHistoryWithUser(userId) {
-  return api.get(`${config.apiUrl}/api/appointment/history-with-user/${userId}`);
+  return api.get(
+    `${config.apiUrl}/api/appointment/history-with-user/${userId}`,
+  );
 }
 
 function upsertNotes(apptId, payload) {
-  return api.post(`${config.apiUrl}/api/appointment/${apptId}/upsert-notes`, payload);
+  return api.post(
+    `${config.apiUrl}/api/appointment/${apptId}/upsert-notes`,
+    payload,
+  );
 }
 
 function markAssistance(apptId) {
@@ -66,10 +76,11 @@ function markAssistance(apptId) {
 }
 
 function exportToPDF(payload) {
-  return api.getFile(`${config.apiUrl}/api/appointment/export-history-with-user`, payload);
+  return api.getFile(
+    `${config.apiUrl}/api/appointment/export-history-with-user`,
+    payload,
+  );
 }
-
-
 
 export {
   getAppointmentByUserId,
@@ -89,4 +100,4 @@ export {
   upsertNotes,
   markAssistance,
   exportToPDF,
-}
+};

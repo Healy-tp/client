@@ -1,5 +1,5 @@
-import api from './api';
-import config from './config';
+import api from "./api";
+import config from "./config";
 
 function getConversations(isDoctor) {
   const params = isDoctor ? { isDoctor } : {};
@@ -11,7 +11,12 @@ function getMessages(convId) {
 }
 
 function newMessage(payload, headers = {}) {
-  return api.post(`http://localhost:8082/api/messages/new`, payload, null, headers);
+  return api.post(
+    `http://localhost:8082/api/messages/new`,
+    payload,
+    null,
+    headers,
+  );
 }
 
 function getUnreadMessagesCount() {
@@ -19,7 +24,9 @@ function getUnreadMessagesCount() {
 }
 
 function getAttachment(msgId) {
-  return api.getFile(`${config.apiUrl}/api/messages/attachment/${msgId}/download`);
+  return api.getFile(
+    `${config.apiUrl}/api/messages/attachment/${msgId}/download`,
+  );
 }
 
 function markMessagesAsRead(convId) {
@@ -32,5 +39,5 @@ export {
   newMessage,
   getUnreadMessagesCount,
   getAttachment,
-  markMessagesAsRead
-}
+  markMessagesAsRead,
+};

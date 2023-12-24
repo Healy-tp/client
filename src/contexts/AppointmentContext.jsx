@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import React, { createContext, useState } from "react";
 
 export const AppointmentContext = createContext({
   selectedData: {},
@@ -14,14 +14,18 @@ const defaultValues = {
   selectedTime: null,
   selectedOffice: null,
   extraAppt: false,
-}
+};
 
-export const AppointmentProvider = ({children}) => {
+export const AppointmentProvider = ({ children }) => {
   const [selectedData, setSelectedData] = useState(defaultValues);
 
   const setDefaultValues = () => setSelectedData(defaultValues);
 
-  const value = {selectedData, setSelectedData, setDefaultValues};
+  const value = { selectedData, setSelectedData, setDefaultValues };
 
-  return <AppointmentContext.Provider value={value}>{children}</AppointmentContext.Provider>
-}
+  return (
+    <AppointmentContext.Provider value={value}>
+      {children}
+    </AppointmentContext.Provider>
+  );
+};

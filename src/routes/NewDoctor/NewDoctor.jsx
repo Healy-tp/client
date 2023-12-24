@@ -1,31 +1,25 @@
-import {
-  Box,
-  Button,
-  TextField,
-  Typography, 
-} from '@mui/material';
+import { Box, Button, TextField, Typography } from "@mui/material";
 
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { createDoctor } from '../../services/admin';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { createDoctor } from "../../services/admin";
 
 const defaultFormFields = {
-  firstName: '',
-  lastName: '',
-  phoneNumber: '',
-  email: '',
-  specialty: '',
-}
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  email: "",
+  specialty: "",
+};
 
 const NewDoctor = () => {
-
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {firstName, lastName, phoneNumber, email, specialty } = formFields;
+  const { firstName, lastName, phoneNumber, email, specialty } = formFields;
   const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value })
+    setFormFields({ ...formFields, [name]: value });
   };
 
   const handleSubmit = async (e) => {
@@ -39,22 +33,20 @@ const NewDoctor = () => {
         email,
       });
       // setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
-      navigate('/admin');
+      navigate("/admin");
     } catch (error) {
-      console.log('Could not create new doctor', error);
+      console.log("Could not create new doctor", error);
       // setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
     }
-
   };
 
-  
   return (
     <Box
       sx={{
         marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       {/* <Snackbar
@@ -66,7 +58,7 @@ const NewDoctor = () => {
       <Typography component="h1" variant="h5">
         Create New Doctor
       </Typography>
-      <Box component="form" sx={{mt: 1}} onSubmit={handleSubmit}>
+      <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
         <TextField
           margin="normal"
           required
@@ -92,7 +84,7 @@ const NewDoctor = () => {
           autoComplete="lastName"
           autoFocus
         />
-        
+
         <TextField
           margin="normal"
           required
@@ -141,7 +133,7 @@ const NewDoctor = () => {
         </Button>
       </Box>
     </Box>
-  )
-}
+  );
+};
 
 export default NewDoctor;

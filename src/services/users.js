@@ -1,8 +1,11 @@
-import api from './api';
-import config from './config';
+import api from "./api";
+import config from "./config";
 
 async function signIn(email, password) {
-  const response = await api.post(`${config.apiUrl}/user/signin`, {email, password});
+  const response = await api.post(`${config.apiUrl}/user/signin`, {
+    email,
+    password,
+  });
   return response;
 }
 
@@ -26,16 +29,12 @@ async function checkUser(confirmationCode) {
   return response;
 }
 
-async function verifyUser(confirmationCode, {email, password}) {
-  const response = await api.post(`${config.apiUrl}/user/${confirmationCode}`, { email, password });
+async function verifyUser(confirmationCode, { email, password }) {
+  const response = await api.post(`${config.apiUrl}/user/${confirmationCode}`, {
+    email,
+    password,
+  });
   return response;
 }
 
-export {
-  signIn,
-  signUp,
-  signOut,
-  updateUser,
-  checkUser,
-  verifyUser,
-}
+export { signIn, signUp, signOut, updateUser, checkUser, verifyUser };

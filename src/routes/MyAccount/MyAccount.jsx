@@ -1,43 +1,46 @@
-import { useContext, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
-import _ from 'lodash';
+import React, { useContext, useState, useEffect } from "react";
+import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 
-import Box from '@mui/material/Box';
-import Badge from '@mui/material/Badge';
-import Divider from '@mui/material/Divider';
-import Drawer from '@mui/material/Drawer';
-import PersonIcon from '@mui/icons-material/Person';
-import MailIcon from '@mui/icons-material/Mail';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import EventNoteIcon from '@mui/icons-material/EventNote';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import HomeIcon from '@mui/icons-material/Home';
-import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
+import Box from "@mui/material/Box";
+import Badge from "@mui/material/Badge";
+import Divider from "@mui/material/Divider";
+import Drawer from "@mui/material/Drawer";
+import PersonIcon from "@mui/icons-material/Person";
+import MailIcon from "@mui/icons-material/Mail";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
+import EventNoteIcon from "@mui/icons-material/EventNote";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import HomeIcon from "@mui/icons-material/Home";
+import ListItemText from "@mui/material/ListItemText";
+import Toolbar from "@mui/material/Toolbar";
 
-import MyInfo from './MyInfo';
-import MyAppointments from './MyAppointments';
-import MyMessages from './MyMessages';
-import MyAvailabilities from './MyAvailabilities';
+import MyInfo from "./MyInfo";
+import MyAppointments from "./MyAppointments";
+import MyMessages from "./MyMessages";
+import MyAvailabilities from "./MyAvailabilities";
 
-import WelcomePage from './WelcomePage';
-import { UserContext } from '../../contexts/UserContext';
-import { getUnreadMessagesCount, markMessagesAsRead } from '../../services/notifications';
+import WelcomePage from "./WelcomePage";
+import { UserContext } from "../../contexts/UserContext";
+import {
+  getUnreadMessagesCount,
+  markMessagesAsRead,
+} from "../../services/notifications";
 
 const drawerWidth = 240;
-const itemIconStyle = { minWidth: '20px', marginRight: '5px' };
+const itemIconStyle = { minWidth: "20px", marginRight: "5px" };
 
 const MENU_OPTIONS = {
-  MY_INFO: 'my-info',
-  MY_APPOINTMENTS: 'my-appointments',
-  MY_AVAILABILITIES: 'my-availabilities',
-  MY_MESSAGES: 'my-messages',
-  MY_AGENDA: 'my-agenda',
+  MY_INFO: "my-info",
+  MY_APPOINTMENTS: "my-appointments",
+  MY_AVAILABILITIES: "my-availabilities",
+  MY_MESSAGES: "my-messages",
+  MY_AGENDA: "my-agenda",
 };
 
 function ResponsiveDrawer(props) {
@@ -48,15 +51,15 @@ function ResponsiveDrawer(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const { currentUser } = useContext(UserContext); 
+  const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [selectedMenu, setSelectedMenu] = useState('');
+  const [selectedMenu, setSelectedMenu] = useState("");
   const [unreadMessages, setUnreadMessages] = useState(0);
 
   const goToMyMessages = () => {
     setSelectedMenu(MENU_OPTIONS.MY_MESSAGES);
-  }
+  };
 
   useEffect(() => {
     const getUnreadMessagesCountFromApi = async () => {
@@ -64,9 +67,9 @@ function ResponsiveDrawer(props) {
         const response = await getUnreadMessagesCount();
         setUnreadMessages(response.count);
       } catch (err) {
-        console.log('error getting unread messages from server', err);
+        console.log("error getting unread messages from server", err);
       }
-    }
+    };
     getUnreadMessagesCountFromApi();
   }, []);
 
@@ -78,84 +81,88 @@ function ResponsiveDrawer(props) {
       const response = await markMessagesAsRead(convId);
       setUnreadMessages(unreadMessages - response.count);
     } catch (err) {
-      console.log('error marking messages unread', err);
+      console.log("error marking messages unread", err);
     }
-  }
+  };
 
   const drawer = (
     <div>
-      <Toolbar
-        disableGutters
-        children={
-          <ListItem key={'Back Home'} disablePadding>
-            <ListItemButton onClick={() => navigate('/')}>
-              <ListItemIcon style={itemIconStyle}>
-                <HomeIcon />
-              </ListItemIcon>
-              <ListItemText primary={'Home'} />
-            </ListItemButton>
-          </ListItem>
-        }
-      />
+      <Toolbar disableGutters>
+        <ListItem key={"Back Home"} disablePadding>
+          <ListItemButton onClick={() => navigate("/")}>
+            <ListItemIcon style={itemIconStyle}>
+              <HomeIcon />
+            </ListItemIcon>
+            <ListItemText primary={"Home"} />
+          </ListItemButton>
+        </ListItem>
+      </Toolbar>
       <Divider />
       <List>
-        <ListItem key={'My info'} disablePadding>
+        <ListItem key={"My info"} disablePadding>
           <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_INFO)}>
             <ListItemIcon style={itemIconStyle}>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary={'Mi informacion'} />
+            <ListItemText primary={"Mi informacion"} />
           </ListItemButton>
         </ListItem>
-        {
-          currentUser.isDoctor ? (
-            <>
-              <ListItem key={'My agenda'} disablePadding>
-                <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AGENDA)}>
-                  <ListItemIcon style={itemIconStyle}>
-                    <CalendarMonthIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={'Mi agenda'} />
-                </ListItemButton>
-              </ListItem>
-              <ListItem key={'My Availabilities'} disablePadding>
-                <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AVAILABILITIES)}>
-                  <ListItemIcon style={itemIconStyle}>
-                    <EventNoteIcon />
-                  </ListItemIcon>
-                  <ListItemText primary={'Mis disponibilidades'} />
-                </ListItemButton>
-              </ListItem>
-            </>
-          ) : (
-            <ListItem key={'My appointments'} disablePadding>
-              <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_APPOINTMENTS)}>
+        {currentUser.isDoctor ? (
+          <>
+            <ListItem key={"My agenda"} disablePadding>
+              <ListItemButton
+                onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AGENDA)}
+              >
                 <ListItemIcon style={itemIconStyle}>
-                  <AccessTimeIcon />
+                  <CalendarMonthIcon />
                 </ListItemIcon>
-                <ListItemText primary={'Mis turnos'} />
+                <ListItemText primary={"Mi agenda"} />
               </ListItemButton>
             </ListItem>
-          )
-        }
-        <ListItem key={'Messages'} disablePadding>
-        <ListItemButton onClick={() => setSelectedMenu(MENU_OPTIONS.MY_MESSAGES)}>
+            <ListItem key={"My Availabilities"} disablePadding>
+              <ListItemButton
+                onClick={() => setSelectedMenu(MENU_OPTIONS.MY_AVAILABILITIES)}
+              >
+                <ListItemIcon style={itemIconStyle}>
+                  <EventNoteIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Mis disponibilidades"} />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <ListItem key={"My appointments"} disablePadding>
+            <ListItemButton
+              onClick={() => setSelectedMenu(MENU_OPTIONS.MY_APPOINTMENTS)}
+            >
+              <ListItemIcon style={itemIconStyle}>
+                <AccessTimeIcon />
+              </ListItemIcon>
+              <ListItemText primary={"Mis turnos"} />
+            </ListItemButton>
+          </ListItem>
+        )}
+        <ListItem key={"Messages"} disablePadding>
+          <ListItemButton
+            onClick={() => setSelectedMenu(MENU_OPTIONS.MY_MESSAGES)}
+          >
             <ListItemIcon style={itemIconStyle}>
               <Badge color="primary" badgeContent={unreadMessages}>
                 <MailIcon />
               </Badge>
             </ListItemIcon>
-            <ListItemText primary={'Mensajes'} />
+            <ListItemText primary={"Mensajes"} />
           </ListItemButton>
         </ListItem>
       </List>
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -170,8 +177,11 @@ function ResponsiveDrawer(props) {
             keepMounted: true,
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "block", sm: "none" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
         >
           {drawer}
@@ -179,8 +189,11 @@ function ResponsiveDrawer(props) {
         <Drawer
           variant="permanent"
           sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: { xs: "none", sm: "block" },
+            "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
+              width: drawerWidth,
+            },
           }}
           open
         >
@@ -188,15 +201,26 @@ function ResponsiveDrawer(props) {
         </Drawer>
       </Box>
       {selectedMenu === MENU_OPTIONS.MY_INFO && <MyInfo />}
-      {selectedMenu === MENU_OPTIONS.MY_APPOINTMENTS && <MyAppointments nav={goToMyMessages} />}
-      {selectedMenu === MENU_OPTIONS.MY_AGENDA && <MyAppointments nav={goToMyMessages} isDoctor={true} />}
+      {selectedMenu === MENU_OPTIONS.MY_APPOINTMENTS && (
+        <MyAppointments nav={goToMyMessages} />
+      )}
+      {selectedMenu === MENU_OPTIONS.MY_AGENDA && (
+        <MyAppointments nav={goToMyMessages} isDoctor={true} />
+      )}
       {selectedMenu === MENU_OPTIONS.MY_AVAILABILITIES && <MyAvailabilities />}
-      {selectedMenu === MENU_OPTIONS.MY_MESSAGES && <MyMessages isDoctor={currentUser.isDoctor} markMsgsReadCallback={handleConversationChange} />}
+      {selectedMenu === MENU_OPTIONS.MY_MESSAGES && (
+        <MyMessages
+          isDoctor={currentUser.isDoctor}
+          markMsgsReadCallback={handleConversationChange}
+        />
+      )}
       {_.isEmpty(selectedMenu) && (
-        <WelcomePage 
-          icon={'person'} 
-          title={"Bienvenido a tu cuenta!"} 
-          subtitle={"Administra tus turnos, tu informacion y mensajes desde aqui."}
+        <WelcomePage
+          icon={"person"}
+          title={"Bienvenido a tu cuenta!"}
+          subtitle={
+            "Administra tus turnos, tu informacion y mensajes desde aqui."
+          }
         />
       )}
     </Box>

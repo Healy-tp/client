@@ -1,10 +1,14 @@
-import {  
-  Button, Dialog, DialogTitle, DialogActions, DialogContent, DialogContentText
-} from '@mui/material';
+import {
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from "@mui/material";
+import React from "react";
 
-
-const DialogAlert = ({open, handleClose, handleAccept, title, msg}) => {
-
+const DialogAlert = ({ open, handleClose, handleAccept, title, msg }) => {
   return (
     <Dialog
       open={open}
@@ -12,9 +16,7 @@ const DialogAlert = ({open, handleClose, handleAccept, title, msg}) => {
       aria-labelledby="alert-dialog-title"
       aria-describedby="alert-dialog-description"
     >
-      <DialogTitle id="alert-dialog-title">
-        {title}
-      </DialogTitle>
+      <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           {msg}
@@ -27,8 +29,7 @@ const DialogAlert = ({open, handleClose, handleAccept, title, msg}) => {
         </Button>
       </DialogActions>
     </Dialog>
-  )
-}
-
+  );
+};
 
 export default DialogAlert;

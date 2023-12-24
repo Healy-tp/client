@@ -1,3 +1,3 @@
-import DoctorsAdmin from './AuthRoute';
+import DoctorsAdmin from "./AuthRoute";
 
 export default DoctorsAdmin;

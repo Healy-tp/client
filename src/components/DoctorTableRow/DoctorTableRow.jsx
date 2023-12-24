@@ -1,24 +1,27 @@
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { Button, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
 import { useContext } from "react";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { useNavigate } from "react-router-dom";
 
-const DoctorTableRow = ({doctor}) => {
-
+const DoctorTableRow = ({ doctor }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const {selectedData, setSelectedData} = useContext(AppointmentContext);
+  const { selectedData, setSelectedData } = useContext(AppointmentContext);
   const navigate = useNavigate();
   const open = Boolean(anchorEl);
-  
+
   const showMenu = (event) => {
     setAnchorEl(event.currentTarget);
-  }
+  };
 
-  const handleClick = (event) => {
-    setSelectedData({...selectedData, doctorId: doctor.id, doctorName: `${doctor.firstName} ${doctor.lastName}`, doctorSpecialty: doctor.specialty})
-    navigate('/admin/appointment-for-user');
+  const handleClick = () => {
+    setSelectedData({
+      ...selectedData,
+      doctorId: doctor.id,
+      doctorName: `${doctor.firstName} ${doctor.lastName}`,
+      doctorSpecialty: doctor.specialty,
+    });
+    navigate("/admin/appointment-for-user");
   };
 
   const handleClose = () => {
@@ -28,7 +31,7 @@ const DoctorTableRow = ({doctor}) => {
   return (
     <TableRow
       key={doctor.id}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
     >
       <TableCell component="th" scope="row">
         {`${doctor.firstName} ${doctor.lastName}`}
@@ -37,9 +40,9 @@ const DoctorTableRow = ({doctor}) => {
       <TableCell>
         <Button
           id={doctor.id}
-          aria-controls={open ? 'basic-menu' : undefined}
+          aria-controls={open ? "basic-menu" : undefined}
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={open ? "true" : undefined}
           onClick={showMenu}
         >
           Options
@@ -50,15 +53,16 @@ const DoctorTableRow = ({doctor}) => {
           open={open}
           onClose={handleClose}
           MenuListProps={{
-            'aria-labelledby': 'basic-button',
+            "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem id={doctor.id} onClick={handleClick}>Make appointment for user</MenuItem>
+          <MenuItem id={doctor.id} onClick={handleClick}>
+            Make appointment for user
+          </MenuItem>
         </Menu>
       </TableCell>
     </TableRow>
-  )
-}
-
+  );
+};
 
 export default DoctorTableRow;

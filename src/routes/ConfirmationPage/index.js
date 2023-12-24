@@ -1,3 +1,3 @@
-import ConfirmationPage from './ConfirmationPage';
+import ConfirmationPage from "./ConfirmationPage";
 
 export default ConfirmationPage;

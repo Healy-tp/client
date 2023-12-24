@@ -1,58 +1,62 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
-import _ from 'lodash';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 
-import { 
-  Avatar, 
-  Button, 
-  TextField, 
-  Link, 
-  Grid, 
-  Box, 
-  Typography, 
-  Container 
-} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import {
+  Avatar,
+  Button,
+  TextField,
+  Link,
+  Grid,
+  Box,
+  Typography,
+  Container,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 
-import Snackbar from '../../components/Snackbar';
-import { signUp } from '../../services/users';
-import { UserContext } from '../../contexts/UserContext';
+import Snackbar from "../../components/Snackbar";
+import { signUp } from "../../services/users";
+import { UserContext } from "../../contexts/UserContext";
 
 const defaultFormFields = {
-  firstName: '',
-  lastName: '',
-  phoneNumber: '',
-  email: '',
-  password: '',
-  confirmPassword: ''
-}
+  firstName: "",
+  lastName: "",
+  phoneNumber: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const SignUp = () => {
-  
   const { signInUser } = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {firstName, lastName, phoneNumber, email, password, confirmPassword} = formFields;
+  const { firstName, lastName, phoneNumber, email, password, confirmPassword } =
+    formFields;
 
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    type: '',
+    message: "",
+    type: "",
   });
   const { open, message, type } = snackbar;
   const navigate = useNavigate();
-  
+
   const resetFormFields = () => {
-    setFormFields(defaultFormFields)
-  }
+    setFormFields(defaultFormFields);
+  };
 
   const handleCloseSnackbar = () => {
-    setSnackbar({ open: false, message: '' });
+    setSnackbar({ open: false, message: "" });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      setSnackbar({ type: 'error', open: true, message: 'Passwords do not match' });
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Passwords do not match",
+      });
       return;
     }
     try {
@@ -63,20 +67,27 @@ const SignUp = () => {
         email,
         password,
       });
-      setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
+      setSnackbar({
+        type: "success",
+        open: true,
+        message: "Successfully registered",
+      });
       signInUser(user);
       resetFormFields();
-      navigate('/');
+      navigate("/");
     } catch (e) {
-      const errorMsg = _.get(e, 'response.data.errors[0].message', 'Something went wrong');
-      setSnackbar({ type: 'error', open: true, message: errorMsg });
+      const errorMsg = _.get(
+        e,
+        "response.data.errors[0].message",
+        "Something went wrong",
+      );
+      setSnackbar({ type: "error", open: true, message: errorMsg });
     }
-
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormFields({ ...formFields, [name]: value })
+    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
@@ -84,9 +95,9 @@ const SignUp = () => {
       <Box
         sx={{
           marginTop: 8,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
         }}
       >
         <Snackbar
@@ -95,7 +106,7 @@ const SignUp = () => {
           message={message}
           type={type}
         />
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
@@ -191,6 +202,6 @@ const SignUp = () => {
       </Box>
     </Container>
   );
-}
+};
 
 export default SignUp;

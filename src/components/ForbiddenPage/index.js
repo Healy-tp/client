@@ -1,3 +1,3 @@
-import ForbiddenPage from './ForbiddenPage';
+import ForbiddenPage from "./ForbiddenPage";
 
 export default ForbiddenPage;

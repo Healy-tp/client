@@ -1,3 +1,3 @@
-import MyMessages from './MyMessages';
+import MyMessages from "./MyMessages";
 
 export default MyMessages;

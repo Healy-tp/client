@@ -1,41 +1,49 @@
-import { Box, TextField, Button, Container, Card, CardContent, CardActions, Typography } from '@mui/material';
-import { useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import {
+  Box,
+  TextField,
+  Button,
+  Container,
+  Card,
+  CardContent,
+  CardActions,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 
-import Snackbar from '../../components/Snackbar';
+import Snackbar from "../../components/Snackbar";
 
-import { checkUser, verifyUser } from '../../services/users';
+import { checkUser, verifyUser } from "../../services/users";
 
 const defaultFormFields = {
-  email: '',
-  password: '',
-  confirmPassword: ''
-}
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const ConfirmationPage = () => {
-
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const {email, password, confirmPassword} = formFields;
-  
+  const { email, password, confirmPassword } = formFields;
+
   const [validCode, setValidCode] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const { confirmationCode } = useParams();
 
   const [snackbar, setSnackbar] = useState({
     open: false,
-    message: '',
-    type: '',
+    message: "",
+    type: "",
   });
   const { open, message, type } = snackbar;
-  
+
   const navigate = useNavigate();
-  
+
   const resetFormFields = () => {
-    setFormFields(defaultFormFields)
-  }
+    setFormFields(defaultFormFields);
+  };
 
   const handleCloseSnackbar = () => {
-    setSnackbar({ open: false, message: '' });
+    setSnackbar({ open: false, message: "" });
   };
 
   useState(() => {
@@ -46,14 +54,18 @@ const ConfirmationPage = () => {
       } catch (err) {
         console.log(err.response.status);
       }
-    }
+    };
     checkUserApi();
   }, []);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (password !== confirmPassword) {
-      setSnackbar({ type: 'error', open: true, message: 'Passwords do not match' });
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Passwords do not match",
+      });
       return;
     }
 
@@ -62,14 +74,17 @@ const ConfirmationPage = () => {
       resetFormFields();
       setConfirmed(true);
     } catch (error) {
-      setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message});
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: error.response.data.errors[0].message,
+      });
     }
-  }
-
+  };
 
   const handleChange = (event) => {
-    const {name, value} = event.target;
-    setFormFields({...formFields, [name]: value})
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
@@ -80,9 +95,8 @@ const ConfirmationPage = () => {
         message={message}
         type={type}
       />
-    {
-      validCode && !confirmed ? (
-        <Box component="form" sx={{mt: 1}} onSubmit={handleSubmit}>
+      {validCode && !confirmed ? (
+        <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
           <TextField
             margin="normal"
             required
@@ -123,9 +137,10 @@ const ConfirmationPage = () => {
             Submit
           </Button>
         </Box>
-      ) : 
-      validCode && confirmed ? (
-        <Card sx={{ alignItems: 'center', marginTop: 8, flexDirection: 'column' }}>
+      ) : validCode && confirmed ? (
+        <Card
+          sx={{ alignItems: "center", marginTop: 8, flexDirection: "column" }}
+        >
           <CardContent>
             <Typography variant="h5" component="div">
               Congrats! Account confirmed.
@@ -133,13 +148,14 @@ const ConfirmationPage = () => {
           </CardContent>
 
           <CardActions>
-            <Button onClick={() => navigate('/')}>Go back to home</Button>
+            <Button onClick={() => navigate("/")}>Go back to home</Button>
           </CardActions>
         </Card>
-      ) : <></>
-    }
+      ) : (
+        <></>
+      )}
     </Container>
   );
-}
+};
 
 export default ConfirmationPage;

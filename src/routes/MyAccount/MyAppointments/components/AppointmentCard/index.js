@@ -1,3 +1,3 @@
-import AppointmentCard from './AppointmentCard';
+import AppointmentCard from "./AppointmentCard";
 
 export default AppointmentCard;

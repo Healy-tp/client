@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { getUsers } from "../../services/admin";
 import AdminTable from "../AdminTable";
 
-
 const UsersAdmin = () => {
-  const headers = ['Name', 'email', 'phone', 'status']
+  const headers = ["Name", "email", "phone", "status"];
 
   const [users, setUsers] = useState([]);
 
@@ -14,19 +13,18 @@ const UsersAdmin = () => {
         const response = await getUsers();
         setUsers(response);
       } catch (err) {
-        console.log('error getting users from API: ', err);
+        console.log("error getting users from API: ", err);
       }
-    } 
+    };
 
-    getUsersFromApi()
+    getUsersFromApi();
   }, []);
 
   return (
     <>
-      <AdminTable headers={headers} rows={users} kind={'user'}/>
+      <AdminTable headers={headers} rows={users} kind={"user"} />
     </>
   );
-
-}
+};
 
 export default UsersAdmin;

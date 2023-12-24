@@ -1,29 +1,31 @@
-import { 
-  Accordion, 
-  AccordionSummary, 
-  AccordionDetails, 
-  Typography, 
-  Card, 
-  CardContent, 
-  TextField, 
-  Box, 
-  Button, 
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Typography,
+  Card,
+  CardContent,
+  TextField,
+  Box,
+  Button,
   CardActions,
   Link,
 } from "@mui/material";
-import SendIcon from '@mui/icons-material/Send';
-import AttachFileIcon from '@mui/icons-material/AttachFile';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import SendIcon from "@mui/icons-material/Send";
+import AttachFileIcon from "@mui/icons-material/AttachFile";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { useEffect } from "react";
-import { getAttachment, getMessages, newMessage } from "../../services/notifications";
-import { useState } from "react";
-import { useContext } from "react";
+import {
+  getAttachment,
+  getMessages,
+  newMessage,
+} from "../../services/notifications";
+import React, { useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
-
-  const [messages, setMessages] = useState([])
-  const [inputText, setInputText] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [inputText, setInputText] = useState("");
   const [attachment, setAttachment] = useState(null);
 
   useEffect(() => {
@@ -32,14 +34,14 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         const response = await getMessages(convData.id);
         setMessages(response);
       } catch (err) {
-        console.log('could not fetch messages from server', err);
+        console.log("could not fetch messages from server", err);
       }
-    }
-    
+    };
+
     getMessagesFromApi();
   }, []);
 
-  const {currentUser} = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -53,26 +55,28 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         toUserId: isDoctor ? convData.userId : convData.doctorId,
         message: inputText,
         convId: convData.id,
-      }
+      };
       if (attachment) {
         formData.append("attachment", attachment);
-        msgPayload['fileName'] = attachment.name;
+        msgPayload["fileName"] = attachment.name;
       }
-      const response = await newMessage(formData, {'Content-Type': `multipart/form-data; boundary=${formData._boundary}`});
-      setMessages([...messages, {...msgPayload, fromUserId: currentUser.id}]);
+      await newMessage(formData, {
+        "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
+      });
+      setMessages([...messages, { ...msgPayload, fromUserId: currentUser.id }]);
     } catch (err) {
-      console.log('could not POST new message', err);
+      console.log("could not POST new message", err);
     }
-    setInputText('');
+    setInputText("");
     setAttachment(null);
-  }
+  };
 
   const handleGetAttachment = async (msgId, fileName) => {
     console.log("message id", msgId, "filename", fileName);
     try {
-      const response = await getAttachment(msgId); 
+      const response = await getAttachment(msgId);
       let url = window.URL.createObjectURL(new Blob([response.data]));
-      let a = document.createElement('a');
+      let a = document.createElement("a");
       a.href = url;
       a.download = fileName;
       a.click();
@@ -80,45 +84,57 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       // TODO: handle Err
       console.log(err);
     }
-  }
+  };
 
   return (
-    <Accordion sx={{marginTop: 2}} onChange={() => {markMsgsReadCallback(convData.id)}}>
+    <Accordion
+      sx={{ marginTop: 2 }}
+      onChange={() => {
+        markMsgsReadCallback(convData.id);
+      }}
+    >
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>Chat with: {isDoctor ? convData.User.firstName : convData.Doctor.firstName} { isDoctor ? convData.User.lastName :convData.Doctor.lastName}</Typography>
+        <Typography>
+          Chat with:{" "}
+          {isDoctor ? convData.User.firstName : convData.Doctor.firstName}{" "}
+          {isDoctor ? convData.User.lastName : convData.Doctor.lastName}
+        </Typography>
       </AccordionSummary>
       <AccordionDetails>
-        {
-          messages.map((m) => {
-            const params = m.fromUserId !== currentUser.id ? {marginTop: 2, mr: 75, borderRadius: 5} : {marginTop: 2, ml: 75, borderRadius: 5, textAlign: 'right'};
-            return (
-              <Card sx={params}>
-                <CardContent>
-                  {m.message}
-                </CardContent>
-                {
-                  m.fileName ? (
-                    <CardActions>
-                      Adjunto:
-                      <Link
-                        component="button"
-                        download
-                        onClick={() => handleGetAttachment(m.id, m.fileName)}
-                      >
-                        {m.fileName}
-                      </Link>
-                    </CardActions>
-                  ) : <></>
-                }
-              </Card>
-            )
-        })
-        }
-        <Box component="form" onSubmit={handleSubmit} sx={{ display: "flex", justifyContent: "center", marginTop: 10 }}>
+        {messages.map((m) => {
+          const params =
+            m.fromUserId !== currentUser.id
+              ? { marginTop: 2, mr: 75, borderRadius: 5 }
+              : { marginTop: 2, ml: 75, borderRadius: 5, textAlign: "right" };
+          return (
+            <Card sx={params} key={m.id} >
+              <CardContent>{m.message}</CardContent>
+              {m.fileName ? (
+                <CardActions>
+                  Adjunto:
+                  <Link
+                    component="button"
+                    download
+                    onClick={() => handleGetAttachment(m.id, m.fileName)}
+                  >
+                    {m.fileName}
+                  </Link>
+                </CardActions>
+              ) : (
+                <></>
+              )}
+            </Card>
+          );
+        })}
+        <Box
+          component="form"
+          onSubmit={handleSubmit}
+          sx={{ display: "flex", justifyContent: "center", marginTop: 10 }}
+        >
           <TextField
             required
             fullWidth
@@ -126,12 +142,17 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
             name="new-message"
             label="New Message"
             type="new-message"
-            onChange={(event)=> {
+            onChange={(event) => {
               setInputText(event.target.value);
             }}
             id="new-message"
           />
-          <Button variant="contained" component="label" color="secondary" sx={{borderRadius: 75}}>
+          <Button
+            variant="contained"
+            component="label"
+            color="secondary"
+            sx={{ borderRadius: 75 }}
+          >
             <AttachFileIcon />
             <input
               type="file"
@@ -141,17 +162,20 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
               hidden
             />
           </Button>
-          <Button type="submit" onClick={handleSubmit} variant="contained" component="label" sx={{borderRadius: 75}}>
+          <Button
+            type="submit"
+            onClick={handleSubmit}
+            variant="contained"
+            component="label"
+            sx={{ borderRadius: 75 }}
+          >
             <SendIcon />
           </Button>
         </Box>
-        {
-          attachment && attachment.name
-        }
+        {attachment && attachment.name}
       </AccordionDetails>
     </Accordion>
-  )
-}
-
+  );
+};
 
 export default Conversation;

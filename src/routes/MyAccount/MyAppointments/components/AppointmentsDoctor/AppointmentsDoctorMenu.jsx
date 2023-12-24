@@ -1,15 +1,21 @@
-import moment from 'moment';
-import { Button, TextField, Grid, Menu, MenuItem } from '@mui/material';
+import moment from "moment";
+import { Button, TextField, Grid, Menu, MenuItem } from "@mui/material";
 
-import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
-import { useState } from 'react';
-import DialogAlert from '../../../../../components/Dialog';
-import { doctorDayCancelation } from '../../../../../services/appointments';
-import { CANCEL_DAY_DIALOG_MSG, CANCEL_DAY_DIALOG_TITLE } from '../AppointmentCard/utils/dialogs';
+import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import React, { useState } from "react";
+import DialogAlert from "../../../../../components/Dialog";
+import { doctorDayCancelation } from "../../../../../services/appointments";
+import {
+  CANCEL_DAY_DIALOG_MSG,
+  CANCEL_DAY_DIALOG_TITLE,
+} from "../AppointmentCard/utils/dialogs";
 
-
-const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) => {
+const AppointmentsDoctorMenu = ({
+  appointments,
+  selectedDate,
+  handleChange,
+}) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -23,11 +29,11 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
 
   const handleDialogClose = () => {
     setDialogOpen(false);
-  }
+  };
 
   const handleCancelClickOpen = () => {
     setDialogOpen(true);
-  }
+  };
 
   const handleCancelDay = async () => {
     try {
@@ -36,16 +42,24 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
       });
       setDialogOpen(false);
     } catch (err) {
-      console.log('could not cancel day', err);
+      console.log("could not cancel day", err);
     }
-  }
+  };
 
   const disableFn = (a) => {
-    return moment(a.arrivalTime || a.extraAppt).utc().day();
-  }
+    return moment(a.arrivalTime || a.extraAppt)
+      .utc()
+      .day();
+  };
 
   return (
-    <Grid container spacing={2} maxWidth={'xs'} justifyContent="center" alignItems='center'>
+    <Grid
+      container
+      spacing={2}
+      maxWidth={"xs"}
+      justifyContent="center"
+      alignItems="center"
+    >
       <Grid item>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
@@ -53,7 +67,7 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
             value={selectedDate}
             onChange={handleChange}
             renderInput={(params) => <TextField {...params} />}
-            sx={{marginTop: 2}}
+            sx={{ marginTop: 2 }}
             shouldDisableDate={(date) => {
               const filteredDays = appointments.map(disableFn);
               return !filteredDays.includes(date.getDay());
@@ -62,26 +76,30 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
         </LocalizationProvider>
       </Grid>
       <Grid item>
-        <Button variant='filled' onClick={handleMenu}>Manage Agenda for selected date</Button>
+        <Button variant="filled" onClick={handleMenu}>
+          Manage Agenda for selected date
+        </Button>
         <Menu
           id="menu-appbar"
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+            vertical: "top",
+            horizontal: "right",
           }}
           keepMounted
           transformOrigin={{
-            vertical: 'top',
-            horizontal: 'right',
+            vertical: "top",
+            horizontal: "right",
           }}
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleCancelClickOpen}>Cancel all Appointments</MenuItem>
+          <MenuItem onClick={handleCancelClickOpen}>
+            Cancel all Appointments
+          </MenuItem>
         </Menu>
       </Grid>
-      <DialogAlert 
+      <DialogAlert
         open={dialogOpen}
         handleClose={handleDialogClose}
         handleAccept={handleCancelDay}
@@ -89,7 +107,7 @@ const AppointmentsDoctorMenu = ({ appointments, selectedDate, handleChange }) =>
         msg={CANCEL_DAY_DIALOG_MSG}
       />
     </Grid>
-  )
-}
+  );
+};
 
 export default AppointmentsDoctorMenu;

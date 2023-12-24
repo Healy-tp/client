@@ -1,8 +1,8 @@
-import developmentConfig from './configs/config.development';
-import productionConfig from './configs/config.production';
+import developmentConfig from "./configs/config.development";
+import productionConfig from "./configs/config.production";
 
 const getConfig = () => {
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV === "production") {
     return productionConfig;
   } else {
     return developmentConfig;

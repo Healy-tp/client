@@ -1,24 +1,17 @@
-import { useState, useContext } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import _ from 'lodash';
+import React, { useState, useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import _ from "lodash";
 
-import {
-  Box,
-  Button, 
-  Link, 
-  Grid, 
-  TextField,
-  Typography, 
-} from '@mui/material';
+import { Box, Button, Link, Grid, TextField, Typography } from "@mui/material";
 
-import Snackbar from '../../components/Snackbar';
-import { signIn } from '../../services/users';
-import { UserContext } from '../../contexts/UserContext';
+import Snackbar from "../../components/Snackbar";
+import { signIn } from "../../services/users";
+import { UserContext } from "../../contexts/UserContext";
 
 const defaultFormFields = {
-  email: '',
-  password: '',
-}
+  email: "",
+  password: "",
+};
 
 const Login = () => {
   const { signInUser } = useContext(UserContext);
@@ -26,22 +19,22 @@ const Login = () => {
   const { email, password } = formFields;
   const [snackbar, setSnackBar] = useState({
     open: false,
-    message: '',
+    message: "",
   });
   const { open, message } = snackbar;
 
   const location = useLocation();
-  const {from} = location.state || {from: {pathname: '/'}};
+  const { from } = location.state || { from: { pathname: "/" } };
 
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setSnackBar({ open: false, message: '' });
+    setSnackBar({ open: false, message: "" });
   };
 
   const resetFormFields = () => {
-    setFormFields(defaultFormFields)
-  }
+    setFormFields(defaultFormFields);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -52,23 +45,27 @@ const Login = () => {
       resetFormFields();
       navigate(from.pathname);
     } catch (e) {
-      const errorMsg = _.get(e, 'response.data.errors[0].message', 'Something went wrong');
+      const errorMsg = _.get(
+        e,
+        "response.data.errors[0].message",
+        "Something went wrong",
+      );
       setSnackBar({ open: true, message: errorMsg });
     }
-  }
+  };
 
   const handleChange = (event) => {
-    const {name, value} = event.target;
-    setFormFields({...formFields, [name]: value})
+    const { name, value } = event.target;
+    setFormFields({ ...formFields, [name]: value });
   };
 
   return (
     <Box
       sx={{
         marginTop: 8,
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
       }}
     >
       <Snackbar
@@ -128,7 +125,6 @@ const Login = () => {
       </Box>
     </Box>
   );
-}
-
+};
 
 export default Login;

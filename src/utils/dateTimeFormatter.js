@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require("moment");
 
 const dateToString = (date) => {
   if (!date) {
@@ -8,7 +8,7 @@ const dateToString = (date) => {
   // TODO: update to moment if possible
   // return moment(date).format('DD-MM-YYYY');
   return date.toJSON().slice(0, 10);
-}
+};
 
 const timeToString = (dateTime) => {
   if (!dateTime) {
@@ -18,18 +18,18 @@ const timeToString = (dateTime) => {
   // TODO: update to moment if possible
   // return moment.utc(dateTime).format('HH:mm');
   return dateTime.toJSON().slice(11, 16);
-}
+};
 
 const dateTimeToString = (dateTime) => {
   if (!dateTime) {
     return null;
   }
 
-  return moment.utc(dateTime).format("DD-MM-YYYY HH:mm") + 'hs';
-}
+  return moment.utc(dateTime).format("DD-MM-YYYY HH:mm") + "hs";
+};
 
 module.exports = {
   dateToString,
   timeToString,
-  dateTimeToString
+  dateTimeToString,
 };

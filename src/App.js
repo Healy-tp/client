@@ -1,94 +1,108 @@
-import { ThemeProvider } from '@mui/material/styles';
-import { CssBaseline } from '@mui/material';
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-} from "react-router-dom";
+import React from "react";
+import { ThemeProvider } from "@mui/material/styles";
+import { CssBaseline } from "@mui/material";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import { UserProvider } from './contexts/UserContext';
-import { AppointmentProvider } from './contexts/AppointmentContext';
-import AppHeader from './components/AppHeader';
-import AuthRoute from './components/AuthRoute';
-import Login from './routes/Login';
-import SignUp from './routes/SignUp';
-import Home from './routes/Home';
-import ErrorPage from './routes/404';
-import Admin from './routes/Admin/Admin';
-import ConfirmationPage from './routes/ConfirmationPage';
-import NewDoctor from './routes/NewDoctor';
-import NewOffice from './routes/NewOffice';
-import MyAccount from './routes/MyAccount/MyAccount';
+import { UserProvider } from "./contexts/UserContext";
+import { AppointmentProvider } from "./contexts/AppointmentContext";
+import AppHeader from "./components/AppHeader";
+import AuthRoute from "./components/AuthRoute";
+import Login from "./routes/Login";
+import SignUp from "./routes/SignUp";
+import Home from "./routes/Home";
+import ErrorPage from "./routes/404";
+import Admin from "./routes/Admin/Admin";
+import ConfirmationPage from "./routes/ConfirmationPage";
+import NewDoctor from "./routes/NewDoctor";
+import NewOffice from "./routes/NewOffice";
+import MyAccount from "./routes/MyAccount/MyAccount";
 
-import './App.css';
-import theme from './theme';
-import Checkout from './routes/Checkout';
-import AdminAppointmentForUser from './routes/AdminAppointmentForUser/AdminAppointmentForUser';
-import EditAppointment from './routes/EditAppointment';
-import HistoryWithUser from './routes/HistoryWithUser';
+import "./App.css";
+import theme from "./theme";
+import Checkout from "./routes/Checkout";
+import AdminAppointmentForUser from "./routes/AdminAppointmentForUser/AdminAppointmentForUser";
+import EditAppointment from "./routes/EditAppointment";
+import HistoryWithUser from "./routes/HistoryWithUser";
 
 function AuthRoutes() {
   return (
     <Routes>
-      <Route 
-        path="/appointment/checkout" 
+      <Route
+        path="/appointment/checkout"
         element={
-          <AuthRoute children={<Checkout from='user'/>} />
+          <AuthRoute>
+            <Checkout from="user" />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/admin" 
+      <Route
+        path="/admin"
         element={
-          <AuthRoute children={<Admin />} />
+          <AuthRoute>
+            <Admin />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/admin/new-doctor" 
+      <Route
+        path="/admin/new-doctor"
         element={
-          <AuthRoute children={<NewDoctor />} />
+          <AuthRoute>
+            <NewDoctor />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/admin/new-office" 
+      <Route
+        path="/admin/new-office"
         element={
-          <AuthRoute children={<NewOffice />} />
+          <AuthRoute>
+            <NewOffice />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/admin/appointment-for-user" 
+      <Route
+        path="/admin/appointment-for-user"
         element={
-          <AuthRoute children={<AdminAppointmentForUser />} />
+          <AuthRoute>
+            <AdminAppointmentForUser />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/admin/appointment-for-user/create" 
+      <Route
+        path="/admin/appointment-for-user/create"
         element={
-          <AuthRoute children={<Checkout from='admin'/>} />
+          <AuthRoute>
+            <Checkout from="admin" />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/my-account" 
+      <Route
+        path="/my-account"
         element={
-          <AuthRoute children={<MyAccount />} />
+          <AuthRoute>
+            <MyAccount />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/my-account/:id/edit" 
+      <Route
+        path="/my-account/:id/edit"
         element={
-          <AuthRoute children={<EditAppointment />} />
+          <AuthRoute>
+            <EditAppointment />
+          </AuthRoute>
         }
       />
-      <Route 
-        path="/history-with-user/:id/" 
+      <Route
+        path="/history-with-user/:id/"
         element={
-          <AuthRoute children={<HistoryWithUser />} />
+          <AuthRoute>
+            <HistoryWithUser />
+          </AuthRoute>
         }
       />
       <Route path="*" element={<ErrorPage />} />
     </Routes>
   );
 }
-
 
 function App() {
   return (
@@ -101,7 +115,10 @@ function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
-                <Route path="/sign/:confirmationCode" element={<ConfirmationPage />} />
+                <Route
+                  path="/sign/:confirmationCode"
+                  element={<ConfirmationPage />}
+                />
                 <Route path="/" element={<Home />} />
                 <Route path="*" element={<AuthRoutes />} />
               </Routes>

@@ -1,15 +1,18 @@
-import { Box, Container } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { useState, useEffect, useContext } from 'react';
-import { getDoctors, getAvailabilities, getAllAppointments } from '../../services/appointments';
-import { AppointmentContext } from '../../contexts/AppointmentContext';
-import { dateToString } from '../../utils/dateTimeFormatter';
-import Scheduler from '../Scheduler/Scheduler';
-import curvyLines from '../../assets/curvyLines.png'
+import { Box, Container } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useContext } from "react";
+import {
+  getDoctors,
+  getAvailabilities,
+  getAllAppointments,
+} from "../../services/appointments";
+import { AppointmentContext } from "../../contexts/AppointmentContext";
+import { dateToString } from "../../utils/dateTimeFormatter";
+import Scheduler from "../Scheduler/Scheduler";
+import curvyLines from "../../assets/curvyLines.png";
 
 function SchedulerHomeContainer() {
-
-  const {selectedData, setSelectedData} = useContext(AppointmentContext)
+  const { selectedData, setSelectedData } = useContext(AppointmentContext);
 
   const [availableTimes, setAvailableTimes] = useState([]);
   const [doctors, setDoctors] = useState([]);
@@ -18,89 +21,105 @@ function SchedulerHomeContainer() {
 
   const navigate = useNavigate();
 
-  useEffect(() => { 
+  useEffect(() => {
     const getDoctorsFromApi = async () => {
       const response = await getDoctors();
       setDoctors(response);
-    }
+    };
     const getAvailabilitiesFromApi = async () => {
       const response = await getAvailabilities();
       setAvailabilities(response);
-    }
+    };
 
     const getAllAppointmentsFromApi = async () => {
       const response = await getAllAppointments();
       setAppointments(response);
-    }
+    };
 
     try {
       getDoctorsFromApi();
       getAvailabilitiesFromApi();
       getAllAppointmentsFromApi();
     } catch (err) {
-      console.log('error fetching data from server: ', err);
+      console.log("error fetching data from server: ", err);
     }
   }, []);
 
   const allSelectedData = () => {
-    return selectedData.doctorId != null && selectedData.date != null && selectedData.selectedTime != null; 
-  }
+    return (
+      selectedData.doctorId != null &&
+      selectedData.date != null &&
+      selectedData.selectedTime != null
+    );
+  };
 
   const goToAppointmentCheckout = () => {
     if (!allSelectedData()) {
-
       return;
     }
-    navigate('/appointment/checkout')
+    navigate("/appointment/checkout");
   };
 
   const onChangeDate = (date) => {
     const times = [];
-    const selectedDate = availabilities.filter(a => a.weekday === date.getDay() && a.Doctor.id === selectedData.doctorId)[0];
+    const selectedDate = availabilities.filter(
+      (a) =>
+        a.weekday === date.getDay() && a.Doctor.id === selectedData.doctorId,
+    )[0];
     const dateString = dateToString(date);
-    const startDt = new Date(`${dateString}T${selectedDate.startHour.slice(0, 5)}:00Z`);
-    const endDt = new Date(`${dateString}T${selectedDate.endHour.slice(0, 5)}:00Z`);
+    const startDt = new Date(
+      `${dateString}T${selectedDate.startHour.slice(0, 5)}:00Z`,
+    );
+    const endDt = new Date(
+      `${dateString}T${selectedDate.endHour.slice(0, 5)}:00Z`,
+    );
     while (startDt < endDt) {
       times.push(new Date(startDt));
       startDt.setMinutes(startDt.getMinutes() + selectedDate.frequency);
     }
     setAvailableTimes(times);
-    setSelectedData({...selectedData, selectedOffice: selectedDate.officeId, selectedTime: null, date})
-  }
+    setSelectedData({
+      ...selectedData,
+      selectedOffice: selectedDate.officeId,
+      selectedTime: null,
+      date,
+    });
+  };
 
   const autoCompleteOnChange = (event, newValue) => {
     setSelectedData({
-      ...selectedData, 
+      ...selectedData,
       doctorId: newValue ? newValue.id : null,
-      doctorName: newValue ? `${newValue.firstName} ${newValue.lastName}` : null,
+      doctorName: newValue
+        ? `${newValue.firstName} ${newValue.lastName}`
+        : null,
       doctorSpecialty: newValue ? newValue.specialty : null,
-      datePickerDisabled: newValue ? false: true,
+      datePickerDisabled: newValue ? false : true,
       selectedTime: null,
     });
     setAvailableTimes([]);
-  }
-
+  };
 
   return (
     <Box
       component="section"
-      sx={{ display: 'flex', overflow: 'hidden', bgcolor: 'secondary.light' }}
+      sx={{ display: "flex", overflow: "hidden", bgcolor: "secondary.light" }}
     >
-      <Container sx={{ mt: 15, mb: 30, display: 'flex', position: 'relative' }}>
+      <Container sx={{ mt: 15, mb: 30, display: "flex", position: "relative" }}>
         <Box
           component="img"
           src={curvyLines}
           alt="curvy lines"
-          sx={{ pointerEvents: 'none', position: 'absolute', top: -180 }}
+          sx={{ pointerEvents: "none", position: "absolute", top: -180 }}
         />
-        <Scheduler 
+        <Scheduler
           availableTimes={availableTimes}
           appointments={appointments}
           availabilities={availabilities}
           buttonOnClick={goToAppointmentCheckout}
           datePickerOnChange={onChangeDate}
           autoCompleteOnChange={autoCompleteOnChange}
-          autoCompleteFields={{ label: 'Doctor', options: doctors }}
+          autoCompleteFields={{ label: "Doctor", options: doctors }}
         />
       </Container>
     </Box>

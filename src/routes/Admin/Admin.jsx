@@ -1,5 +1,5 @@
-import { useState, useContext } from "react";
-import _ from 'lodash';
+import React, { useState, useContext } from "react";
+import _ from "lodash";
 import ForbiddenPage from "../../components/ForbiddenPage";
 import { UserContext } from "../../contexts/UserContext";
 import { Box, Tab, Tabs } from "@mui/material";
@@ -38,7 +38,7 @@ const TABS = [
 ];
 
 const Admin = () => {
-  const {currentUser} = useContext(UserContext);
+  const { currentUser } = useContext(UserContext);
   const [value, setValue] = useState(0);
 
   const handleChange = (event, newValue) => {
@@ -47,24 +47,20 @@ const Admin = () => {
 
   return (
     <>
-      {
-        !currentUser.isAdmin 
-          ? <ForbiddenPage /> 
-          : (
-            <Box sx={{ width: '100%', bgcolor: 'background.paper' }}>
-              <Tabs value={value} onChange={handleChange} centered>
-                {_.map(TABS, (tab, i) => (
-                  <Tab key={i} label={tab.label} />
-                ))}
-              </Tabs>
-              { 
-                TABS[value].component 
-              }
-            </Box>
-          )
-      }
+      {!currentUser.isAdmin ? (
+        <ForbiddenPage />
+      ) : (
+        <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          <Tabs value={value} onChange={handleChange} centered>
+            {_.map(TABS, (tab, i) => (
+              <Tab key={i} label={tab.label} />
+            ))}
+          </Tabs>
+          {TABS[value].component}
+        </Box>
+      )}
     </>
   );
-}
+};
 
 export default Admin;

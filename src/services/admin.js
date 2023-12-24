@@ -1,8 +1,11 @@
-import api from './api';
-import config from './config';
+import api from "./api";
+import config from "./config";
 
 function editAvailability(availabilityData) {
-  return api.put(`${config.apiUrl}/api/admin/availabilities/edit`, availabilityData);
+  return api.put(
+    `${config.apiUrl}/api/admin/availabilities/edit`,
+    availabilityData,
+  );
 }
 
 function editAppointment(apptData) {
@@ -22,7 +25,10 @@ function getAppointments() {
 }
 
 function createAppointmentForUser(payload) {
-  return api.post(`${config.apiUrl}/api/admin/appointments/create-for-user`, payload);
+  return api.post(
+    `${config.apiUrl}/api/admin/appointments/create-for-user`,
+    payload,
+  );
 }
 
 function createDoctor(userData) {
@@ -52,4 +58,4 @@ export {
   editAppointment,
   getUsers,
   createAppointmentForUser,
-}
+};

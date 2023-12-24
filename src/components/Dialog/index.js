@@ -1,3 +1,3 @@
-import DialogAlert from './Dialog';
+import DialogAlert from "./Dialog";
 
 export default DialogAlert;

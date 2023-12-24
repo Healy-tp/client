@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { Navigate, useLocation } from "react-router-dom";
-import { useContext } from 'react';
+import React, { useContext } from "react";
 
-import { UserContext } from '../../contexts/UserContext';
+import { UserContext } from "../../contexts/UserContext";
 
 const parseJwt = (token) => {
   try {
@@ -11,7 +11,6 @@ const parseJwt = (token) => {
     return null;
   }
 };
-
 
 const AuthRoute = ({ children }) => {
   const { currentUser, signOutUser } = useContext(UserContext);

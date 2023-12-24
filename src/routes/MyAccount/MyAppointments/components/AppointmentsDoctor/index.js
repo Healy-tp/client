@@ -1,3 +1,3 @@
-import AppointmentsDoctorMenu from './AppointmentsDoctorMenu';
+import AppointmentsDoctorMenu from "./AppointmentsDoctorMenu";
 
 export default AppointmentsDoctorMenu;

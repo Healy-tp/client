@@ -1,19 +1,15 @@
-import { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
-import AccountCircle from '@mui/icons-material/AccountCircle';
+import AccountCircle from "@mui/icons-material/AccountCircle";
 
-import {
-  Menu,
-  MenuItem, 
-  IconButton,
-} from '@mui/material';
+import { Menu, MenuItem, IconButton } from "@mui/material";
 
-import { signOut } from '../../services/users';
-import { UserContext } from '../../contexts/UserContext';
+import { signOut } from "../../services/users";
+import { UserContext } from "../../contexts/UserContext";
 
 const AccountMenu = ({ currentUser }) => {
-  const {signOutUser} = useContext(UserContext);
+  const { signOutUser } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
 
@@ -28,7 +24,7 @@ const AccountMenu = ({ currentUser }) => {
   const handleLogout = () => {
     signOut();
     signOutUser(null);
-  }
+  };
 
   return (
     <div>
@@ -41,7 +37,7 @@ const AccountMenu = ({ currentUser }) => {
         color="inherit"
       >
         <AccountCircle />
-        <span style={{ marginLeft: '4px' }}>
+        <span style={{ marginLeft: "4px" }}>
           {`${currentUser.firstName} ${currentUser.lastName}`}
         </span>
       </IconButton>
@@ -49,22 +45,22 @@ const AccountMenu = ({ currentUser }) => {
         id="menu-appbar"
         anchorEl={anchorEl}
         anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         keepMounted
         transformOrigin={{
-          vertical: 'top',
-          horizontal: 'right',
+          vertical: "top",
+          horizontal: "right",
         }}
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => navigate('/my-account')}>My Account</MenuItem>
+        <MenuItem onClick={() => navigate("/my-account")}>My Account</MenuItem>
         <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
     </div>
-  )
-}
+  );
+};
 
 export default AccountMenu;

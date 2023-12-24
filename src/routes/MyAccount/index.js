@@ -1,3 +1,3 @@
-import MyAccount from './MyAccount';
+import MyAccount from "./MyAccount";
 
 export default MyAccount;
