@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 
 import { Box, Button, Link, Grid, TextField, Typography } from "@mui/material";
@@ -14,6 +15,7 @@ const defaultFormFields = {
 };
 
 const Login = () => {
+  const [t] = useTranslation();
   const { signInUser } = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password } = formFields;
@@ -75,7 +77,7 @@ const Login = () => {
         type={"error"}
       />
       <Typography component="h1" variant="h5">
-        Sign in
+        {t('login.title')}
       </Typography>
       <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
         <TextField
@@ -83,7 +85,7 @@ const Login = () => {
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={t('login.email')}
           name="email"
           value={email}
           onChange={handleChange}
@@ -95,7 +97,7 @@ const Login = () => {
           required
           fullWidth
           name="password"
-          label="Password"
+          label={t('login.password')}
           type="password"
           id="password"
           value={password}
@@ -108,17 +110,17 @@ const Login = () => {
           variant="contained"
           sx={{ mt: 3, mb: 3 }}
         >
-          Sign In
+          {t('login.title')}
         </Button>
         <Grid container>
           <Grid item xs>
             <Link href="#" variant="body2">
-              Forgot password?
+              {t('login.forgot_password')}
             </Link>
           </Grid>
           <Grid item>
             <Link href="/sign-up" variant="body2">
-              Create account
+              {t('login.sign_up')}
             </Link>
           </Grid>
         </Grid>

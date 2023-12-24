@@ -1,21 +1,13 @@
-import { initReactI18next } from "react-i18next";
 import i18n from "i18next";
+import { initReactI18next } from "react-i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 
 import { DEFAULT_LOCALE } from "../utils/constants";
 import translationES from "./locales/es.json";
 
-// Passing translation to placeholders return type error
-// learn more (https://github.com/i18next/react-i18next/issues/1587#issuecomment-1386909661)
-declare module "i18next" {
-  interface CustomTypeOptions {
-    returnNull: false;
-  }
-}
-
 // the translations (could be managed separated from the code: https://react.i18next.com/guides/multiple-translation-files))
 const resources = {
-  en: {
+  es: {
     translation: translationES,
   },
 };
@@ -33,7 +25,6 @@ i18n
     debug: true,
     resources,
     fallbackLng: DEFAULT_LOCALE,
-
     interpolation: {
       escapeValue: false, // react is already safe from xss
     },

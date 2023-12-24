@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 
 import {
@@ -28,6 +29,7 @@ const defaultFormFields = {
 };
 
 const SignUp = () => {
+  const [t] = useTranslation();
   const { signInUser } = useContext(UserContext);
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { firstName, lastName, phoneNumber, email, password, confirmPassword } =
@@ -110,7 +112,7 @@ const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          {t('signup.title')}
         </Typography>
         <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
           <Grid container spacing={2}>
@@ -121,7 +123,7 @@ const SignUp = () => {
                 required
                 fullWidth
                 id="firstName"
-                label="First Name"
+                label={t('signup.first_name')}
                 onChange={handleChange}
                 autoFocus
               />
@@ -131,7 +133,7 @@ const SignUp = () => {
                 required
                 fullWidth
                 id="lastName"
-                label="Last Name"
+                label={t('signup.last_name')}
                 name="lastName"
                 onChange={handleChange}
                 autoComplete="family-name"
@@ -142,7 +144,7 @@ const SignUp = () => {
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
+                label={t('signup.email')}
                 name="email"
                 onChange={handleChange}
                 autoComplete="email"
@@ -154,7 +156,7 @@ const SignUp = () => {
                 fullWidth
                 name="phoneNumber"
                 onChange={handleChange}
-                label="Phone Number"
+                label={t('signup.phone')}
                 type="tel"
                 id="phone-number"
               />
@@ -164,7 +166,7 @@ const SignUp = () => {
                 required
                 fullWidth
                 name="password"
-                label="Password"
+                label={t('signup.password')}
                 type="password"
                 id="password"
                 onChange={handleChange}
@@ -176,7 +178,7 @@ const SignUp = () => {
                 required
                 fullWidth
                 name="confirmPassword"
-                label="Confirm Password"
+                label={t('signup.confirm_password')}
                 type="password"
                 onChange={handleChange}
                 id="confirm-password"
@@ -189,12 +191,12 @@ const SignUp = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Sign Up
+            {t('signup.title')}
           </Button>
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Link href="/login" variant="body2">
-                Already have an account? Sign in
+                {t('signup.already_have_account')}
               </Link>
             </Grid>
           </Grid>

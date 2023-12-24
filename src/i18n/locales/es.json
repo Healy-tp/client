@@ -1,0 +1,51 @@
+{
+  "login": {
+    "title": "Iniciar sesión",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "forgot_password": "¿Olvidaste tu contraseña?",
+    "sign_up": "Registrarse"
+  },
+  "signup": {
+    "title": "Registrarse",
+    "first_name": "Nombre",
+    "last_name": "Apellido",
+    "email": "Correo electrónico",
+    "phone": "Teléfono",
+    "password": "Contraseña",
+    "confirm_password": "Confirmar contraseña",
+    "sign_in": "Iniciar sesión",
+    "already_have_account": "¿Ya tienes una cuenta? Iniciar sesión"
+  },
+  "components": {
+    "layout": {},
+    "something_went_wrong": {
+      "title": "Something went wrong",
+      "try_again": "Please try again"
+    },
+    "app_not_found": {
+      "title": "App not found",
+      "sign_in": "Sign in with another account"
+    },
+    "page_not_found": {
+      "title": "404"
+    }
+  },
+  "errors": {
+    "generic_error": "Something went wrong on our end. Please try again",
+    "verify_url": "Please verify that the app URL is correct or reach out to the app owner for assistance."
+  },
+  "titles": {
+    "app_name": "Healy"
+  },
+  "server_errors": {
+    "network_error": "Network Error"
+  },
+  "keywords": {
+    "to": "to",
+    "one": "one",
+    "many": "many",
+    "loading": "Loading...",
+    "search": "Search"
+  }
+}
