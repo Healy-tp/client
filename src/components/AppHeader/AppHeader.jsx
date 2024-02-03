@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import { AppBar, Button, Box, Toolbar } from "@mui/material";
 
@@ -10,6 +11,7 @@ import { Avatar } from "@mui/material";
 import LogoImage from "../../assets/logo.png";
 
 const AppHeader = () => {
+  const [t] = useTranslation();
   const { currentUser } = useContext(UserContext);
 
   const navigate = useNavigate();
@@ -35,10 +37,10 @@ const AppHeader = () => {
           {!currentUser ? (
             <div>
               <Button color="inherit" onClick={goToSignUp}>
-                Sign Up
+                {t('header.signup')}
               </Button>
               <Button color="inherit" onClick={goToLogin}>
-                Login
+                {t('header.signin')}
               </Button>
             </div>
           ) : (

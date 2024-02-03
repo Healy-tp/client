@@ -1,3 +1,5 @@
+import React, { useContext } from "react";
+import { useTranslation } from 'react-i18next';
 import {
   Box,
   Grid,
@@ -11,8 +13,8 @@ import {
   FormControlLabel,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
-import React, { useContext } from "react";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { timeToString } from "../../utils/dateTimeFormatter";
 
@@ -27,6 +29,7 @@ const Scheduler = ({
   isAdmin,
   handleCheckboxChange,
 }) => {
+  const [t] = useTranslation();
   const { selectedData, setSelectedData } = useContext(AppointmentContext);
 
   return (
@@ -122,7 +125,7 @@ const Scheduler = ({
                   : !selectedData.doctorId || !selectedData.date
               }
             >
-              Sacar turno
+              {t('scheduler.schedule_appointment')}
             </Button>
           </Grid>
           {isAdmin ? (

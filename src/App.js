@@ -23,6 +23,7 @@ import Checkout from "./routes/Checkout";
 import AdminAppointmentForUser from "./routes/AdminAppointmentForUser/AdminAppointmentForUser";
 import EditAppointment from "./routes/EditAppointment";
 import HistoryWithUser from "./routes/HistoryWithUser";
+import ForgotPassword from "./routes/ForgotPassword/ForgotPassword";
 
 function AuthRoutes() {
   return (
@@ -115,6 +116,7 @@ function App() {
               <Routes>
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
+                <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route
                   path="/sign/:confirmationCode"
                   element={<ConfirmationPage />}

@@ -1,9 +1,11 @@
 import * as React from "react";
+import { useTranslation } from 'react-i18next';
 import HomeImageLayout from "./HomeImageLayout";
 import { Button, Typography } from "@mui/material";
 import doctorsImg from "../../assets/doctors-main6.webp";
 
 export default function HomeImage({ onClick }) {
+  const [t] = useTranslation();
   return (
     <HomeImageLayout
       sxBackground={{
@@ -19,7 +21,7 @@ export default function HomeImage({ onClick }) {
         alt="increase priority"
       />
       <Typography color="inherit" align="center" variant="h2" marked="center">
-        Cuida tu salud
+        {t('home.title')}
       </Typography>
       <Typography
         color="inherit"
@@ -27,7 +29,7 @@ export default function HomeImage({ onClick }) {
         variant="h5"
         sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}
       >
-        Reserva turnos con los mejores profesionales medicos.
+        {t('home.subtitle')}
       </Typography>
       <Button
         onClick={onClick}
@@ -37,7 +39,7 @@ export default function HomeImage({ onClick }) {
         component="a"
         sx={{ minWidth: 200 }}
       >
-        Agenda tu turno
+        {t('home.schedule_appointment')}
       </Button>
     </HomeImageLayout>
   );

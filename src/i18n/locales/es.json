@@ -17,6 +17,25 @@
     "sign_in": "Iniciar sesión",
     "already_have_account": "¿Ya tienes una cuenta? Iniciar sesión"
   },
+  "home": {
+    "title": "Cuida tu salud",
+    "subtitle": "Reserva turnos con los mejores profesionales medicos.",
+    "schedule_appointment": "Agenda tu turno"
+  },
+  "header": {
+    "signup": "Registrarse",
+    "signin": "Iniciar sesión"
+  },
+  "scheduler": {
+    "schedule_appointment": "Agendar turno"
+  },
+  "forgot_password": {
+    "title": "Restablece tu contraseña",
+    "subtitle": "Ingrese su correo electrónico y le enviaremos un enlace para restablecer su contraseña.",
+    "email": "Correo electrónico",
+    "send": "Enviar enlace",
+    "back_to_login": "Volver a iniciar sesión"
+  },
   "components": {
     "layout": {},
     "something_went_wrong": {
