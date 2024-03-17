@@ -73,10 +73,10 @@ const ForgotPassword = () => {
         message={message}
         type={"error"}
       />
-      <Typography component="h1" variant="h3">
+      <Typography variant="h2">
         {t('forgot_password.title')}
       </Typography>
-      <Typography component="h1" variant="h6">
+      <Typography>
         {t('forgot_password.subtitle')}
       </Typography>
       <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>

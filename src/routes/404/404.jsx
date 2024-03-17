@@ -1,8 +1,10 @@
 import React from "react";
+import { useTranslation } from 'react-i18next';
 import { Box, Typography } from "@mui/material";
 import errorImg from "../../assets/404.png";
 
 const ErrorPage = () => {
+  const [t] = useTranslation();
   return (
     <Box
       sx={{
@@ -20,9 +22,9 @@ const ErrorPage = () => {
         height="200"
         style={{ marginBottom: "18px" }}
       />
-      <Typography variant="h2">Page not found</Typography>
+      <Typography variant="h2">{t('page_not_found.title')}</Typography>
       <Typography variant="h5">
-        Sorry, the page you requested wasn&#39;t found.
+        {t('page_not_found.body')}
       </Typography>
     </Box>
   );

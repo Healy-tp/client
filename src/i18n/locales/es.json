@@ -1,4 +1,8 @@
 {
+  "account_menu": {
+    "logout": "Cerrar sesión",
+    "my_account": "Mi cuenta"
+  },
   "login": {
     "title": "Iniciar sesión",
     "email": "Correo electrónico",
@@ -28,6 +32,17 @@
   },
   "scheduler": {
     "schedule_appointment": "Agendar turno"
+  },
+  "checkout": {
+    "go_back": "Volver",
+    "confirm": "Confirmar",
+    "date": "Fecha",
+    "time": "Hora",
+    "for_user": "Paciente"
+  },
+  "page_not_found": {
+    "title": "La pagina no fue encontrada",
+    "body": "Disculpa, la pagina que estabas buscando no fue encontrada" 
   },
   "forgot_password": {
     "title": "Restablece tu contraseña",

@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import AccountCircle from "@mui/icons-material/AccountCircle";
 
@@ -9,6 +10,7 @@ import { signOut } from "../../services/users";
 import { UserContext } from "../../contexts/UserContext";
 
 const AccountMenu = ({ currentUser }) => {
+  const [t] = useTranslation();
   const { signOutUser } = useContext(UserContext);
   const [anchorEl, setAnchorEl] = useState(null);
   const navigate = useNavigate();
@@ -56,8 +58,8 @@ const AccountMenu = ({ currentUser }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => navigate("/my-account")}>My Account</MenuItem>
-        <MenuItem onClick={handleLogout}>Logout</MenuItem>
+        <MenuItem onClick={() => navigate("/my-account")}>{t('account_menu.my_account')}</MenuItem>
+        <MenuItem onClick={handleLogout}>{t('account_menu.logout')}</MenuItem>
       </Menu>
     </div>
   );

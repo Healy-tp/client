@@ -70,7 +70,6 @@ export class Api {
       data,
       params,
       responseType,
-      withCredentials: true,
       // using defaults for responseType and xsrf
     })
       .then((response) => {

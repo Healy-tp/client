@@ -26,6 +26,8 @@ function Checkout({ from }) {
     navigate("/");
   };
 
+  console.log('from asdasd', from);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
