@@ -65,6 +65,32 @@
       "title": "404"
     }
   },
+  "my_account": {
+    "home": "Inicio",
+    "my_info": {
+      "title": "Mi información",
+      "first_name": "Nombre",
+      "last_name": "Apellido",
+      "email": "Correo electrónico",
+      "phone": "Teléfono",
+      "update_button": "Actualizar información",
+      "update_success": "Información actualizada con éxito"
+    },
+    "my_appointments": {
+      "title": "Mis turnos",
+      "no_appointments_title": "Todavia no tienes turnos",
+      "no_appointments_subtitle": "Podes ir al inicio para sacar un turno con el medico que necesites",
+      "past_appointments": "Turnos pasados",
+      "upcoming_appointments": "Turnos futuros"
+    },
+    "my_messages": {
+      "title": "Mensajes",
+      "no_messages_title": "Todavia no tienes mensajes"
+    },
+    "my_availabilities": "Mis disponibilidades",
+    "welcome_title": "Bienvenido a tu cuenta!",
+    "welcome_subtitle": "Administra tus turnos, tu informacion y mensajes desde aqui."
+  },
   "errors": {
     "generic_error": "Something went wrong on our end. Please try again",
     "verify_url": "Please verify that the app URL is correct or reach out to the app owner for assistance."

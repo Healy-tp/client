@@ -1,10 +1,12 @@
 import { Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { getConversations } from "../../../services/notifications";
 import Conversation from "../../../components/Conversation";
 import WelcomePage from "../WelcomePage";
 
 const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
+  const [t] = useTranslation();
   const [conversations, setConversations] = useState([]);
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
           />
         ))
       ) : (
-        <WelcomePage icon="inbox" title="Todavia no tienes mensajes" />
+        <WelcomePage icon="inbox" title={t('my_account.my_messages.no_messages_title')} />
       )}
     </Container>
   );

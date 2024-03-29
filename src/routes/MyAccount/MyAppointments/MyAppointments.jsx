@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { CircularProgress, Container, Box, Tab, Tabs } from "@mui/material";
 
 import { getAppointmentByUserId } from "../../../services/appointments";
@@ -8,23 +9,24 @@ import WelcomePage from "../WelcomePage";
 import AppointmentCard from "./components/AppointmentCard";
 import AppointmentsDoctorMenu from "./components/AppointmentsDoctor";
 
-const TABS = [
-  {
-    label: "Past Appointments",
-    value: 0,
-  },
-  {
-    label: "Upcoming Appointments",
-    value: 1,
-  },
-];
-
 const MyAppointments = ({ nav, isDoctor }) => {
+  const [t] = useTranslation();
   const [appointments, setAppointments] = useState([]);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [tabValue, setTabValue] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
+  const TABS = [
+    {
+      label: t('my_account.my_appointments.past_appointments'),
+      value: 0,
+    },
+    {
+      label: t('my_account.my_appointments.upcoming_appointments'),
+      value: 1,
+    },
+  ];
 
   useEffect(() => {
     const getAppointmentsByUserId = async () => {
@@ -117,10 +119,8 @@ const MyAppointments = ({ nav, isDoctor }) => {
         ) : (
           <WelcomePage
             icon="appts"
-            title={"Todavia no tienes turnos"}
-            subtitle={
-              "Podes ir al inicio para sacar un turno con el medico que necesites"
-            }
+            title={t('my_account.my_appointments.no_appointments_title')}
+            subtitle={t('my_account.my_appointments.no_appointments_title')}
           />
         )
       ) : appointments.length > 0 ? (
@@ -130,10 +130,8 @@ const MyAppointments = ({ nav, isDoctor }) => {
       ) : (
         <WelcomePage
           icon="appts"
-          title={"Todavia no tienes turnos"}
-          subtitle={
-            "Podes ir al inicio para sacar un turno con el medico que necesites"
-          }
+          title={t('my_account.my_appointments.no_appointments_title')}
+          subtitle={t('my_account.my_appointments.no_appointments_title')}
         />
       )}
     </Container>

@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React, { useContext, useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
@@ -15,6 +16,7 @@ const drawerWidth = 240;
 const fieldsWidth = 500;
 
 const MyInfo = () => {
+  const [t] = useTranslation();
   const { currentUser, signInUser } = useContext(UserContext);
   const defaultFormFields = _.pick(currentUser, [
     "id",
@@ -53,7 +55,7 @@ const MyInfo = () => {
       setSnackbar({
         type: "success",
         open: true,
-        message: "Successfully updated",
+        message: t('my_account.my_info.update_success'),
       });
     } catch (error) {
       setSnackbar({
@@ -86,7 +88,7 @@ const MyInfo = () => {
             disabled={!editMode}
             required
             defaultValue={`${currentUser.firstName}`}
-            label="First Name"
+            label={t('my_account.my_info.first_name')}
             onChange={handleChange}
             autoFocus
             style={{ width: `${fieldsWidth}px` }}
@@ -97,7 +99,7 @@ const MyInfo = () => {
             disabled={!editMode}
             required
             defaultValue={currentUser.lastName}
-            label="Last Name"
+            label={t('my_account.my_info.last_name')}
             name="lastName"
             onChange={handleChange}
             style={{ width: `${fieldsWidth}px` }}
@@ -109,7 +111,7 @@ const MyInfo = () => {
             disabled={!editMode}
             required
             defaultValue={currentUser.email}
-            label="Email Address"
+            label={t('my_account.my_info.email')}
             name="email"
             onChange={handleChange}
             autoComplete="email"
@@ -124,7 +126,7 @@ const MyInfo = () => {
             name="phoneNumber"
             defaultValue={currentUser.phoneNumber}
             onChange={handleChange}
-            label="Phone Number"
+            label={t('my_account.my_info.phone')}
             type="tel"
             style={{ width: `${fieldsWidth}px` }}
           />
@@ -150,7 +152,7 @@ const MyInfo = () => {
             style={{ width: `${fieldsWidth}px`, borderRadius: "5px" }}
             loading={isLoading}
           >
-            Update
+            {t('my_account.my_info.update_button')}
           </LoadingButton>
           <Fab
             color="primary"

@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 
 import Box from "@mui/material/Box";
@@ -44,6 +45,7 @@ const MENU_OPTIONS = {
 };
 
 function ResponsiveDrawer(props) {
+  const [t] = useTranslation();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -93,7 +95,7 @@ function ResponsiveDrawer(props) {
             <ListItemIcon style={itemIconStyle}>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText primary={"Home"} />
+            <ListItemText primary={t('my_account.home')} />
           </ListItemButton>
         </ListItem>
       </Toolbar>
@@ -104,7 +106,7 @@ function ResponsiveDrawer(props) {
             <ListItemIcon style={itemIconStyle}>
               <PersonIcon />
             </ListItemIcon>
-            <ListItemText primary={"Mi informacion"} />
+            <ListItemText primary={t('my_account.my_info.title')} />
           </ListItemButton>
         </ListItem>
         {currentUser.isDoctor ? (
@@ -126,7 +128,7 @@ function ResponsiveDrawer(props) {
                 <ListItemIcon style={itemIconStyle}>
                   <EventNoteIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Mis disponibilidades"} />
+                <ListItemText primary={t('my_account.my_availabilities')} />
               </ListItemButton>
             </ListItem>
           </>
@@ -138,7 +140,7 @@ function ResponsiveDrawer(props) {
               <ListItemIcon style={itemIconStyle}>
                 <AccessTimeIcon />
               </ListItemIcon>
-              <ListItemText primary={"Mis turnos"} />
+              <ListItemText primary={t('my_account.my_appointments.title')} />
             </ListItemButton>
           </ListItem>
         )}
@@ -151,7 +153,7 @@ function ResponsiveDrawer(props) {
                 <MailIcon />
               </Badge>
             </ListItemIcon>
-            <ListItemText primary={"Mensajes"} />
+            <ListItemText primary={t('my_account.my_messages.title')} />
           </ListItemButton>
         </ListItem>
       </List>
@@ -217,10 +219,8 @@ function ResponsiveDrawer(props) {
       {_.isEmpty(selectedMenu) && (
         <WelcomePage
           icon={"person"}
-          title={"Bienvenido a tu cuenta!"}
-          subtitle={
-            "Administra tus turnos, tu informacion y mensajes desde aqui."
-          }
+          title={t('my_account.welcome_title')}
+          subtitle={t('my_account.welcome_subtitle')}
         />
       )}
     </Box>
