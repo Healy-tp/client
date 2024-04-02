@@ -1,5 +1,5 @@
 const config = {
-  apiUrl: "http://localhost:8000", // Change when ready
+  apiUrl: "http://healy-gateway.us-east-1.elasticbeanstalk.com",
 };
 
 export default config;
