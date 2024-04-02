@@ -7,6 +7,7 @@ const getConfig = () => {
   } else {
     return developmentConfig;
   }
+
 };
 
 const config = getConfig();
