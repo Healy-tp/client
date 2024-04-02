@@ -6,6 +6,7 @@ const getConfig = () => {
     return productionConfig;
   } else {
     return developmentConfig;
+
   }
 };
 
