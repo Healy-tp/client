@@ -1,4 +1,4 @@
-FROM node:18.19.0
+FROM node:16-alpine
 # FROM node:16-alpine as builder
 
 USER node
