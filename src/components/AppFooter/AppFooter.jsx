@@ -1,9 +1,14 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
-import Link from "@mui/material/Link";
-import Container from "@mui/material/Container";
-import { Typography, TextField } from "@mui/material";
+import { useTranslation } from 'react-i18next';
+import { 
+  Typography,
+  Container,
+  Link,
+  Grid,
+  Box,
+  Select,
+  MenuItem 
+} from "@mui/material";
 import facebookIcon from "../../assets/appFooterFacebook.png";
 import twitterIcon from "../../assets/appFooterTwitter.png";
 
@@ -12,7 +17,7 @@ function Copyright() {
     <React.Fragment>
       {"© "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Healy
       </Link>{" "}
       {new Date().getFullYear()}
     </React.Fragment>
@@ -34,22 +39,29 @@ const iconStyle = {
 
 const LANGUAGES = [
   {
-    code: "en-US",
-    name: "English",
+    code: "es",
+    name: "Español",
   },
   {
-    code: "fr-FR",
-    name: "Français",
-  },
+    code: "en",
+    name: "English",
+  }
 ];
 
 export default function AppFooter() {
+  const { t, i18n } = useTranslation();
+
+  const changeLanguageHandler = (e) => {
+    const languageValue = e.target.value
+    i18n.changeLanguage(languageValue);
+  }
+
   return (
     <Typography
       component="footer"
-      sx={{ display: "flex", bgcolor: "primary.dark" }}
+      sx={{ display: "flex", bgcolor: "primary.main" }}
     >
-      <Container sx={{ my: 8, display: "flex" }}>
+      <Container sx={{ my: 4, display: "flex" }}>
         <Grid container spacing={5}>
           <Grid item xs={6} sm={4} md={3}>
             <Grid
@@ -76,14 +88,14 @@ export default function AppFooter() {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item xs={6} sm={4} md={2}>
+          <Grid item xs={6} sm={4} md={4}>
             <Typography
               variant="h6"
               marked="left"
               sx={{ color: "primary.light" }}
               gutterBottom
             >
-              Legal
+              {t('footer.legal')}
             </Typography>
             <Box component="ul" sx={{ m: 0, listStyle: "none", p: 0 }}>
               <Box component="li" sx={{ py: 0.5 }}>
@@ -91,7 +103,7 @@ export default function AppFooter() {
                   href="/premium-themes/onepirate/terms/"
                   sx={{ color: "primary.light" }}
                 >
-                  Terms
+                  {t('footer.terms_and_conditions')}
                 </Link>
               </Box>
               <Box component="li" sx={{ py: 0.5 }}>
@@ -99,7 +111,7 @@ export default function AppFooter() {
                   href="/premium-themes/onepirate/privacy/"
                   sx={{ color: "primary.light" }}
                 >
-                  Privacy
+                  {t('footer.privacy_policy')}
                 </Link>
               </Box>
             </Box>
@@ -111,52 +123,21 @@ export default function AppFooter() {
               sx={{ color: "primary.light" }}
               gutterBottom
             >
-              Language
+              {t('footer.language')}
             </Typography>
-            <TextField
-              select
-              size="medium"
-              variant="standard"
-              SelectProps={{
-                native: true,
-              }}
-              sx={{ mt: 1, width: 150, borderInlineColor: "primary.light" }}
+            <Select
+              id="languages-select"
+              name="languages"
+              value={i18n.language}
+              onChange={changeLanguageHandler}
+              sx={{ color: "primary.light", bgcolor: "primary.main", borderRadius: 1, borderColor: "primary.light", borderWidth: 1, borderStyle: "solid"}}
             >
               {LANGUAGES.map((language) => (
-                <option value={language.code} key={language.code}>
+                <MenuItem key={language.code} value={language.code}>
                   {language.name}
-                </option>
+                </MenuItem>
               ))}
-            </TextField>
-          </Grid>
-          <Grid item>
-            <Typography variant="caption">
-              {"Icons made by "}
-              <Link
-                href="https://www.freepik.com"
-                rel="sponsored"
-                title="Freepik"
-              >
-                Freepik
-              </Link>
-              {" from "}
-              <Link
-                href="https://www.flaticon.com"
-                rel="sponsored"
-                title="Flaticon"
-              >
-                www.flaticon.com
-              </Link>
-              {" is licensed by "}
-              <Link
-                href="https://creativecommons.org/licenses/by/3.0/"
-                title="Creative Commons BY 3.0"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                CC 3.0 BY
-              </Link>
-            </Typography>
+            </Select>
           </Grid>
         </Grid>
       </Container>

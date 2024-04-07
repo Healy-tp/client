@@ -1,0 +1,110 @@
+{
+  "account_menu": {
+    "logout": "Logout",
+    "my_account": "My account"
+  },
+  "login": {
+    "title": "Sign in",
+    "email": "Email",
+    "password": "Password",
+    "forgot_password": "Forgot password?",
+    "sign_up": "Sign up"
+  },
+  "signup": {
+    "title": "Sign up",
+    "first_name": "First name",
+    "last_name": "Last name",
+    "email": "Email",
+    "phone": "Phone",
+    "password": "Password",
+    "confirm_password": "Confirm password",
+    "sign_in": "Sign in",
+    "already_have_account": "Already have an account? Sign in"
+  },
+  "home": {
+    "title": "Take care of your health",
+    "subtitle": "Schedule appointments with the best medical professionals.",
+    "schedule_appointment": "Schedule appointment"
+  },
+  "header": {
+    "signup": "Sign up",
+    "signin": "Sign in"
+  },
+  "scheduler": {
+    "schedule_appointment": "Schedule appointment"
+  },
+  "checkout": {
+    "go_back": "Go back",
+    "confirm": "Confirm",
+    "date": "Date",
+    "time": "Time",
+    "for_user": "Patient"
+  },
+  "page_not_found": {
+    "title": "Page not found",
+    "body": "Sorry, the page you were looking for was not found."
+  },
+  "forgot_password": {
+    "title": "Reset your password",
+    "subtitle": "Please enter your email and we'll send you a link to reset your password.",
+    "email": "Email",
+    "send": "Send link",
+    "back_to_login": "Back to login"
+  },
+  "components": {
+    "layout": {},
+    "something_went_wrong": {
+      "title": "Something went wrong",
+      "try_again": "Please try again"
+    },
+    "app_not_found": {
+      "title": "App not found",
+      "sign_in": "Sign in with another account"
+    },
+    "page_not_found": {
+      "title": "404"
+    }
+  },
+  "my_account": {
+    "home": "Home",
+    "my_info": {
+      "title": "My info",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "email": "Email",
+      "phone": "Phone",
+      "update_button": "Update info",
+      "update_success": "Info updated successfully"
+    },
+    "my_appointments": {
+      "title": "My appointments",
+      "no_appointments_title": "You don't have any appointments yet",
+      "no_appointments_subtitle": "You can go to the home page to schedule an appointment with the doctor you need",
+      "past_appointments": "Past appointments",
+      "upcoming_appointments": "Upcoming appointments"
+    },
+    "my_messages": {
+      "title": "Messages",
+      "no_messages_title": "You don't have any messages yet"
+    },
+    "my_availabilities": "My availabilities",
+    "welcome_title": "Welcome to Healy!",
+    "welcome_subtitle": "Manage your appointments, your information and messages from here."
+  },
+  "errors": {
+    "generic_error": "Something went wrong on our end. Please try again",
+    "verify_url": "Please verify that the app URL is correct or reach out to the app owner for assistance."
+  },
+  "titles": {
+    "app_name": "Healy"
+  },
+  "server_errors": {
+    "network_error": "Network Error"
+  },
+  "footer": {
+    "language": "Language",
+    "legal": "Legal",
+    "privacy_policy": "Privacy policy",
+    "terms_and_conditions": "Terms and conditions"
+  }
+}

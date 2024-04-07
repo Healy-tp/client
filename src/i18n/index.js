@@ -4,12 +4,16 @@ import LanguageDetector from "i18next-browser-languagedetector";
 
 import { DEFAULT_LOCALE } from "../utils/constants";
 import translationES from "./locales/es.json";
+import translationEN from "./locales/en.json";
 
 // the translations (could be managed separated from the code: https://react.i18next.com/guides/multiple-translation-files))
 const resources = {
   es: {
     translation: translationES,
   },
+  en: {
+    translation: translationEN,
+  }, 
 };
 
 i18n
@@ -22,6 +26,7 @@ i18n
   // for all options read: https://www.i18next.com/overview/configuration-options
   .init({
     returnNull: false,
+    lng: 'es',
     debug: true,
     resources,
     fallbackLng: DEFAULT_LOCALE,
