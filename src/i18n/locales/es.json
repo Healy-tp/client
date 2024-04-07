@@ -54,12 +54,12 @@
   "components": {
     "layout": {},
     "something_went_wrong": {
-      "title": "Something went wrong",
-      "try_again": "Please try again"
+      "title": "Algo salió mal",
+      "try_again": "Por favor, intenta nuevamente"
     },
     "app_not_found": {
-      "title": "App not found",
-      "sign_in": "Sign in with another account"
+      "title": "Aplicación no encontrada",
+      "sign_in": "Iniciar sesión con otra cuenta"
     },
     "page_not_found": {
       "title": "404"
@@ -92,20 +92,19 @@
     "welcome_subtitle": "Administra tus turnos, tu informacion y mensajes desde aqui."
   },
   "errors": {
-    "generic_error": "Something went wrong on our end. Please try again",
-    "verify_url": "Please verify that the app URL is correct or reach out to the app owner for assistance."
+    "generic_error": "Algo salió mal, por favor intenta nuevamente",
+    "verify_url": "Por favor verifica que la URL de la aplicación sea correcta o contactese con nosotros para asistencia."
   },
   "titles": {
     "app_name": "Healy"
   },
   "server_errors": {
-    "network_error": "Network Error"
+    "network_error": "Error de red"
   },
-  "keywords": {
-    "to": "to",
-    "one": "one",
-    "many": "many",
-    "loading": "Loading...",
-    "search": "Search"
+  "footer": {
+    "language": "Idioma",
+    "legal": "Legal",
+    "privacy_policy": "Política de privacidad",
+    "terms_and_conditions": "Términos y condiciones"
   }
 }
