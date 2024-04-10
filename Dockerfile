@@ -21,10 +21,10 @@ FROM nginx:alpine
 
 COPY --from=0 /home/node/app/build /usr/share/nginx/html
 
-RUN rm /etc/nginx/conf.d/default.conf
+RUN rm /etc/nginx/conf.d/default.conf 
 
 COPY nginx.conf /etc/nginx/conf.d
 
-EXPOSE 443
+EXPOSE 80
 
 CMD ["nginx", "-g", "daemon off;"]
