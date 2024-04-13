@@ -19,27 +19,7 @@
     "password": "Password",
     "confirm_password": "Confirm password",
     "sign_in": "Sign in",
-    "already_have_account": "Already have an account? Sign in",
-    "office": "Office",
-    "date": "Date",
-    "time": "Time",
-    "confirm": "Confirm",
-    "dialogs": {
-      "start_chat": "Start chat with the doctor?",
-      "start_chat_content": "If you accept, you will start a conversation with the selected doctor. The chat will remain open for 15 days after the appointment.",
-      "cancel_appointment": "Cancel appointment with the doctor?",
-      "cancel_appointment_content": "If you accept, the appointment will be canceled and the slot will be available for other users",
-      "confirm_appointment": "Confirm appointment with the doctor?",
-      "confirm_appointment_content": "If you accept, the appointment will be confirmed",
-      "doctor": {
-        "cancel_whole_day": "Cancel whole day?",
-        "cancel_whole_day_content": "If you accept, all appointments for the selected day will be canceled"
-      }
-    },
-    "doctor": {
-      "manage_agenda": "Manage Agenda for selected date",
-      "cancel_all_appointments": "Cancel all appointments"
-    }
+    "already_have_account": "Already have an account? Sign in"
   },
   "home": {
     "title": "Take care of your health",
@@ -104,7 +84,28 @@
       "upcoming_appointments": "Upcoming appointments",
       "modify": "Modify",
       "cancel": "Cancel",
-      "send_message": "Send message"
+      "send_message": "Send message",
+      "office": "Office",
+      "date": "Date",
+      "time": "Time",
+      "confirm": "Confirm",
+      "dialogs": {
+        "start_chat": "Start chat with the doctor?",
+        "start_chat_content": "If you accept, you will start a conversation with the selected doctor. The chat will remain open for 15 days after the appointment.",
+        "cancel_appointment": "Cancel appointment with the doctor?",
+        "cancel_appointment_content": "If you accept, the appointment will be canceled and the slot will be available for other users",
+        "confirm_appointment": "Confirm appointment with the doctor?",
+        "confirm_appointment_content": "If you accept, the appointment will be confirmed",
+        "doctor": {
+          "cancel_whole_day": "Cancel whole day?",
+          "cancel_whole_day_content": "If you accept, all appointments for the selected day will be canceled"
+        }
+      }
+    },
+    "doctor": {
+      "manage_agenda": "Manage Agenda for selected date",
+      "cancel_all_appointments": "Cancel all appointments"
+    }
     },
     "my_messages": {
       "title": "Messages",
