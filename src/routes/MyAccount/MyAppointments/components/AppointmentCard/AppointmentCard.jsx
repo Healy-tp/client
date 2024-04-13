@@ -1,4 +1,5 @@
 import React, { useState, useContext } from "react";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import _ from "lodash";
 
@@ -19,20 +20,13 @@ import {
   doctorCancelation,
   startChat,
 } from "../../../../../services/appointments";
-import {
-  START_CHAT_DIALOG_MSG,
-  START_CHAT_DIALOG_TITLE,
-  CANCEL_APPT_DIALOG_MSG,
-  CANCEL_APPT_DIALOG_TITLE,
-  CONFIRM_APPT_DIALOG_MSG,
-  CONFIRM_APPT_DIALOG_TITLE,
-} from "./utils/dialogs";
 import { UserContext } from "../../../../../contexts/UserContext";
 import statusColor from "./utils/statusColor";
 
 const cardWidth = 500;
 
 const AppointmentCard = ({ appt, nav }) => {
+  const [t] = useTranslation();
   const { currentUser } = useContext(UserContext);
   const isDoctor = currentUser.isDoctor;
   const navigate = useNavigate();
@@ -152,14 +146,14 @@ const AppointmentCard = ({ appt, nav }) => {
           </div>
         </div>
         <br />
-        <Typography variant="body">{`Office: ${Office.number}`}</Typography>
+        <Typography variant="body">{`${t('my_account.my_appointments.office')}: ${Office.number}`}</Typography>
         <br />
         <Typography variant="body">
-          {`Date: ${arrivalTime ? arrivalTime.slice(0, 10) : null}`}
+          {`${t('my_account.my_appointments.date')}: ${arrivalTime ? arrivalTime.slice(0, 10) : null}`}
         </Typography>
         <br />
         <Typography variant="body">
-          {`Time: ${arrivalTime ? arrivalTime.slice(11, 16) : null}`}
+          {`${t('my_account.my_appointments.time')}: ${arrivalTime ? arrivalTime.slice(11, 16) : null}`}
         </Typography>
       </CardContent>
 
@@ -171,7 +165,7 @@ const AppointmentCard = ({ appt, nav }) => {
             variant="contained"
             onClick={() => handleConfirmApptClickOpen(id)}
           >
-            Confirm
+            {t('my_account.my_appointments.confirm')}
           </Button>
         ) : (
           <></>
@@ -181,7 +175,7 @@ const AppointmentCard = ({ appt, nav }) => {
           variant="contained"
           onClick={() => handleMessageClickOpen(id)}
         >
-          Enviar mensaje
+          {t('my_account.my_appointments.send_message')}
         </Button>
         {!isDoctor ? (
           <Button
@@ -191,7 +185,7 @@ const AppointmentCard = ({ appt, nav }) => {
               navigate(`/my-account/${id}/edit`, { state: { appt } })
             }
           >
-            Modificar
+            {t('my_account.my_appointments.modify')}
           </Button>
         ) : (
           <></>
@@ -202,7 +196,7 @@ const AppointmentCard = ({ appt, nav }) => {
           variant="contained"
           onClick={() => handleCancelClickOpen(id)}
         >
-          Cancelar
+          {t('my_account.my_appointments.cancel')}
         </Button>
       </CardActions>
 
@@ -210,24 +204,24 @@ const AppointmentCard = ({ appt, nav }) => {
         open={messageDialogOpen}
         handleAccept={handleMessageAccept}
         handleClose={handleClose}
-        title={START_CHAT_DIALOG_TITLE}
-        msg={START_CHAT_DIALOG_MSG}
+        title={t('my_account.my_appointments.dialogs.start_chat')}
+        msg={t('my_account.my_appointments.dialogs.start_chat_content')}
       />
 
       <DialogAlert
         open={cancelDialogOpen}
         handleAccept={handleCancelAccept}
         handleClose={handleClose}
-        title={CANCEL_APPT_DIALOG_TITLE}
-        msg={CANCEL_APPT_DIALOG_MSG}
+        title={t('my_account.my_appointments.dialogs.cancel_appointment')}
+        msg={t('my_account.my_appointments.dialogs.cancel_appointment_content')}
       />
 
       <DialogAlert
         open={confirmApptDialogOpen}
         handleAccept={handleConfirmAppt}
         handleClose={handleClose}
-        title={CONFIRM_APPT_DIALOG_TITLE}
-        msg={CONFIRM_APPT_DIALOG_MSG}
+        title={t('my_account.my_appointments.dialogs.confirm_appointment')}
+        msg={t('my_account.my_appointments.dialogs.confirm_appointment_content')}
       />
 
       <Snackbar

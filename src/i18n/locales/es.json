@@ -81,7 +81,30 @@
       "no_appointments_title": "Todavia no tienes turnos",
       "no_appointments_subtitle": "Podes ir al inicio para sacar un turno con el medico que necesites",
       "past_appointments": "Turnos pasados",
-      "upcoming_appointments": "Turnos futuros"
+      "upcoming_appointments": "Turnos futuros",
+      "modify": "Modificar",
+      "cancel": "Cancelar",
+      "send_message": "Enviar mensaje",
+      "office": "Consultorio",
+      "date": "Fecha",
+      "time": "Hora",
+      "confirm": "Confirmar",
+      "dialogs": {
+        "start_chat": "Comenzar chat con el doctor?",
+        "start_chat_content": "Si aceptas, iniciaras una conversacion con el doctor seleccionado. El chat quedara abierto hasta 15 dias luego del turno.",
+        "cancel_appointment": "Cancelar turno con el doctor?",
+        "cancel_appointment_content": "Si cancelas el turno, el mismo quedara disponible para otros usuarios",
+        "confirm_appointment": "Confirmar turno con el doctor?",
+        "confirm_appointment_content": "Si aceptas, el turno quedara confirmado",
+        "doctor": {
+          "cancel_whole_day": "Cancelar dia entero?",
+          "cancel_whole_day_content": "Si cancelas el dia, todos los turnos se reagendaran."
+        }
+      },
+      "doctor": {
+        "manage_agenda": "Administrar agenda para la fecha seleccionada",
+        "cancel_all_appointments": "Cancelar todos los turnos"
+      }
     },
     "my_messages": {
       "title": "Mensajes",
