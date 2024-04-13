@@ -1,21 +1,19 @@
 import moment from "moment";
 import { Button, TextField, Grid, Menu, MenuItem } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import React, { useState } from "react";
 import DialogAlert from "../../../../../components/Dialog";
 import { doctorDayCancelation } from "../../../../../services/appointments";
-import {
-  CANCEL_DAY_DIALOG_MSG,
-  CANCEL_DAY_DIALOG_TITLE,
-} from "../AppointmentCard/utils/dialogs";
 
 const AppointmentsDoctorMenu = ({
   appointments,
   selectedDate,
   handleChange,
 }) => {
+  const [t] = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -77,7 +75,7 @@ const AppointmentsDoctorMenu = ({
       </Grid>
       <Grid item>
         <Button variant="filled" onClick={handleMenu}>
-          Manage Agenda for selected date
+          {t('my_account.my_appointments.doctor.manage_agenda')}
         </Button>
         <Menu
           id="menu-appbar"
@@ -95,7 +93,7 @@ const AppointmentsDoctorMenu = ({
           onClose={handleClose}
         >
           <MenuItem onClick={handleCancelClickOpen}>
-            Cancel all Appointments
+            {t('my_account.my_appointments.doctor.cancel_all_appointments')}
           </MenuItem>
         </Menu>
       </Grid>
@@ -103,8 +101,8 @@ const AppointmentsDoctorMenu = ({
         open={dialogOpen}
         handleClose={handleDialogClose}
         handleAccept={handleCancelDay}
-        title={CANCEL_DAY_DIALOG_TITLE}
-        msg={CANCEL_DAY_DIALOG_MSG}
+        title={t('my_account.my_appointments.dialogs.doctor.cancel_whole_day')}
+        msg={t('my_account.my_appointments.dialogs.doctor.cancel_whole_day_content')}
       />
     </Grid>
   );
