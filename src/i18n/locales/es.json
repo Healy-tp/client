@@ -119,7 +119,27 @@
       "title": "Mensajes",
       "no_messages_title": "Todavia no tienes mensajes"
     },
-    "my_availabilities": "Mis disponibilidades",
+    "my_availabilities": {
+      "your_schedules": "Tus horarios de atención",
+      "title": "Mis disponibilidades",
+      "no_availabilities_subtitle": "Podes crear uno nuevo desde el boton",
+      "no_availabilities_title": "Todavia no tienes horarios de atencion",
+      "new_availability": "Crear disponibilidad",
+      "new_availability_page": {
+        "title": "Programa un nuevo horario de atención",
+        "office": "Consultorio",
+        "day": "Día",
+        "available_range": "Los rangos disponibles para la oficina y dia seleccionados son",
+        "select_time_range": "Por favor selecciona un horario a atender dentro de los rangos disponibles",
+        "start": "Comienzo",
+        "start_time_of_office": "Horario de entrada al consultorio",
+        "exit": "Salida",
+        "exit_time_of_office": "Horario de salida del consultorio",
+        "frequency": "Frecuencia",
+        "frequency_of_each_appointment": "Frecuencia de cada turno",
+        "select_frequency": "Por favor, selecciona la frecuencia (en minutos) con la que queres recibir turnos"
+      }
+    },
     "welcome_title": "Bienvenido a tu cuenta!",
     "welcome_subtitle": "Administra tus turnos, tu informacion y mensajes desde aqui."
   },

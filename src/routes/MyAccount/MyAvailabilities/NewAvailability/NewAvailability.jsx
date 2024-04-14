@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import { Container, Box, Grid, Typography, Chip, Button } from "@mui/material";
@@ -22,6 +23,7 @@ import { getAvailabilityRanges } from "../../../../utils/availability";
 import Snackbar from "../../../../components/Snackbar";
 
 const NewAvailability = ({ goBack }) => {
+  const [t] = useTranslation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [availableRanges, setAvailableRanges] = useState([]);
 
@@ -193,25 +195,24 @@ const NewAvailability = ({ goBack }) => {
   };
 
   return (
-    <Container>
+    <Container sx={{ padding: 2, paddingBottom: 5 }}>
+      <Button variant="outlined" sx={{ marginTop: 2 }} onClick={goBack}>
+        {t('actions.go_back')}
+      </Button>
       <Box
         sx={{
           marginTop: 2,
           display: "flex",
-          flexDirection: "row",
+          flexDirection: "column",
           alignItems: "center",
-          justifyContent: "center",
         }}
       >
-        <Button color="error" onClick={goBack}>
-          Back
-        </Button>
-        <CalendarMonthIcon color="primary" sx={{ fontSize: 80 }} />
         <Typography color="primary" variant="h3">
-          Programa un nuevo horario de atencion
+          {t('my_account.my_availabilities.new_availability_page.title')}
         </Typography>
+        <CalendarMonthIcon color="primary" sx={{ fontSize: 80, marginTop: 1 }} />
       </Box>
-      <Grid container spacing={2} sx={{ marginTop: 5 }}>
+      <Grid container spacing={2} sx={{ marginTop: 2 }}>
         <AvailabilityInput
           disabled={false}
           value={selectedOffice}
@@ -220,7 +221,7 @@ const NewAvailability = ({ goBack }) => {
           elements={availableOffices}
           kind="id-and-number"
           labelSuffix={""}
-          inputLabel={"Office"}
+          inputLabel={t('my_account.my_availabilities.new_availability_page.office')}
         />
         <AvailabilityInput
           disabled={selectedOffice === -1}
@@ -230,24 +231,23 @@ const NewAvailability = ({ goBack }) => {
           elements={DAYS}
           labels={DAY_LABELS}
           labelSuffix={""}
-          inputLabel={"Day"}
+          inputLabel={t('my_account.my_availabilities.new_availability_page.day')}
         />
         {selectedOffice !== -1 && weekday !== -1 ? (
           <>
             <Grid item xs={12} justifyContent={"center"}>
               <Typography color={"primary"}>
-                Los rangos disponibles para la oficina y dia seleccionados son:
+                {t('my_account.my_availabilities.new_availability_page.available_range')}:
               </Typography>
             </Grid>
             <Grid item xs={12}>
               {availableRanges.map((c) => (
-                <Chip key={c} label={c} />
+                <Chip key={c} label={c} sx={{ marginRight: .5 }} />
               ))}
             </Grid>
             <Grid item xs={12} justifyContent={"center"}>
               <Typography color={"primary"}>
-                Por favor selecciona un horario a atender dentro de los rangos
-                disponibles
+                {t('my_account.my_availabilities.new_availability_page.select_time_range')}
               </Typography>
             </Grid>
             <AvailabilityInput
@@ -258,8 +258,8 @@ const NewAvailability = ({ goBack }) => {
               elements={TIMES}
               kind={"same-as-label"}
               labelSuffix={"HS"}
-              inputLabel={"Comienzo"}
-              helperText={"Horario de entrada al consultorio"}
+              inputLabel={t('my_account.my_availabilities.new_availability_page.start')}
+              helperText={t('my_account.my_availabilities.new_availability_page.start_time_of_office')}
             />
             <AvailabilityInput
               disabled={startHour === -1}
@@ -269,8 +269,8 @@ const NewAvailability = ({ goBack }) => {
               elements={TIMES}
               kind={"same-as-label"}
               labelSuffix={"HS"}
-              inputLabel={"Salida"}
-              helperText={"Horario de salida del consultorio"}
+              inputLabel={t('my_account.my_availabilities.new_availability_page.exit')}
+              helperText={t('my_account.my_availabilities.new_availability_page.exit_time_of_office')}
             />
           </>
         ) : (
@@ -280,8 +280,7 @@ const NewAvailability = ({ goBack }) => {
           <>
             <Grid item xs={12} justifyContent={"center"}>
               <Typography color={"primary"}>
-                Por favor selecciona la frecuencia (en minutos) con la que
-                queres recibir turnos
+                {t('my_account.my_availabilities.new_availability_page.select_frequency')}
               </Typography>
             </Grid>
             <AvailabilityInput
@@ -292,8 +291,8 @@ const NewAvailability = ({ goBack }) => {
               elements={FREQUENCIES}
               kind={"same-as-label"}
               labelSuffix={"MIN"}
-              inputLabel={"Frecuencia"}
-              helperText={"Frecuencia de cada turno"}
+              inputLabel={t('my_account.my_availabilities.new_availability_page.frequency')}
+              helperText={t('my_account.my_availabilities.new_availability_page.frequency_of_each_appointment')}
             />
           </>
         ) : (

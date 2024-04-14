@@ -119,7 +119,27 @@
       "title": "Messages",
       "no_messages_title": "You don't have any messages yet"
     },
-    "my_availabilities": "My availabilities",
+    "my_availabilities": {
+      "title": "My availabilities",
+      "your_schedules": "Your schedules", 
+      "no_availabilities_subtitle": "You can create a new one from the button",
+      "no_availabilities_title": "You don't have any availabilities yet",
+      "new_availability": "New availability",
+      "new_availability_page": {
+        "title": "Schedule a new availability",
+        "office": "Office",
+        "day": "Day",
+        "available_range": "Available ranges for the selected day and office are",
+        "select_time_range": "Please select a time within the available ranges",
+        "start": "Start",
+        "start_time_of_office": "Office entry time",
+        "exit": "Exit",
+        "exit_time_of_office": "Office exit time",
+        "frequency": "Frequency",
+        "frequency_of_each_appointment": "Frequency of each appointment",
+        "select_frequency": "Please, select the frequency (in minutes) with which you want to receive turns"
+      }
+    },
     "welcome_title": "Welcome to Healy!",
     "welcome_subtitle": "Manage your appointments, your information and messages from here."
   },

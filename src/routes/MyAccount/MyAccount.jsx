@@ -128,7 +128,7 @@ function ResponsiveDrawer(props) {
                 <ListItemIcon style={itemIconStyle}>
                   <EventNoteIcon />
                 </ListItemIcon>
-                <ListItemText primary={t('my_account.my_availabilities')} />
+                <ListItemText primary={t('my_account.my_availabilities.title')} />
               </ListItemButton>
             </ListItem>
           </>

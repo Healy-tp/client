@@ -1,5 +1,6 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Container, Typography, Button } from "@mui/material";
 
 import WelcomePage from "../WelcomePage";
@@ -8,6 +9,7 @@ import { getAvailabilitiesByDoctorId } from "../../../services/appointments";
 import NewAvailability from "./NewAvailability";
 
 const MyAvailabilities = ({ nav }) => {
+  const [t] = useTranslation();
   const [newAvailabilityPage, setNewAvailabilityPage] = useState(false);
   const [availabilities, setAvailabilities] = useState([]);
 
@@ -30,26 +32,25 @@ const MyAvailabilities = ({ nav }) => {
   return (
     <>
       {!newAvailabilityPage ? (
-        <Container sx={{ marginTop: 2 }}>
+        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} sx={{ marginTop: 2 }}>
           <Typography color="primary" variant="h3">
-            Tus Horarios de Atencion
+            {t('my_account.my_availabilities.your_schedules')}
           </Typography>
           {availabilities.length > 0 ? (
             availabilities.map((availability) => <AvailabilityCard key={availability.id} av={availability} nav={nav} />)
           ) : (
             <WelcomePage
               icon="appts"
-              title={"Todavia no horarios de atencion"}
-              subtitle={"Podes crear uno nuevo desde el boton"}
+              title={t('my_account.my_availabilities.no_availabilities_title')}
             />
           )}
-          <Button
-            variant="contained"
-            sx={{ marginTop: 2, marginBottom: 5 }}
-            onClick={changePage}
-          >
-            New Availability
-          </Button>
+            <Button
+              variant="contained"
+              sx={{ marginTop: 2 }}
+              onClick={changePage}
+            >
+              {t('my_account.my_availabilities.new_availability')}
+            </Button>
         </Container>
       ) : (
         <NewAvailability goBack={changePage} />
