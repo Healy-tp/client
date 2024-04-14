@@ -1,6 +1,7 @@
 import { Button, Container, Box, Grid, Chip, TextField } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -13,6 +14,7 @@ import {
 import { dateToString, timeToString } from "../../utils/dateTimeFormatter";
 
 const EditAppointment = () => {
+  const [t] = useTranslation();
   const [selectedData, setSelectedData] = useState({
     date: null,
     selectedTime: null,
@@ -103,7 +105,7 @@ const EditAppointment = () => {
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Nueva fecha"
+                label={t('my_account.edit_appointment.new_date')}
                 value={selectedData.date}
                 onChange={onChangeDate}
                 disablePast={true}
@@ -151,7 +153,7 @@ const EditAppointment = () => {
               style={{ marginRight: 10 }}
               onClick={() => navigate("/my-account")}
             >
-              Volver
+              {t('actions.go_back')}
             </Button>
             <Button
               variant="contained"
@@ -159,7 +161,7 @@ const EditAppointment = () => {
               onClick={handleSubmit}
               disabled={!selectedData.selectedTime || !selectedData.date}
             >
-              Modificar
+              {t('actions.modify')}
             </Button>
           </Grid>
         </Grid>

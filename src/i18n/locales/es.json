@@ -31,7 +31,8 @@
     "signin": "Iniciar sesión"
   },
   "scheduler": {
-    "schedule_appointment": "Agendar turno"
+    "schedule_appointment": "Agendar turno",
+    "date_placeholder": "Fecha"
   },
   "checkout": {
     "go_back": "Volver",
@@ -75,6 +76,14 @@
       "phone": "Teléfono",
       "update_button": "Actualizar información",
       "update_success": "Información actualizada con éxito"
+    },
+    "chat": {
+      "title": "Chatear con",
+      "new_message": "Nuevo mensaje",
+      "attached": "Adjunto"
+    },
+    "edit_appointment": {
+      "new_date": "Nueva fecha"
     },
     "my_appointments": {
       "title": "Mis turnos",
@@ -129,5 +138,14 @@
     "legal": "Legal",
     "privacy_policy": "Política de privacidad",
     "terms_and_conditions": "Términos y condiciones"
+  },
+  "actions": {
+    "cancel": "Cancelar",
+    "confirm": "Confirmar",
+    "close": "Cerrar",
+    "send": "Enviar",
+    "accept": "Aceptar",
+    "modify": "Modificar",
+    "go_back": "Volver"
   }
 }

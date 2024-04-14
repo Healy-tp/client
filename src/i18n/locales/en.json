@@ -31,7 +31,8 @@
     "signin": "Sign in"
   },
   "scheduler": {
-    "schedule_appointment": "Schedule appointment"
+    "schedule_appointment": "Schedule appointment",
+    "date_placeholder": "Date"
   },
   "checkout": {
     "go_back": "Go back",
@@ -76,6 +77,9 @@
       "update_button": "Update info",
       "update_success": "Info updated successfully"
     },
+    "edit_appointment": {
+      "new_date": "New date"
+    },
     "my_appointments": {
       "title": "My appointments",
       "no_appointments_title": "You don't have any appointments yet",
@@ -101,6 +105,11 @@
           "cancel_whole_day_content": "If you accept, all appointments for the selected day will be canceled"
         }
       }
+    },
+    "chat": {
+      "title": "Chat with",
+      "new_message": "New message",
+      "attached": "Attached file"
     },
     "doctor": {
       "manage_agenda": "Manage Agenda for selected date",
@@ -129,5 +138,14 @@
     "legal": "Legal",
     "privacy_policy": "Privacy policy",
     "terms_and_conditions": "Terms and conditions"
+  },
+  "actions": {
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "send": "Send",
+    "accept": "Accept",
+    "modify": "Modify",
+    "go_back": "Go back"
   }
 }

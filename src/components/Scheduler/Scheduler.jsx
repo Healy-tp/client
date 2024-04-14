@@ -68,7 +68,7 @@ const Scheduler = ({
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                label="Fecha"
+                label={t('scheduler.date_placeholder')}
                 value={selectedData.date}
                 onChange={datePickerOnChange}
                 disabled={selectedData.datePickerDisabled}

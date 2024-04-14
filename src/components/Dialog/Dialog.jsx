@@ -6,9 +6,11 @@ import {
   DialogContent,
   DialogContentText,
 } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 import React from "react";
 
 const DialogAlert = ({ open, handleClose, handleAccept, title, msg }) => {
+  const [t] = useTranslation();
   return (
     <Dialog
       open={open}
@@ -23,10 +25,8 @@ const DialogAlert = ({ open, handleClose, handleAccept, title, msg }) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cerrar</Button>
-        <Button onClick={handleAccept} autoFocus>
-          Aceptar
-        </Button>
+        <Button onClick={handleClose}>{t('actions.cancel')}</Button>
+        <Button onClick={handleAccept} autoFocus>{t('actions.accept')}</Button>
       </DialogActions>
     </Dialog>
   );

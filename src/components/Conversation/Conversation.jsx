@@ -11,6 +11,7 @@ import {
   CardActions,
   Link,
 } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 import SendIcon from "@mui/icons-material/Send";
 import AttachFileIcon from "@mui/icons-material/AttachFile";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
@@ -24,6 +25,7 @@ import React, { useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
 
 const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
+  const [t] = useTranslation();
   const [messages, setMessages] = useState([]);
   const [inputText, setInputText] = useState("");
   const [attachment, setAttachment] = useState(null);
@@ -99,7 +101,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         id="panel1a-header"
       >
         <Typography>
-          Chat with:{" "}
+          {t('my_account.chat.title')}:{" "}
           {isDoctor ? convData.User.firstName : convData.Doctor.firstName}{" "}
           {isDoctor ? convData.User.lastName : convData.Doctor.lastName}
         </Typography>
@@ -113,9 +115,9 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
           return (
             <Card sx={params} key={m.id} >
               <CardContent>{m.message}</CardContent>
-              {m.fileName ? (
+              {m.fileName && (
                 <CardActions>
-                  Adjunto:
+                  {t('my_account.chat.attached')}:&nbsp;
                   <Link
                     component="button"
                     download
@@ -124,8 +126,6 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
                     {m.fileName}
                   </Link>
                 </CardActions>
-              ) : (
-                <></>
               )}
             </Card>
           );
@@ -140,7 +140,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
             fullWidth
             value={inputText}
             name="new-message"
-            label="New Message"
+            label={t('my_account.chat.new_message')}
             type="new-message"
             onChange={(event) => {
               setInputText(event.target.value);
@@ -151,7 +151,8 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
             variant="contained"
             component="label"
             color="secondary"
-            sx={{ borderRadius: 75 }}
+            style={{ marginLeft: 10 }}
+            sx={{ borderRadius: 50 }}
           >
             <AttachFileIcon />
             <input
@@ -164,10 +165,12 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
           </Button>
           <Button
             type="submit"
+            style={{ marginLeft: 10 }}
+            disabled={!inputText}
             onClick={handleSubmit}
             variant="contained"
             component="label"
-            sx={{ borderRadius: 75 }}
+            sx={{ borderRadius: 50 }}
           >
             <SendIcon />
           </Button>
