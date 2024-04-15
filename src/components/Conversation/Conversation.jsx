@@ -53,7 +53,6 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
     formData.append("convId", convData.id);
     try {
       const msgPayload = {
-        id: messages.length > 0 ? messages[messages.length - 1].id + 1 : 1,
         toUserId: isDoctor ? convData.userId : convData.doctorId,
         message: inputText,
         convId: convData.id,
@@ -62,16 +61,17 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         formData.append("attachment", attachment);
         msgPayload["fileName"] = attachment.name;
       }
-      await newMessage(formData, {
+      const response = await newMessage(formData, {
         "Content-Type": `multipart/form-data; boundary=${formData._boundary}`,
       });
-      setMessages([...messages, { ...msgPayload, fromUserId: currentUser.id }]);
+      setMessages([...messages, { ...msgPayload, id: response.id, fromUserId: currentUser.id }]);
     } catch (err) {
       console.log("could not POST new message", err);
     }
     setInputText("");
     setAttachment(null);
   };
+
 
   const handleGetAttachment = async (msgId, fileName) => {
     console.log("message id", msgId, "filename", fileName);
