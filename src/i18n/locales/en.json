@@ -72,6 +72,7 @@
       "title": "My info",
       "first_name": "First name",
       "last_name": "Last name",
+      "agenda": "My agenda",
       "email": "Email",
       "phone": "Phone",
       "update_button": "Update info",
@@ -104,16 +105,16 @@
           "cancel_whole_day": "Cancel whole day?",
           "cancel_whole_day_content": "If you accept, all appointments for the selected day will be canceled"
         }
+      },
+      "doctor": {
+        "manage_agenda": "Manage Agenda for selected date",
+        "cancel_all_appointments": "Cancel all appointments"
       }
     },
     "chat": {
       "title": "Chat with",
       "new_message": "New message",
       "attached": "Attached file"
-    },
-    "doctor": {
-      "manage_agenda": "Manage Agenda for selected date",
-      "cancel_all_appointments": "Cancel all appointments"
     },
     "my_messages": {
       "title": "Messages",
@@ -137,7 +138,13 @@
         "exit_time_of_office": "Office exit time",
         "frequency": "Frequency",
         "frequency_of_each_appointment": "Frequency of each appointment",
-        "select_frequency": "Please, select the frequency (in minutes) with which you want to receive turns"
+        "select_frequency": "Please, select the frequency (in minutes) with which you want to receive turns",
+        "select_month": "Please, select until which month you want the availability to be valid",
+        "select_month_helper": "Until this month (not inclusive) the selected availability will be valid",
+        "month": "Month",
+        "request_availability": "Request availability",
+        "request_availability_alert_title": "Request availability?",
+        "invalid_start_end_hours": "Invalid start and end hours"
       }
     },
     "welcome_title": "Welcome to Healy!",

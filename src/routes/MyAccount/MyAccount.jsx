@@ -118,7 +118,7 @@ function ResponsiveDrawer(props) {
                 <ListItemIcon style={itemIconStyle}>
                   <CalendarMonthIcon />
                 </ListItemIcon>
-                <ListItemText primary={"Mi agenda"} />
+                <ListItemText primary={t('my_account.my_info.agenda')} />
               </ListItemButton>
             </ListItem>
             <ListItem key={"My Availabilities"} disablePadding>

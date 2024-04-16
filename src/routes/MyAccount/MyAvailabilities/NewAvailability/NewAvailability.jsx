@@ -98,12 +98,11 @@ const NewAvailability = ({ goBack }) => {
   };
 
   const validateRequest = () => {
-    console.log("validate request", startHour, endHour);
     if (startHour >= endHour) {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Comienzo y salida invalidos",
+        message: t('my_account.my_availabilities.new_availability_page.invalid_start_end_hours')        
       });
       return false;
     }
@@ -233,7 +232,7 @@ const NewAvailability = ({ goBack }) => {
           labelSuffix={""}
           inputLabel={t('my_account.my_availabilities.new_availability_page.day')}
         />
-        {selectedOffice !== -1 && weekday !== -1 ? (
+        {selectedOffice !== -1 && weekday !== -1 && (
           <>
             <Grid item xs={12} justifyContent={"center"}>
               <Typography color={"primary"}>
@@ -273,10 +272,8 @@ const NewAvailability = ({ goBack }) => {
               helperText={t('my_account.my_availabilities.new_availability_page.exit_time_of_office')}
             />
           </>
-        ) : (
-          <></>
         )}
-        {endHour !== -1 ? (
+        {endHour !== -1 && (
           <>
             <Grid item xs={12} justifyContent={"center"}>
               <Typography color={"primary"}>
@@ -295,15 +292,12 @@ const NewAvailability = ({ goBack }) => {
               helperText={t('my_account.my_availabilities.new_availability_page.frequency_of_each_appointment')}
             />
           </>
-        ) : (
-          <></>
         )}
-        {frequency !== -1 ? (
+        {frequency !== -1 && (
           <>
             <Grid item xs={12} justifyContent={"center"}>
               <Typography color={"primary"}>
-                Por favor selecciona hasta que mes queres que sea valida la
-                atencion
+                {t('my_account.my_availabilities.new_availability_page.select_month')}
               </Typography>
             </Grid>
             <AvailabilityInput
@@ -314,32 +308,24 @@ const NewAvailability = ({ goBack }) => {
               elements={MONTHS}
               labels={MONTH_LABELS}
               labelSuffix={""}
-              inputLabel={"Mes"}
-              helperText={
-                "Hasta este mes (no inclusive) sera valida la atencion seleccionada"
-              }
+              inputLabel={t('my_account.my_availabilities.new_availability_page.month')}
+              helperText={t('my_account.my_availabilities.new_availability_page.select_month_helper')}
             />
           </>
-        ) : (
-          <></>
         )}
-        {month !== -1 ? (
-          <>
+        {month !== -1 && (
             <Grid item xs={12} justifyContent={"center"} marginBottom={10}>
               <Button onClick={handleSubmit} variant="contained">
-                Solicitar Horario de atencion
+                {t('my_account.my_availabilities.new_availability_page.request_availability')}
               </Button>
             </Grid>
-          </>
-        ) : (
-          <></>
         )}
       </Grid>
       <DialogAlert
         open={dialogOpen}
         handleClose={handleClose}
         handleAccept={submitAvailabilityReq}
-        title={"Solicitar horario de atencion?"}
+        title={t('my_account.my_availabilities.new_availability_page.request_availability_alert_title')}
         msg={`Dias ${DAY_LABELS[weekday]} de ${startHour} hs hasta ${endHour} hs.\n 
         Turnos cada ${frequency} min. Valido hasta ${MONTH_LABELS[month]}`}
       />

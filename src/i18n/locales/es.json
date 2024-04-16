@@ -73,6 +73,7 @@
       "first_name": "Nombre",
       "last_name": "Apellido",
       "email": "Correo electrónico",
+      "agenda": "Mi agenda",
       "phone": "Teléfono",
       "update_button": "Actualizar información",
       "update_success": "Información actualizada con éxito"
@@ -137,7 +138,13 @@
         "exit_time_of_office": "Horario de salida del consultorio",
         "frequency": "Frecuencia",
         "frequency_of_each_appointment": "Frecuencia de cada turno",
-        "select_frequency": "Por favor, selecciona la frecuencia (en minutos) con la que queres recibir turnos"
+        "select_frequency": "Por favor, selecciona la frecuencia (en minutos) con la que queres recibir turnos",
+        "select_month": "Por favor selecciona hasta que mes queres que sea valida la atención",
+        "select_month_helper": "Hasta este mes (no inclusive) sera valida la atencion seleccionada",
+        "month": "Mes",
+        "request_availability": "Solicitar Horario de atencion",
+        "request_availability_alert_title": "Solicitar horario de atención?",
+        "invalid_start_end_hours": "Comienzo y salida invalidos"
       }
     },
     "welcome_title": "Bienvenido a tu cuenta!",

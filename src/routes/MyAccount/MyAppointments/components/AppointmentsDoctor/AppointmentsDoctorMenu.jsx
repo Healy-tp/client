@@ -57,6 +57,7 @@ const AppointmentsDoctorMenu = ({
       maxWidth={"xs"}
       justifyContent="center"
       alignItems="center"
+      sx={{ marginTop: 2 }}
     >
       <Grid item>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -81,8 +82,8 @@ const AppointmentsDoctorMenu = ({
           id="menu-appbar"
           anchorEl={anchorEl}
           anchorOrigin={{
-            vertical: "top",
-            horizontal: "right",
+            vertical: "bottom",
+            horizontal: "center",
           }}
           keepMounted
           transformOrigin={{
