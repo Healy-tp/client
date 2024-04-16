@@ -17,9 +17,14 @@ RUN npm run build
 
 
 
-FROM nginx
-EXPOSE 80
-COPY --from=0 /home/node/app/build /usr/share/nginx/html
-# COPY --from=builder /home/node/app/build /usr/share/nginx/html
+FROM nginx:alpine
 
-# La img de nginx va a arrancar por default el server, no hace falta aclarar
+COPY --from=0 /home/node/app/build /usr/share/nginx/html
+
+RUN rm /etc/nginx/conf.d/default.conf 
+
+COPY nginx.conf /etc/nginx/conf.d
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
