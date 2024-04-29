@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
+import moment from 'moment';
 import _ from "lodash";
 
 import {
@@ -104,6 +105,16 @@ const AppointmentCard = ({ appt, nav }) => {
     }
   };
 
+  const canStartChat = () => {
+    const date = appt.arrivalTime || appt.extraAppt;
+    const now = new Date();
+    return (
+      moment(now).isSameOrBefore(date)
+        ? moment(now).isSameOrAfter(moment(date).subtract(7, 'days'))
+        : moment(now).isSameOrBefore(moment(date).add(15, 'days'))
+    );
+  }
+
   const { id, Doctor, User, status, Office, arrivalTime } = appt;
   return (
     <Card
@@ -174,6 +185,7 @@ const AppointmentCard = ({ appt, nav }) => {
           size="small"
           variant="contained"
           onClick={() => handleMessageClickOpen(id)}
+          disabled={!canStartChat()}
         >
           {t('my_account.my_appointments.send_message')}
         </Button>
@@ -184,6 +196,7 @@ const AppointmentCard = ({ appt, nav }) => {
             onClick={() =>
               navigate(`/my-account/${id}/edit`, { state: { appt } })
             }
+            disabled={!moment().add(3, 'days').isBefore(moment(appt.arrivalTime))}
           >
             {t('my_account.my_appointments.modify')}
           </Button>
