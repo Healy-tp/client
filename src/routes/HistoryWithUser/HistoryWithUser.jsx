@@ -10,6 +10,8 @@ import {
 } from "@mui/material";
 import React, { useContext, useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import moment from 'moment';
+import 'moment/locale/es';
 import { UserContext } from "../../contexts/UserContext";
 import {
   getHistoryWithUser,
@@ -108,11 +110,8 @@ const HistoryWithUser = () => {
         return (
           <Card key={a?.id} sx={{ marginTop: 8 }}>
             <Typography variant="h4">
-              Fecha: {a.arrivalTime ? a.arrivalTime.slice(0, 10) : a.extraAppt}{" "}
-              - Horario:{" "}
-              {a.arrivalTime
-                ? a.arrivalTime.slice(11, 16)
-                : "Extra Appointment"}
+              {a.extraAppt ? `${moment(a.extraAppt).format('ll')} Sobreturno` : moment(a.arrivalTime).utc().format('LLLL')}
+
             </Typography>
 
             <Typography variant="h6" sx={{ marginTop: 2 }}>

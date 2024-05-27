@@ -111,7 +111,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
           const params =
             m.fromUserId !== currentUser.id
               ? { marginTop: 2, mr: 75, borderRadius: 5 }
-              : { marginTop: 2, ml: 75, borderRadius: 5, textAlign: "right" };
+              : { marginTop: 2, ml: 100, borderRadius: 5, textAlign: "right" };
           return (
             <Card sx={params} key={m.id} >
               <CardContent>{m.message}</CardContent>

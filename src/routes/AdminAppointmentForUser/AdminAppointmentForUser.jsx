@@ -45,7 +45,7 @@ const AdminAppointmentForUser = () => {
     return (
       selectedData.doctorId != null &&
       selectedData.date != null &&
-      selectedData.selectedTime != null
+      (selectedData.selectedTime != null || selectedData.extraAppt)
     );
   };
 

@@ -160,11 +160,11 @@ const AppointmentCard = ({ appt, nav }) => {
         <Typography variant="body">{`${t('my_account.my_appointments.office')}: ${Office.number}`}</Typography>
         <br />
         <Typography variant="body">
-          {`${t('my_account.my_appointments.date')}: ${arrivalTime ? arrivalTime.slice(0, 10) : null}`}
+          {`${t('my_account.my_appointments.date')}: ${arrivalTime ? arrivalTime.slice(0, 10) : appt.extraAppt}`}
         </Typography>
         <br />
         <Typography variant="body">
-          {`${t('my_account.my_appointments.time')}: ${arrivalTime ? arrivalTime.slice(11, 16) : null}`}
+          {`${t('my_account.my_appointments.time')}: ${arrivalTime ? arrivalTime.slice(11, 16) : 'Sobreturno'}`}
         </Typography>
       </CardContent>
 
