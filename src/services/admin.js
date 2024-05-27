@@ -47,6 +47,10 @@ function getUsers() {
   return api.get(`${config.apiUrl}/admin/users`);
 }
 
+function deleteDoctor(doctorId) {
+  return api.delete(`${config.apiUrl}/admin/doctors/delete/${doctorId}`);
+}
+
 export {
   createDoctor,
   createOffice,
@@ -58,4 +62,5 @@ export {
   editAppointment,
   getUsers,
   createAppointmentForUser,
+  deleteDoctor,
 };

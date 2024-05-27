@@ -3,6 +3,7 @@ import { Button, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
 import { useContext } from "react";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { useNavigate } from "react-router-dom";
+import { deleteDoctor } from "../../services/admin";
 
 const DoctorTableRow = ({ doctor }) => {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -23,6 +24,14 @@ const DoctorTableRow = ({ doctor }) => {
     });
     navigate("/admin/appointment-for-user");
   };
+
+  const handleClickDeleteDoctor = async () => {
+    try {
+      await deleteDoctor(doctor.id)
+    } catch (err) {
+      console.log(err);
+    }
+  }
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -58,6 +67,9 @@ const DoctorTableRow = ({ doctor }) => {
         >
           <MenuItem id={doctor.id} onClick={handleClick}>
             Make appointment for user
+          </MenuItem>
+          <MenuItem id={doctor.id} onClick={handleClickDeleteDoctor}>
+            Delete Doctor
           </MenuItem>
         </Menu>
       </TableCell>
