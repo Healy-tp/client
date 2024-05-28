@@ -113,7 +113,15 @@ const MyAppointments = ({ nav, isDoctor }) => {
               ))}
             </Tabs>
             {filteredAppointments.filter(filterAppointmentsByDate).map((a) => (
-              <AppointmentCard key={a.id} appt={a} nav={nav} />
+              <AppointmentCard 
+                key={a.id}
+                appt={a}
+                nav={nav}
+                appointmentsList={filteredAppointments}
+                setAppointments={setAppointments}
+                setFilteredAppointments={setFilteredAppointments}
+                setIsLoading={setIsLoading}
+              />
             ))}
           </Box>
         ) : (
@@ -126,7 +134,17 @@ const MyAppointments = ({ nav, isDoctor }) => {
       ) : appointments.length > 0 ? (
         appointments
           .filter(filterAppointmentsByDate)
-          .map((a) => <AppointmentCard key={a.id} appt={a} nav={nav} />)
+          .map((a) => (
+            <AppointmentCard 
+              key={a.id} 
+              appt={a} 
+              nav={nav}
+              appointmentsList={filteredAppointments}
+              setAppointments={setAppointments}
+              setFilteredAppointments={setFilteredAppointments}
+              setIsLoading={setIsLoading}
+            />
+          ))
       ) : (
         <WelcomePage
           icon="appts"

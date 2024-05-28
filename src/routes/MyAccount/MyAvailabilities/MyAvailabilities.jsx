@@ -37,7 +37,13 @@ const MyAvailabilities = ({ nav }) => {
             {t('my_account.my_availabilities.your_schedules')}
           </Typography>
           {availabilities.length > 0 ? (
-            availabilities.map((availability) => <AvailabilityCard key={availability.id} av={availability} nav={nav} />)
+            availabilities.map((availability) => (
+            <AvailabilityCard
+              key={availability.id}
+              av={availability}
+              nav={nav}
+            />)
+          )
           ) : (
             <WelcomePage
               icon="appts"
@@ -53,7 +59,11 @@ const MyAvailabilities = ({ nav }) => {
             </Button>
         </Container>
       ) : (
-        <NewAvailability goBack={changePage} />
+        <NewAvailability 
+          goBack={changePage} 
+          availabilitiesArray={availabilities}
+          setAvailabilitiesArray={setAvailabilities}
+        />
       )}
     </>
   );

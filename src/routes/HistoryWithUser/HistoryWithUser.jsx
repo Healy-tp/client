@@ -18,6 +18,9 @@ import {
   upsertNotes,
   exportToPDF,
 } from "../../services/appointments";
+import Snackbar from "../../components/Snackbar";
+
+
 
 const HistoryWithUser = () => {
   const location = useLocation();
@@ -32,6 +35,11 @@ const HistoryWithUser = () => {
   const [editMode, setEditMode] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState(-1);
   const [inputText, setInputText] = useState("");
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    type: "",
+  });
 
   useEffect(() => {
     const fetchHistoryWithUserFromApi = async () => {
@@ -46,6 +54,12 @@ const HistoryWithUser = () => {
 
     fetchHistoryWithUserFromApi();
   }, []);
+
+  const { open, message, type } = snackbar;
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: "" });
+  };
 
   const isDoctor = currentUser.isDoctor;
   const userFullName =
@@ -67,9 +81,20 @@ const HistoryWithUser = () => {
     try {
       await upsertNotes(selectedAppointment, { text: inputText });
       setEditMode(false);
+      appointments.forEach(a => {
+        if (a.id == selectedAppointment) {
+          a.notes = inputText
+        }
+      });
+      setAppointments(appointments);
       setSelectedAppointment(-1);
       setInputText("");
     } catch (err) {
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Error updating notes",
+      });
       console.log("error updating notes", err);
     }
   };
@@ -87,6 +112,11 @@ const HistoryWithUser = () => {
       a.download = "history.pdf";
       a.click();
     } catch (err) {
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Error exporting PDF",
+      });
       console.log("error exporting to pdf", err);
     }
   };
@@ -145,7 +175,6 @@ const HistoryWithUser = () => {
                   onChange={(event) => {
                     setInputText(event.target.value);
                   }}
-                  // disabled={editMode || selectedAppointment === a.id}
                   multiline
                 ></TextField>
                 <Button
@@ -194,6 +223,12 @@ const HistoryWithUser = () => {
       ) : (
         <></>
       )}
+      <Snackbar
+        open={open}
+        handleClose={handleCloseSnackbar}
+        message={message}
+        type={type}
+      />
     </Container>
   );
 };

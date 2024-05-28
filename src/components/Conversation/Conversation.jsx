@@ -23,6 +23,8 @@ import {
 } from "../../services/notifications";
 import React, { useState, useContext } from "react";
 import { UserContext } from "../../contexts/UserContext";
+import Snackbar from "../Snackbar";
+
 
 const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
   const [t] = useTranslation();
@@ -44,6 +46,18 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
   }, []);
 
   const { currentUser } = useContext(UserContext);
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    type: "",
+  });
+  const { open, message, type } = snackbar;
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: "" });
+  };
+
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -67,6 +81,11 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       setMessages([...messages, { ...msgPayload, id: response.id, fromUserId: currentUser.id }]);
     } catch (err) {
       console.log("could not POST new message", err);
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Could not send message",
+      });
     }
     setInputText("");
     setAttachment(null);
@@ -83,7 +102,11 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       a.download = fileName;
       a.click();
     } catch (err) {
-      // TODO: handle Err
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Could not download attachment",
+      });
       console.log(err);
     }
   };
@@ -177,6 +200,12 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         </Box>
         {attachment && attachment.name}
       </AccordionDetails>
+      <Snackbar
+        open={open}
+        handleClose={handleCloseSnackbar}
+        message={message}
+        type={type}
+      />
     </Accordion>
   );
 };

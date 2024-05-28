@@ -91,9 +91,15 @@
       "cancel": "Cancel",
       "send_message": "Send message",
       "office": "Office",
-      "date": "Date",
+      "date": "Date and Time",
       "time": "Time",
       "confirm": "Confirm",
+      "status": {
+        "confirmed": "Confirmed",
+        "cancelled": "Cancelled",
+        "to_confirm": "Pending Confirmation",
+        "attended": "Attended"
+      },
       "dialogs": {
         "start_chat": "Start chat with the doctor?",
         "start_chat_content": "If you accept, you will start a conversation with the selected doctor. The chat will remain open for 15 days after the appointment.",
