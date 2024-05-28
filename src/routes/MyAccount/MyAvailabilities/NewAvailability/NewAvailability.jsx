@@ -22,7 +22,7 @@ import DialogAlert from "../../../../components/Dialog/Dialog";
 import { getAvailabilityRanges } from "../../../../utils/availability";
 import Snackbar from "../../../../components/Snackbar";
 
-const NewAvailability = ({ goBack }) => {
+const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }) => {
   const [t] = useTranslation();
   const [dialogOpen, setDialogOpen] = useState(false);
   const [availableRanges, setAvailableRanges] = useState([]);
@@ -120,8 +120,15 @@ const NewAvailability = ({ goBack }) => {
         startHour: startHour,
         endHour: endHour,
       };
-      await createAvailability(payload);
+      const responseNewAv = await createAvailability(payload);
       setDialogOpen(false);
+      setAvailabilitiesArray([
+        ...availabilitiesArray,
+        {
+          ...responseNewAv,
+          Office: availableOffices.find(o => o.id == selectedOffice)
+        }
+      ]);
       goBack();
     } catch (err) {
       setSnackbar({

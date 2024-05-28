@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import moment from 'moment';
+import 'moment/locale/es';
 import _ from "lodash";
 
 import {
@@ -12,6 +13,7 @@ import {
   Typography,
   Link,
   Snackbar,
+  Chip,
 } from "@mui/material";
 
 import DialogAlert from "../../../../../components/Dialog";
@@ -26,7 +28,14 @@ import statusColor from "./utils/statusColor";
 
 const cardWidth = 500;
 
-const AppointmentCard = ({ appt, nav }) => {
+const AppointmentCard = ({ 
+  appt,
+  nav,
+  appointmentsList,
+  setFilteredAppointments,
+  setAppointments,
+  setIsLoading
+}) => {
   const [t] = useTranslation();
   const { currentUser } = useContext(UserContext);
   const isDoctor = currentUser.isDoctor;
@@ -82,6 +91,7 @@ const AppointmentCard = ({ appt, nav }) => {
   };
 
   const handleCancelAccept = async () => {
+    setIsLoading(true);
     try {
       if (isDoctor) {
         await doctorCancelation(apptId);
@@ -90,8 +100,18 @@ const AppointmentCard = ({ appt, nav }) => {
       }
       setCancelDialogOpen(false);
       setApptId(-1);
+      setAppointments(appointmentsList.filter(a => a.id != apptId));
+      setFilteredAppointments(appointmentsList.filter(a => a.id != apptId));
     } catch (err) {
       console.log("Error canceling appointment", err);
+      const errorMsg = _.get(
+        err,
+        "response.data.errors[0].message",
+        "Something went wrong",
+      );
+      setSnackBar({ open: true, message: errorMsg });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -99,6 +119,12 @@ const AppointmentCard = ({ appt, nav }) => {
     try {
       await confirmAppointment(apptId);
       setConfirmDialogOpen(false);
+      appointmentsList.forEach(a => {
+        if (a.id == apptId) {
+          a.status = 'confirmed'
+        }
+      });
+      setFilteredAppointments(appointmentsList);
       setApptId(-1);
     } catch (err) {
       console.log("error confirming appointment", err);
@@ -153,19 +179,25 @@ const AppointmentCard = ({ appt, nav }) => {
               borderRadius: "8px",
             }}
           >
-            <Typography variant="body1">{_.capitalize(status)}</Typography>
+            <Typography variant="body1">{t(`my_account.my_appointments.status.${status}`)}</Typography>
           </div>
         </div>
         <br />
-        <Typography variant="body">{`${t('my_account.my_appointments.office')}: ${Office.number}`}</Typography>
-        <br />
         <Typography variant="body">
-          {`${t('my_account.my_appointments.date')}: ${arrivalTime ? arrivalTime.slice(0, 10) : appt.extraAppt}`}
+          {t('my_account.my_appointments.office')}: <Chip color='primary' label={Office.number} />
         </Typography>
         <br />
         <Typography variant="body">
+          {
+            `${t('my_account.my_appointments.date')}: ` 
+            // ${arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')}`
+          }
+          <Chip color='primary' label={arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')} />
+        </Typography>
+        <br />
+        {/* <Typography variant="body">
           {`${t('my_account.my_appointments.time')}: ${arrivalTime ? arrivalTime.slice(11, 16) : 'Sobreturno'}`}
-        </Typography>
+        </Typography> */}
       </CardContent>
 
       <CardActions>

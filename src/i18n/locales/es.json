@@ -96,9 +96,15 @@
       "cancel": "Cancelar",
       "send_message": "Enviar mensaje",
       "office": "Consultorio",
-      "date": "Fecha",
+      "date": "Fecha y hora",
       "time": "Hora",
       "confirm": "Confirmar",
+      "status": {
+        "confirmed": "Confirmado",
+        "cancelled": "Cancelado",
+        "to_confirm": "A confirmar",
+        "attended": "Asistido"
+      },
       "dialogs": {
         "start_chat": "Comenzar chat con el doctor?",
         "start_chat_content": "Si aceptas, iniciaras una conversacion con el doctor seleccionado. El chat quedara abierto hasta 15 dias luego del turno.",
