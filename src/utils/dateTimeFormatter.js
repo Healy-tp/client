@@ -10,6 +10,14 @@ const dateToString = (date) => {
   return date.toJSON().slice(0, 10);
 };
 
+const dateToStringForDisplay = (date) => {
+  if (!date) {
+    return null;
+  }
+
+  return moment(date).format('DD-MM-YYYY');
+};
+
 const timeToString = (dateTime) => {
   if (!dateTime) {
     return null;
@@ -32,4 +40,5 @@ module.exports = {
   dateToString,
   timeToString,
   dateTimeToString,
+  dateToStringForDisplay,
 };
