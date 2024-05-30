@@ -7,7 +7,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useTranslation } from 'react-i18next';
-import { dateToString, timeToString } from "../../utils/dateTimeFormatter";
+import { dateToStringForDisplay, timeToString } from "../../utils/dateTimeFormatter";
 
 const ConfirmationCard = ({
   doctorName,
@@ -44,7 +44,7 @@ const ConfirmationCard = ({
         }
         <br />
         <Typography variant="body2">
-          {t('checkout.date')}: {dateToString(date)}
+          {t('checkout.date')}: {dateToStringForDisplay(date)}
           <br />
           {t('checkout.time')}: {timeToString(selectedTime)}hs
         </Typography>
