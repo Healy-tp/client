@@ -30,7 +30,7 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
   const {
     id,
     Doctor,
-    officeId,
+    Office,
     weekday,
     startHour,
     endHour,
@@ -102,7 +102,7 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
         {`${Doctor.firstName} ${Doctor.lastName}`}
       </TableCell>
       <TableCell>{Doctor.specialty}</TableCell>
-      <TableCell>{officeId}</TableCell>
+      <TableCell>{Office.number}</TableCell>
       <TableCell>{moment().weekday(weekday).format("dddd")}</TableCell>
       <TableCell>{startHour}</TableCell>
       <TableCell>{endHour}</TableCell>
