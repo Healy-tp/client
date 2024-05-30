@@ -10,7 +10,7 @@ const AvailabilitiesAdmin = () => {
   const headers = [
     "Doctors Name",
     "Doctors Specialty",
-    "Office ID",
+    "Office Number",
     "Weekday",
     "Start Hour",
     "End Hour",

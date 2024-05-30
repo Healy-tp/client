@@ -16,7 +16,7 @@ const AppointmentsAdmin = () => {
     "Users Name",
     "Doctors Name",
     "Doctors Specialty",
-    "Office ID",
+    "Office Number",
     "Arrival Time",
     "Status",
     "Assisted",

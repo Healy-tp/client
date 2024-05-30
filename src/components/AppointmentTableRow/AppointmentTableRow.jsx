@@ -25,7 +25,8 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
 
   const openMenu = Boolean(anchorEl);
 
-  const { id, Doctor, User, officeId, arrivalTime, status, assisted } = appt;
+  const { id, Doctor, User, Office, arrivalTime, status, assisted } = appt;
+  const [assitedCheckbox, setAssitedCheckbox] = useState(assisted);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -81,6 +82,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
   const handleMarkAssistance = async (apptId) => {
     try {
       await markAssistance(apptId);
+      setAssitedCheckbox(true);
       setSnackbar({
         type: "success",
         open: true,
@@ -88,6 +90,11 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
       });
     } catch (err) {
       console.log(err);
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: "Could not mark assistance for user",
+      });
     }
   };
 
@@ -102,7 +109,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
       >{`${User.firstName} ${User.lastName}`}</TableCell>
       <TableCell>{`${Doctor.firstName} ${Doctor.lastName}`}</TableCell>
       <TableCell>{Doctor.specialty}</TableCell>
-      <TableCell>{officeId}</TableCell>
+      <TableCell>{Office.number}</TableCell>
       <TableCell>
         {arrivalTime ? dateTimeToString(arrivalTime) : "Extra Appointment"}
       </TableCell>
@@ -127,7 +134,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
         )}
       </TableCell>
       <TableCell>
-        <Checkbox disabled checked={assisted} />
+        <Checkbox disabled checked={assitedCheckbox} />
       </TableCell>
       <TableCell>
         {editMode ? (
