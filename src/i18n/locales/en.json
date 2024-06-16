@@ -19,7 +19,8 @@
     "password": "Password",
     "confirm_password": "Confirm password",
     "sign_in": "Sign in",
-    "already_have_account": "Already have an account? Sign in"
+    "already_have_account": "Already have an account? Sign in",
+    "passwords_do_not_match": "Passwords do not match"
   },
   "home": {
     "title": "Take care of your health",
@@ -39,7 +40,9 @@
     "confirm": "Confirm",
     "date": "Date",
     "time": "Time",
-    "for_user": "Patient"
+    "for_user": "Patient",
+    "success": "Appointment successfully scheduled",
+    "error": "Error scheduling appointment"
   },
   "page_not_found": {
     "title": "Page not found",
@@ -158,7 +161,9 @@
   },
   "errors": {
     "generic_error": "Something went wrong on our end. Please try again",
-    "verify_url": "Please verify that the app URL is correct or reach out to the app owner for assistance."
+    "verify_url": "Please verify that the app URL is correct or reach out to the app owner for assistance.",
+    "message_not_sent": "Message could not be sent",
+    "download_attachment_error": "Could not download attachment"
   },
   "titles": {
     "app_name": "Healy"
@@ -172,13 +177,50 @@
     "privacy_policy": "Privacy policy",
     "terms_and_conditions": "Terms and conditions"
   },
+  "admin": {
+    "appointments": {
+      "edit": {
+        "success": "Appointment successfully updated",
+        "no_changes_made": "No changes were made",
+        "error": "Error updating appointment",
+        "success_mark_assistance": "Successfully marked user assistance",
+        "error_mark_assistance": "Could not mark assistance for user",
+        "options": "Options",
+        "menu_option": "Edit appointment",
+        "mark_assistance": "Mark assistance",
+        "extra_appointment": "Extra appointment"
+      }
+    },
+    "availabilities": {
+      "edit": {
+        "success": "Availability successfully updated",
+        "no_changes_made": "No changes were made",
+        "error": "Error updating availability",
+        "options": "Options",
+        "menu_option": "Edit availability"
+      }
+    },
+    "offices": {
+      "edit": {
+        "success": "Office successfully updated",
+        "no_changes_made": "No changes were made",
+        "error": "Error updating office",
+        "min_specialties": "Office must have at least one specialty",
+        "options": "Options",
+        "menu_option": "Edit office"
+      }
+    }
+  },
   "actions": {
+    "delete": "Delete",
+    "save": "Save",
     "cancel": "Cancel",
     "confirm": "Confirm",
     "close": "Close",
     "send": "Send",
     "accept": "Accept",
     "modify": "Modify",
-    "go_back": "Go back"
+    "go_back": "Go back",
+    "submit": "Submit"
   }
 }

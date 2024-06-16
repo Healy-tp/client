@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 import {
   Button,
@@ -13,6 +14,8 @@ import { editOffice } from "../../services/admin";
 import { SPECIALTIES } from "../../utils/constants";
 
 const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
+  const [t] = useTranslation();
+
   const defaultEditFields = {
     specialties: office.specialties,
     number: office.number,
@@ -60,7 +63,7 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
       setSnackbar({
         type: "info",
         open: true,
-        message: "Office must have at least one specialty",
+        message: t("admin.offices.edit.min_specialties")
       });
     }
   };
@@ -79,7 +82,7 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
         setSnackbar({
           type: "success",
           open: true,
-          message: "Office successfully updated",
+          message: t("admin.offices.edit.success"),
         });
         setEditMode(false);
         await updateRows();
@@ -87,14 +90,14 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
         setSnackbar({
           type: "error",
           open: true,
-          message: error.response.data.message,
+          message: t("admin.offices.edit.error"),
         });
       }
     } else {
       setSnackbar({
         type: "info",
         open: true,
-        message: "No changes were made",
+        message: t("admin.offices.edit.no_changes"),
       });
     }
   };
@@ -168,8 +171,8 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
         <TableCell>
           {editMode ? (
             <>
-              <Button onClick={handleCancelEdit}>Cancel</Button>
-              <Button onClick={handleSaveEdition}>Save</Button>
+              <Button onClick={handleCancelEdit}>{t('actions.cancel')}</Button>
+              <Button onClick={handleSaveEdition}>{t('actions.save')}</Button>
             </>
           ) : (
             <>
@@ -180,7 +183,7 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
                 aria-expanded={openMenu ? "true" : undefined}
                 onClick={handleClick}
               >
-                Options
+                {t("admin.offices.edit.options")}
               </Button>
               <Menu
                 id="basic-menu"
@@ -191,8 +194,8 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleEdit}>Edit Office</MenuItem>
-                <MenuItem onClick={() => console.log("TODO")}>Delete</MenuItem>
+                <MenuItem onClick={handleEdit}>{t("admin.offices.edit.menu_option")}</MenuItem>
+                <MenuItem onClick={() => console.log("TODO")}>{t("actions.delete")}</MenuItem>
               </Menu>
             </>
           )}

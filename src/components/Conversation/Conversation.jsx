@@ -32,19 +32,6 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
   const [inputText, setInputText] = useState("");
   const [attachment, setAttachment] = useState(null);
 
-  useEffect(() => {
-    const getMessagesFromApi = async () => {
-      try {
-        const response = await getMessages(convData.id);
-        setMessages(response);
-      } catch (err) {
-        console.log("could not fetch messages from server", err);
-      }
-    };
-
-    getMessagesFromApi();
-  }, []);
-
   const { currentUser } = useContext(UserContext);
 
   const [snackbar, setSnackbar] = useState({
@@ -53,6 +40,24 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
     type: "",
   });
   const { open, message, type } = snackbar;
+
+  useEffect(() => {
+    const getMessagesFromApi = async () => {
+      try {
+        const response = await getMessages(convData.id);
+        setMessages(response);
+      } catch (err) {
+        console.log("could not fetch messages from server", err);
+        setSnackbar({
+          type: "error",
+          open: true,
+          message: t('errors.generic_error'),
+        });
+      }
+    };
+
+    getMessagesFromApi();
+  }, []);
 
   const handleCloseSnackbar = () => {
     setSnackbar({ open: false, message: "" });
@@ -84,7 +89,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Could not send message",
+        message: t('errors.message_not_sent'),
       });
     }
     setInputText("");
@@ -105,7 +110,7 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Could not download attachment",
+        message: t('errors.download_attachment_error'),
       });
       console.log(err);
     }

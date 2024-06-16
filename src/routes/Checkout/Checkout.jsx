@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 
 import { AppointmentContext } from "../../contexts/AppointmentContext";
@@ -9,6 +10,7 @@ import Snackbar from "../../components/Snackbar";
 import { dateToString, timeToString } from "../../utils/dateTimeFormatter";
 
 function Checkout({ from }) {
+  const [t] = useTranslation();
   const { selectedData, setDefaultValues } = useContext(AppointmentContext);
   const navigate = useNavigate();
   const [snackbar, setSnackbar] = useState({
@@ -41,7 +43,7 @@ function Checkout({ from }) {
         setSnackbar({
           type: "success",
           open: true,
-          message: "Appointment made.",
+          message: t("checkout.success"),
         });
         setDefaultValues();
         navigate("/");
@@ -59,7 +61,7 @@ function Checkout({ from }) {
         setSnackbar({
           type: "success",
           open: true,
-          message: "Appointment made.",
+          message: t("checkout.success"),
         });
         navigate("/admin");
       }
@@ -68,7 +70,7 @@ function Checkout({ from }) {
       setSnackbar({
         type: "error",
         open: true,
-        message: error.response.data.errors[0].message,
+        message: t("checkout.error")
       });
     }
   };

@@ -19,7 +19,8 @@
     "password": "Contraseña",
     "confirm_password": "Confirmar contraseña",
     "sign_in": "Iniciar sesión",
-    "already_have_account": "¿Ya tienes una cuenta? Iniciar sesión"
+    "already_have_account": "¿Ya tienes una cuenta? Iniciar sesión",
+    "passwords_do_not_match": "Las contraseñas no coinciden"
   },
   "home": {
     "title": "Cuida tu salud",
@@ -39,7 +40,9 @@
     "confirm": "Confirmar",
     "date": "Fecha",
     "time": "Hora",
-    "for_user": "Paciente"
+    "for_user": "Paciente",
+    "success": "Turno agendado con éxito",
+    "error": "Error al agendar turno"
   },
   "page_not_found": {
     "title": "La pagina no fue encontrada",
@@ -158,7 +161,9 @@
   },
   "errors": {
     "generic_error": "Algo salió mal, por favor intenta nuevamente",
-    "verify_url": "Por favor verifica que la URL de la aplicación sea correcta o contactese con nosotros para asistencia."
+    "verify_url": "Por favor verifica que la URL de la aplicación sea correcta o contactese con nosotros para asistencia.",
+    "message_not_sent": "Mensaje no enviado",
+    "download_attachment_error": "Error al descargar el archivo adjunto"
   },
   "titles": {
     "app_name": "Healy"
@@ -172,13 +177,50 @@
     "privacy_policy": "Política de privacidad",
     "terms_and_conditions": "Términos y condiciones"
   },
+  "admin": {
+    "appointments": {
+      "edit": {
+        "success": "Turno actualizado con éxito",
+        "no_changes_made": "No se realizaron cambios",
+        "error": "Error al actualizar el turno",
+        "success_mark_assistance": "Turno marcado como asistido",
+        "error_mark_assistance": "Error al marcar el turno como asistido",
+        "options": "Opciones",
+        "menu_option": "Editar turno",
+        "mark_assistance": "Marcar como asistido",
+        "extra_appointment": "Sobre turno"
+      }
+    },
+    "availabilities": {
+      "edit": {
+        "success": "Disponibilidad actualizada con éxito",
+        "no_changes_made": "No se realizaron cambios",
+        "error": "Error al actualizar la disponibilidad",
+        "options": "Opciones",
+        "menu_option": "Editar disponibilidad"
+      }
+    },
+    "offices": {
+      "edit": {
+        "success": "Consultorio actualizado con éxito",
+        "no_changes_made": "No se realizaron cambios",
+        "error": "Error al actualizar el consultorio",
+        "min_specialties": "El consultorio debe tener al menos una especialidad",
+        "options": "Opciones",
+        "menu_option": "Editar consultorio"
+      }
+    }
+  },
   "actions": {
+    "delete": "Eliminar",
+    "save": "Guardar",
     "cancel": "Cancelar",
     "confirm": "Confirmar",
     "close": "Cerrar",
     "send": "Enviar",
     "accept": "Aceptar",
     "modify": "Modificar",
-    "go_back": "Volver"
+    "go_back": "Volver",
+    "submit": "Enviar"
   }
 }

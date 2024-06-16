@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import _ from "lodash";
+import { useTranslation } from 'react-i18next';
 import moment from "moment";
 import {
   Button,
@@ -17,6 +18,8 @@ import { FREQUENCIES } from "../../utils/constants";
 import { dateToString } from "../../utils/dateTimeFormatter";
 
 const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
+  const { t } = useTranslation();
+
   const defaultEditFields = {
     frequency: availability.frequency,
     validUntil: availability.validUntil,
@@ -68,7 +71,7 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
         setSnackbar({
           type: "success",
           open: true,
-          message: "Availability successfully updated",
+          message: t('admin.availabilities.edit.success')
         });
         setEditMode(false);
         await updateRows();
@@ -76,14 +79,14 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
         setSnackbar({
           type: "error",
           open: true,
-          message: error.response.data.message,
+          message: t('admin.availabilities.edit.error'),
         });
       }
     } else {
       setSnackbar({
         type: "info",
         open: true,
-        message: "No changes were made",
+        message: t('admin.availabilities.edit.no_changes_made'),
       });
     }
   };
@@ -145,8 +148,8 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
       <TableCell>
         {editMode ? (
           <>
-            <Button onClick={handleCancelEdit}>Cancel</Button>
-            <Button onClick={handleSaveEdition}>Save</Button>
+            <Button onClick={handleCancelEdit}>{t('actions.cancel')}</Button>
+            <Button onClick={handleSaveEdition}>{t('actions.save')}</Button>
           </>
         ) : (
           <>
@@ -157,7 +160,7 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
               aria-expanded={openMenu ? "true" : undefined}
               onClick={handleClick}
             >
-              Options
+              {t('admin.availabilities.edit.options')}
             </Button>
             <Menu
               id="basic-menu"
@@ -168,8 +171,8 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleEdit}>Edit Availability</MenuItem>
-              <MenuItem onClick={() => console.log("TODO")}>Delete</MenuItem>
+              <MenuItem onClick={handleEdit}>{t('admin.availabilities.edit.menu_option')}</MenuItem>
+              <MenuItem onClick={() => console.log("TODO")}>{t('actions.delete')}</MenuItem>
             </Menu>
           </>
         )}

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import _ from "lodash";
+import { useTranslation } from 'react-i18next';
 import {
   Button,
   Checkbox,
@@ -15,6 +16,8 @@ import { editAppointment } from "../../services/admin";
 import { markAssistance } from "../../services/appointments";
 
 const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
+  const { t } = useTranslation();
+
   const defaultEditFields = {
     status: appt.status,
   };
@@ -54,7 +57,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
         setSnackbar({
           type: "success",
           open: true,
-          message: "Appointment successfully updated",
+          message: t('admin.appointments.edit.success')
         });
         setEditMode(false);
         await updateRows();
@@ -62,14 +65,14 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
         setSnackbar({
           type: "error",
           open: true,
-          message: error.response.data.message,
+          message: t('admin.appointments.edit.error')
         });
       }
     } else {
       setSnackbar({
         type: "info",
         open: true,
-        message: "No changes were made",
+        message: t('admin.appointments.edit.no_changes_made')
       });
     }
   };
@@ -86,14 +89,14 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
       setSnackbar({
         type: "success",
         open: true,
-        message: "Successfully marked user assistance",
+        message: t('admin.appointments.edit.mark_assistance_success'),
       });
     } catch (err) {
       console.log(err);
       setSnackbar({
         type: "error",
         open: true,
-        message: "Could not mark assistance for user",
+        message: t('admin.appointments.edit.mark_assistance_error'),
       });
     }
   };
@@ -111,7 +114,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
       <TableCell>{Doctor.specialty}</TableCell>
       <TableCell>{Office.number}</TableCell>
       <TableCell>
-        {arrivalTime ? dateTimeToString(arrivalTime) : "Extra Appointment"}
+        {arrivalTime ? dateTimeToString(arrivalTime) : t('admin.appointments.edit.extra_appointment')}
       </TableCell>
       <TableCell>
         {editMode ? (
@@ -139,8 +142,8 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
       <TableCell>
         {editMode ? (
           <>
-            <Button onClick={handleCancelEdit}>Cancel</Button>
-            <Button onClick={handleSaveEdition}>Save</Button>
+            <Button onClick={handleCancelEdit}>{t('actions.cancel')}</Button>
+            <Button onClick={handleSaveEdition}>{t('actions.save')}</Button>
           </>
         ) : (
           <>
@@ -151,7 +154,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
               aria-expanded={openMenu ? "true" : undefined}
               onClick={handleClick}
             >
-              Options
+              {t('admin.appointments.edit.options')}
             </Button>
             <Menu
               id="basic-menu"
@@ -162,11 +165,11 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem onClick={handleEdit}>Edit Appointment</MenuItem>
+              <MenuItem onClick={handleEdit}>{t('admin.appointments.edit.menu_option')}</MenuItem>
               <MenuItem onClick={() => handleMarkAssistance(id)}>
-                Marcar asistencia
+               {t('admin.appointments.edit.mark_assistance')}
               </MenuItem>
-              <MenuItem onClick={() => console.log("TODO")}>Delete</MenuItem>
+              <MenuItem onClick={() => console.log("TODO")}>{t('actions.delete')}</MenuItem>
             </Menu>
           </>
         )}

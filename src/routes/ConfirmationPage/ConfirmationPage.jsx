@@ -8,6 +8,7 @@ import {
   CardActions,
   Typography,
 } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -22,6 +23,7 @@ const defaultFormFields = {
 };
 
 const ConfirmationPage = () => {
+  const [t] = useTranslation();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password, confirmPassword } = formFields;
 
@@ -64,7 +66,7 @@ const ConfirmationPage = () => {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Passwords do not match",
+        message: t("signup.passwords_do_not_match"),
       });
       return;
     }
@@ -134,7 +136,7 @@ const ConfirmationPage = () => {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
           >
-            Submit
+            {t('actions.submit')}
           </Button>
         </Box>
       ) : validCode && confirmed ? (
