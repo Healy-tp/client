@@ -43,6 +43,10 @@ function editOffice(officeData) {
   return api.put(`${config.apiUrl}/api/admin/offices/edit`, officeData);
 }
 
+function editUser(userData) {
+  return api.put(`${config.apiUrl}/admin/users/edit`, userData);
+}
+
 function getUsers() {
   return api.get(`${config.apiUrl}/admin/users`);
 }
@@ -60,6 +64,7 @@ export {
   getOffices,
   getAppointments,
   editAppointment,
+  editUser,
   getUsers,
   createAppointmentForUser,
   deleteDoctor,
