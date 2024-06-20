@@ -57,7 +57,12 @@ const AdminTable = ({ headers, isLoading, kind, rows, updateRows }) => {
               kind === "doctor" ? (
                 <DoctorTableRow key={row?.id} doctor={row} />
               ) : kind === "user" ? (
-                <UserTableRow key={row?.id} user={row} />
+                <UserTableRow 
+                  key={row?.id} 
+                  user={row} 
+                  updateRows={updateRows}
+                  setSnackbar={setSnackbar}
+                />
               ) : kind === "office" ? (
                 <OfficeTableRow
                   key={row?.id}

@@ -178,6 +178,14 @@
     "terms_and_conditions": "Terms and conditions"
   },
   "admin": {
+    "users": {
+      "edit": {
+        "menu_option": "Edit user",
+        "success": "User successfully updated",
+        "no_changes_made": "No changes were made",
+        "error": "Error updating user"
+      }
+    },
     "appointments": {
       "edit": {
         "success": "Appointment successfully updated",

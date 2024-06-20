@@ -178,6 +178,14 @@
     "terms_and_conditions": "Términos y condiciones"
   },
   "admin": {
+    "users": {
+      "edit": {
+        "menu_option": "Editar usuario",
+        "success": "Usuario actualizado con éxito",
+        "no_changes_made": "No se realizaron cambios",
+        "error": "Error al actualizar el usuario"
+      }
+    },
     "appointments": {
       "edit": {
         "success": "Turno actualizado con éxito",
