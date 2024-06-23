@@ -12,6 +12,7 @@ import {
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from 'react-i18next';
 import { createOffice } from "../../services/admin";
 import { SPECIALTIES } from "../../utils/constants";
 import Snackbar from "../../components/Snackbar";
@@ -32,6 +33,7 @@ const MenuProps = {
 };
 
 const NewOffice = () => {
+  const [t] = useTranslation();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -64,14 +66,14 @@ const NewOffice = () => {
       setSnackbar({
         type: "success",
         open: true,
-        message: "Successfully registered",
+        message: t("admin.offices.create.success"),
       });
       navigate("/admin");
     } catch (error) {
       setSnackbar({
         type: "error",
         open: true,
-        message: error.response.data.message,
+        message: t("admin.offices.create.error"),
       });
     }
   };

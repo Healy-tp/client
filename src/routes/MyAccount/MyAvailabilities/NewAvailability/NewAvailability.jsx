@@ -134,7 +134,7 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
       setSnackbar({
         type: "error",
         open: true,
-        message: err.response.data.errors[0].message,
+        message: t("my_account.my_availabilities.new_availability_page.new_availability_error")
       });
     }
   };

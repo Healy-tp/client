@@ -9,6 +9,7 @@ import {
   Button,
 } from "@mui/material";
 import React, { useContext, useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from 'moment';
 import 'moment/locale/es';
@@ -24,6 +25,7 @@ import Snackbar from "../../components/Snackbar";
 
 const HistoryWithUser = () => {
   const location = useLocation();
+  const [t] = useTranslation();
   const counterpartId = location.state.counterpartId;
 
   const { currentUser } = useContext(UserContext);
@@ -93,7 +95,7 @@ const HistoryWithUser = () => {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Error updating notes",
+        message: t("my_account.notes.update_fail"),
       });
       console.log("error updating notes", err);
     }
@@ -115,7 +117,7 @@ const HistoryWithUser = () => {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Error exporting PDF",
+        message: t("my_account.notes.export_pdf_fail"),
       });
       console.log("error exporting to pdf", err);
     }

@@ -17,10 +17,13 @@
     "email": "Correo electrónico",
     "phone": "Teléfono",
     "password": "Contraseña",
+    "verification_failed": "La verificación del usuario ha fallado.",
     "confirm_password": "Confirmar contraseña",
     "sign_in": "Iniciar sesión",
     "already_have_account": "¿Ya tienes una cuenta? Iniciar sesión",
-    "passwords_do_not_match": "Las contraseñas no coinciden"
+    "passwords_do_not_match": "Las contraseñas no coinciden",
+    "success": "Usuario registrado con éxito",
+    "error": "No pudimos crear el nuevo usuario"
   },
   "home": {
     "title": "Cuida tu salud",
@@ -79,12 +82,14 @@
       "agenda": "Mi agenda",
       "phone": "Teléfono",
       "update_button": "Actualizar información",
-      "update_success": "Información actualizada con éxito"
+      "update_success": "Información actualizada con éxito",
+      "update_error": "No se pudo actualizar la información"
     },
     "chat": {
       "title": "Chatear con",
       "new_message": "Nuevo mensaje",
-      "attached": "Adjunto"
+      "attached": "Adjunto",
+      "start_chat_fail": "Could not start new chat"
     },
     "edit_appointment": {
       "new_date": "Nueva fecha"
@@ -153,9 +158,15 @@
         "month": "Mes",
         "request_availability": "Solicitar Horario de atencion",
         "request_availability_alert_title": "Solicitar horario de atención?",
-        "invalid_start_end_hours": "Comienzo y salida invalidos"
+        "invalid_start_end_hours": "Comienzo y salida invalidos",
+        "new_availability_error": "Error al solicitar nuevo horario de atención"
       }
     },
+    "notes": {
+      "update_fail": "Error actualizando las notas",
+      "export_pdf_fail": "Error al exportar el PDF"
+    },
+    "cancel_appt_fail": "Error al cancelar el turno",
     "welcome_title": "Bienvenido a tu cuenta!",
     "welcome_subtitle": "Administra tus turnos, tu informacion y mensajes desde aqui."
   },
@@ -216,6 +227,10 @@
         "min_specialties": "El consultorio debe tener al menos una especialidad",
         "options": "Opciones",
         "menu_option": "Editar consultorio"
+      },
+      "create": {
+        "success": "Consultorio creado con éxito",
+        "error": "No se pudo crear el consultorio"
       }
     }
   },

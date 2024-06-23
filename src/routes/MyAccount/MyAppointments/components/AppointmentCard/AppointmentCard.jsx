@@ -80,13 +80,13 @@ const AppointmentCard = ({
       await startChat(apptId);
       nav();
     } catch (err) {
-      console.log("error starting chat with user", err);
       const errorMsg = _.get(
         err,
         "response.data.errors[0].message",
         "Something went wrong",
       );
-      setSnackBar({ open: true, message: errorMsg });
+      setSnackBar({ open: true, message: t("my_account.chat.start_chat_fail") });
+      console.log("error starting chat with user", errorMsg);
     }
   };
 
@@ -103,13 +103,13 @@ const AppointmentCard = ({
       setAppointments(appointmentsList.filter(a => a.id != apptId));
       setFilteredAppointments(appointmentsList.filter(a => a.id != apptId));
     } catch (err) {
-      console.log("Error canceling appointment", err);
       const errorMsg = _.get(
         err,
         "response.data.errors[0].message",
         "Something went wrong",
       );
-      setSnackBar({ open: true, message: errorMsg });
+      console.log("Error canceling appointment", errorMsg);
+      setSnackBar({ open: true, message: t("my_account.cancel_appt_fail") });
     } finally {
       setIsLoading(false);
     }

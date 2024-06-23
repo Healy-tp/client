@@ -57,7 +57,7 @@ const SignUp = () => {
       setSnackbar({
         type: "error",
         open: true,
-        message: "Passwords do not match",
+        message: t("signup.passwords_do_not_match"),
       });
       return;
     }
@@ -72,7 +72,7 @@ const SignUp = () => {
       setSnackbar({
         type: "success",
         open: true,
-        message: "Successfully registered",
+        message: t("signup.success"),
       });
       signInUser(user);
       resetFormFields();
@@ -83,7 +83,8 @@ const SignUp = () => {
         "response.data.errors[0].message",
         "Something went wrong",
       );
-      setSnackbar({ type: "error", open: true, message: errorMsg });
+      setSnackbar({ type: "error", open: true, message: t("signup.error") });
+      console.log("Error", errorMsg);
     }
   };
 

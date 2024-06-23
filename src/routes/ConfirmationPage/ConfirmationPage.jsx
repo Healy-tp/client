@@ -79,7 +79,7 @@ const ConfirmationPage = () => {
       setSnackbar({
         type: "error",
         open: true,
-        message: error.response.data.errors[0].message,
+        message: t("signup.verification_failed"),
       });
     }
   };

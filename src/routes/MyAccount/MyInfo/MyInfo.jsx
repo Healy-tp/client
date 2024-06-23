@@ -61,7 +61,7 @@ const MyInfo = () => {
       setSnackbar({
         type: "error",
         open: true,
-        message: error?.response?.data?.errors[0]?.message || error.message,
+        message: t('my_account.my_info.update_error'),
       });
     } finally {
       setEditMode(false);

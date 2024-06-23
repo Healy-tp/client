@@ -52,7 +52,8 @@ const Login = () => {
         "response.data.errors[0].message",
         "Something went wrong",
       );
-      setSnackBar({ open: true, message: errorMsg });
+      setSnackBar({ open: true, message: t("components.something_went_wrong.title") });
+      console.log(errorMsg);
     }
   };
 

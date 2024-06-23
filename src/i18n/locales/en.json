@@ -16,11 +16,14 @@
     "last_name": "Last name",
     "email": "Email",
     "phone": "Phone",
+    "verification_failed": "User verification failed",
     "password": "Password",
     "confirm_password": "Confirm password",
     "sign_in": "Sign in",
     "already_have_account": "Already have an account? Sign in",
-    "passwords_do_not_match": "Passwords do not match"
+    "passwords_do_not_match": "Passwords do not match",
+    "success": "Successfully registered",
+    "error": "Could not create new user"
   },
   "home": {
     "title": "Take care of your health",
@@ -79,7 +82,8 @@
       "email": "Email",
       "phone": "Phone",
       "update_button": "Update info",
-      "update_success": "Info updated successfully"
+      "update_success": "Info updated successfully",
+      "update_error": "Could not update info"
     },
     "edit_appointment": {
       "new_date": "New date"
@@ -123,7 +127,8 @@
     "chat": {
       "title": "Chat with",
       "new_message": "New message",
-      "attached": "Attached file"
+      "attached": "Attached file",
+      "start_chat_fail": "Could not start new chat"
     },
     "my_messages": {
       "title": "Messages",
@@ -153,9 +158,15 @@
         "month": "Month",
         "request_availability": "Request availability",
         "request_availability_alert_title": "Request availability?",
-        "invalid_start_end_hours": "Invalid start and end hours"
+        "invalid_start_end_hours": "Invalid start and end hours",
+        "new_availability_error": "Error requesting new availability"
       }
     },
+    "notes": {
+      "update_fail": "Error updating notes",
+      "export_pdf_fail": "Error exporting PDF"
+    },
+    "cancel_appt_fail": "Error while canceling appointment",
     "welcome_title": "Welcome to Healy!",
     "welcome_subtitle": "Manage your appointments, your information and messages from here."
   },
@@ -216,6 +227,10 @@
         "min_specialties": "Office must have at least one specialty",
         "options": "Options",
         "menu_option": "Edit office"
+      },
+      "create": {
+        "success": "Office created successfully",
+        "error": "Could not create new office"
       }
     }
   },
