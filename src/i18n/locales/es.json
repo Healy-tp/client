@@ -162,6 +162,18 @@
         "new_availability_error": "Error al solicitar nuevo horario de atención"
       }
     },
+    "history_with_user": {
+      "no_history": "No hay notas hasta el momento",
+      "notes": "Notas",
+      "title": "Historial de turnos con",
+      "dr": "Dr.",
+      "patient": "paciente",
+      "appointment": "Turno",
+      "edit_notes": "Editar notas",
+      "update_notes": "Actualizar notas",
+      "export_to_pdf": "Exportar a PDF",
+      "cancel_edit": "Cancelar edición"
+    },
     "notes": {
       "update_fail": "Error actualizando las notas",
       "export_pdf_fail": "Error al exportar el PDF"

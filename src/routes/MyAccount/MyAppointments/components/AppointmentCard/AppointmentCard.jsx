@@ -148,7 +148,7 @@ const AppointmentCard = ({
       sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: "column" }}
     >
       <CardContent>
-        <div style={{ display: "flex", justifyContent: "space-between" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
           <Typography variant="h6">
             {!isDoctor ? (
               <Link
@@ -182,19 +182,18 @@ const AppointmentCard = ({
             <Typography variant="body1">{t(`my_account.my_appointments.status.${status}`)}</Typography>
           </div>
         </div>
-        <br />
-        <Typography variant="body">
-          {t('my_account.my_appointments.office')}: <Chip color='primary' label={Office.number} />
-        </Typography>
-        <br />
-        <Typography variant="body">
-          {
-            `${t('my_account.my_appointments.date')}: ` 
-            // ${arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')}`
-          }
-          <Chip color='primary' label={arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')} />
-        </Typography>
-        <br />
+        <div style={{ display: "flex", flexDirection: "column", gap: "4px"  }}>
+          <Typography variant="body">
+            {t('my_account.my_appointments.office')}: <Chip color='primary' label={Office.number} />
+          </Typography>
+          <Typography variant="body">
+            {
+              `${t('my_account.my_appointments.date')}: ` 
+              // ${arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')}`
+            }
+            <Chip color='primary' label={arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')} />
+          </Typography>
+        </div>
         {/* <Typography variant="body">
           {`${t('my_account.my_appointments.time')}: ${arrivalTime ? arrivalTime.slice(11, 16) : 'Sobreturno'}`}
         </Typography> */}

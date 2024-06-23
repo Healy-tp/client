@@ -162,6 +162,18 @@
         "new_availability_error": "Error requesting new availability"
       }
     },
+    "history_with_user": {
+      "no_history":  "There are no notes at the moment",
+      "notes": "Notes",
+      "title": "History of appointments with",
+      "dr": "Dr.",
+      "patient": "patient",
+      "appointment": "Appointment",
+      "edit_notes": "Edit notes",
+      "update_notes": "Update notes",
+      "export_to_pdf": "Export to PDF",
+      "cancel_edit": "Cancel edit"
+    },
     "notes": {
       "update_fail": "Error updating notes",
       "export_pdf_fail": "Error exporting PDF"

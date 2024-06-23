@@ -1,5 +1,6 @@
 import EditIcon from "@mui/icons-material/Edit";
 import UpgradeIcon from "@mui/icons-material/Upgrade";
+import _ from "lodash";
 import {
   Box,
   Container,
@@ -20,8 +21,6 @@ import {
   exportToPDF,
 } from "../../services/appointments";
 import Snackbar from "../../components/Snackbar";
-
-
 
 const HistoryWithUser = () => {
   const location = useLocation();
@@ -133,86 +132,89 @@ const HistoryWithUser = () => {
 
   return (
     <Container sx={{ spacing: 2 }}>
-      <Button onClick={() => navigate("/my-account")}>Volver</Button>
-      <Typography variant="h2">
-        Historial de turnos con {isDoctor ? "Paciente" : "Doctor"}:{" "}
-        {isDoctor ? userFullName : doctorFullName}
-      </Typography>
-      {appointments.filter(filterFn).map((a) => {
-        return (
-          <Card key={a?.id} sx={{ marginTop: 8 }}>
-            <Typography variant="h4">
-              {a.extraAppt ? `${moment(a.extraAppt).format('ll')} Sobreturno` : moment(a.arrivalTime).utc().format('LLLL')}
+      <Button sx={{ marginY: 2 }} onClick={() => navigate("/my-account")}>{t("actions.go_back")}</Button>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <Typography variant="h3">
+          {t("my_account.history_with_user.title")} {isDoctor ? t("my_account.history_with_user.patient") : t("my_account.history_with_user.dr")}{" "}
+          {isDoctor ? userFullName : doctorFullName}
+        </Typography>
+      </div>
+      <div style={{ display: "flex", flexDirection: 'column', alignItems: "center" }}>
+        {appointments.filter(filterFn).map((a, index) => {
+          return (
+            <Card key={a?.id} sx={{ marginTop: 4, padding: 2, width: "60%" }}>
+              <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <Typography variant="h5">
+                  {t("my_account.history_with_user.appointment")} #{index + 1}
+                </Typography>
+                <Typography variant="h5">
+                  {a.extraAppt ? `${_.capitalize(moment(a.extraAppt).format('ll'))} Sobreturno` : _.capitalize(moment(a.arrivalTime).utc().format('LLLL'))}
+                </Typography>
+              </div>
 
-            </Typography>
+              <Typography variant="h6" sx={{ marginTop: 2 }}>
+                {t("my_account.history_with_user.notes")}
+              </Typography>
 
-            <Typography variant="h6" sx={{ marginTop: 2 }}>
-              Notas
-            </Typography>
-
-            <Typography
-              variant={!a.notes ? "subtitle1" : "body1"}
-              color={!a.notes ? "blue" : "black"}
-              sx={{ marginTop: 1 }}
-            >
-              {!a.notes ? "No hay notas hasta el momento" : a.notes}
-            </Typography>
-
-            {isDoctor ? (
-              <Box
-                component="form"
-                onSubmit={() => {}}
-                sx={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginTop: 10,
-                }}
+              <Typography
+                variant={!a.notes ? "subtitle1" : "body1"}
+                sx={{ marginTop: 1 }}
               >
-                <TextField
-                  disabled={!editMode && selectedAppointment !== a.id}
-                  fullWidth
-                  defaultValue={!editMode ? "" : a.notes}
-                  maxRows="5"
-                  helperText="Editar Notas"
-                  onChange={(event) => {
-                    setInputText(event.target.value);
+                {!a.notes ? t("my_account.history_with_user.no_history") : a.notes}
+              </Typography>
+
+              {isDoctor && (
+                <Box
+                  component="form"
+                  onSubmit={() => {}}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: 10,
                   }}
-                  multiline
-                ></TextField>
-                <Button
-                  onClick={() => handleEditClick(a.id)}
-                  variant="contained"
-                  component="label"
-                  size="small"
-                  endIcon={<EditIcon />}
-                  sx={{ justifyContent: "center" }}
                 >
-                  {editMode && selectedAppointment === a.id
-                    ? "Cancelar Edicion"
-                    : "Editar Notas"}
-                </Button>
-                {editMode && selectedAppointment === a.id ? (
+                  <TextField
+                    disabled={!editMode && selectedAppointment !== a.id}
+                    fullWidth
+                    defaultValue={!editMode ? "" : a.notes}
+                    maxRows="5"
+                    helperText={t("my_account.history_with_user.edit_notes")}
+                    onChange={(event) => {
+                      setInputText(event.target.value);
+                    }}
+                    multiline
+                  />
                   <Button
-                    onClick={handleSubmit}
+                    onClick={() => handleEditClick(a.id)}
                     variant="contained"
                     component="label"
                     size="small"
-                    endIcon={<UpgradeIcon />}
+                    endIcon={<EditIcon />}
                     sx={{ justifyContent: "center" }}
                   >
-                    Actualizar notas
+                    {editMode && selectedAppointment === a.id
+                      ? t("my_account.history_with_user.cancel_edit")
+                      : t("my_account.history_with_user.edit_notes")}
                   </Button>
-                ) : (
-                  <></>
-                )}
-              </Box>
-            ) : (
-              <></>
-            )}
-          </Card>
-        );
-      })}
-      {notesToExport ? (
+                  {editMode && selectedAppointment === a.id && (
+                    <Button
+                      onClick={handleSubmit}
+                      variant="contained"
+                      component="label"
+                      size="small"
+                      endIcon={<UpgradeIcon />}
+                      sx={{ justifyContent: "center" }}
+                    >
+                      {t("my_account.history_with_user.update_notes")}
+                    </Button>
+                  )}
+                </Box>
+              )}
+            </Card>
+          );
+        })}
+      </div>
+      {notesToExport && (
         <Button
           onClick={handleExportToPDF}
           variant="contained"
@@ -220,10 +222,8 @@ const HistoryWithUser = () => {
           size="small"
           sx={{ justifyContent: "center" }}
         >
-          Export to PDF
+          {t("my_account.history_with_user.export_to_pdf")}
         </Button>
-      ) : (
-        <></>
       )}
       <Snackbar
         open={open}
