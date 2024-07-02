@@ -50,7 +50,7 @@ const MyInfo = () => {
     e.preventDefault();
     try {
       setIsLoading(true);
-      const user = await updateUser(formFields);
+      const user = await updateUser({...formFields, version: currentUser.version});
       signInUser(user);
       setSnackbar({
         type: "success",
@@ -58,10 +58,22 @@ const MyInfo = () => {
         message: t('my_account.my_info.update_success'),
       });
     } catch (error) {
+      const errorMsg = _.get(
+        error,
+        "response.data.errors[0].message",
+        "Something went wrong",
+      );
+      console.log(errorMsg)
+      let snackMsg;
+      if (errorMsg.includes("Version mismatch")) {
+        snackMsg = t('my_account.my_info.version_mismatch_error')
+      } else {
+        snackMsg =  t('my_account.my_info.update_error')
+      }
       setSnackbar({
         type: "error",
         open: true,
-        message: t('my_account.my_info.update_error'),
+        message: snackMsg,
       });
     } finally {
       setEditMode(false);

@@ -29,11 +29,11 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
   };
 
   const handleSaveEdition = async () => {
-    const originalFields = _.pick(user, ["firstName", "lastName", "email", "phoneNumber"]);
+    const originalFields = _.pick(user, ["firstName", "lastName", "email", "phoneNumber", "version"]);
     if (!_.isEqual(editFields, originalFields)) {
       try {
         const id = user.id;
-        await editUser({ id, ...editFields });
+        await editUser({ id, version: originalFields.version, ...editFields });
         setSnackbar({
           type: "success",
           open: true,
@@ -42,10 +42,21 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
         setEditMode(false);
         await updateRows();
       } catch (error) {
+        const errorMsg = _.get(
+          error,
+          "response.data.errors[0].message",
+          "Something went wrong",
+        );
+        let snackMsg;
+        if (errorMsg.includes("Version mismatch")) {
+          snackMsg = t('admin.users.edit.version_mismatch_error')
+        } else {
+          snackMsg =  t('admin.users.edit.error')
+        }
         setSnackbar({
           type: "error",
           open: true,
-          message: t("admin.users.edit.error"),
+          message: snackMsg,
         });
       }
     } else {

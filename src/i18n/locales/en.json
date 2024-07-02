@@ -83,7 +83,8 @@
       "phone": "Phone",
       "update_button": "Update info",
       "update_success": "Info updated successfully",
-      "update_error": "Could not update info"
+      "update_error": "Could not update info",
+      "version_mismatch_error": "Your info was updated by an administrator. Please login again."
     },
     "edit_appointment": {
       "new_date": "New date"
@@ -206,7 +207,8 @@
         "menu_option": "Edit user",
         "success": "User successfully updated",
         "no_changes_made": "No changes were made",
-        "error": "Error updating user"
+        "error": "Error updating user",
+        "version_mismatch_error": "The info was updated by the user. Please refresh the page."
       }
     },
     "appointments": {

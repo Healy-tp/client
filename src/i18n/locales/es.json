@@ -83,7 +83,8 @@
       "phone": "Teléfono",
       "update_button": "Actualizar información",
       "update_success": "Información actualizada con éxito",
-      "update_error": "No se pudo actualizar la información"
+      "update_error": "No se pudo actualizar la información",
+      "version_mismatch_error": "Tu informacion fue actualizada por un administrador. Porfavor inicia sesion nuevamente"
     },
     "chat": {
       "title": "Chatear con",
@@ -206,7 +207,8 @@
         "menu_option": "Editar usuario",
         "success": "Usuario actualizado con éxito",
         "no_changes_made": "No se realizaron cambios",
-        "error": "Error al actualizar el usuario"
+        "error": "Error al actualizar el usuario",
+        "version_mismatch_error": "La informacion fue actualizada for el usuario. Por favor refresque la pagina"
       }
     },
     "appointments": {
