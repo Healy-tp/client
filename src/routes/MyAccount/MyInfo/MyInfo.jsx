@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 
 import EditIcon from "@mui/icons-material/Edit";
 import CancelIcon from "@mui/icons-material/Cancel";
-import { Box, Fab, Grid, TextField } from "@mui/material";
+import { Box, Fab, Grid, TextField, Typography } from "@mui/material";
 import { LoadingButton } from "@mui/lab";
 
 import Snackbar from "../../../components/Snackbar";
@@ -12,8 +12,10 @@ import { UserContext } from "../../../contexts/UserContext";
 import { updateUser } from "../../../services/users";
 import { validateEmail, validatePhone } from "../../../utils/validators";
 
+const INPUT_MAX_LENGTH = 60;
+
 const drawerWidth = 240;
-const fieldsWidth = 500;
+const fieldsWidth = 600;
 
 const MyInfo = () => {
   const [t] = useTranslation();
@@ -81,6 +83,8 @@ const MyInfo = () => {
     }
   };
 
+  const { firstName, lastName, email, phoneNumber } = formFields;
+
   return (
     <Box
       component="form"
@@ -93,7 +97,13 @@ const MyInfo = () => {
         message={message}
         type={type}
       />
-      <Grid container spacing={3} direction="column">
+
+      <Grid container spacing={3} direction="column" alignItems="center">
+        <Grid item marginBottom={2}>
+          <Typography variant="h3">
+            {t('my_account.my_info.edit_title')} 
+          </Typography>
+        </Grid>
         <Grid item>
           <TextField
             name="firstName"
@@ -104,22 +114,26 @@ const MyInfo = () => {
             onChange={handleChange}
             autoFocus
             style={{ width: `${fieldsWidth}px` }}
+            error={firstName && firstName.length > INPUT_MAX_LENGTH}
+            helperText={firstName && firstName.length > INPUT_MAX_LENGTH ? t('my_account.my_info.max_length_error') : ""}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
             disabled={!editMode}
             required
-            defaultValue={currentUser.lastName}
+            defaultValue={currentUser?.lastName || ""}
             label={t('my_account.my_info.last_name')}
             name="lastName"
             onChange={handleChange}
             style={{ width: `${fieldsWidth}px` }}
+            error={lastName && lastName.length > INPUT_MAX_LENGTH}
+            helperText={lastName && lastName.length > INPUT_MAX_LENGTH ? t('my_account.my_info.max_length_error') : ""}
           />
         </Grid>
         <Grid item xs={6}>
           <TextField
-            error={!validateEmail(formFields.email)}
+            error={!validateEmail(email)}
             disabled={!editMode}
             required
             defaultValue={currentUser.email}
@@ -132,11 +146,11 @@ const MyInfo = () => {
         </Grid>
         <Grid item xs={6}>
           <TextField
-            error={!validatePhone(formFields.phoneNumber)}
+            error={!validatePhone(phoneNumber)}
             disabled={!editMode}
             required
             name="phoneNumber"
-            defaultValue={currentUser.phoneNumber}
+            defaultValue={currentUser?.phoneNumber || ""}
             onChange={handleChange}
             label={t('my_account.my_info.phone')}
             type="tel"
@@ -147,7 +161,7 @@ const MyInfo = () => {
           style={{
             display: "flex",
             flexDirection: "column",
-            paddingLeft: "24px",
+            paddingLeft: "24px"
           }}
         >
           <LoadingButton
@@ -157,8 +171,8 @@ const MyInfo = () => {
               isLoading ||
               !editMode ||
               _.isEqual(formFields, defaultFormFields) ||
-              !validateEmail(formFields.email) ||
-              !validatePhone(formFields.phoneNumber)
+              !validateEmail(email) ||
+              !validatePhone(phoneNumber)
             }
             sx={{ mt: 3, mb: 2 }}
             style={{ width: `${fieldsWidth}px`, borderRadius: "5px" }}

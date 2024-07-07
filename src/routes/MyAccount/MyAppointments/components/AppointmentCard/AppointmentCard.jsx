@@ -26,7 +26,7 @@ import {
 import { UserContext } from "../../../../../contexts/UserContext";
 import statusColor from "./utils/statusColor";
 
-const cardWidth = 500;
+const cardWidth = 700;
 
 const AppointmentCard = ({ 
   appt,
@@ -145,9 +145,9 @@ const AppointmentCard = ({
   return (
     <Card
       key={id}
-      sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: "column" }}
+      sx={{ width: `${cardWidth}px`, marginTop: 2, flexDirection: "column", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}
     >
-      <CardContent>
+      <CardContent style={{ display: "flex", flexDirection: "column", gap: "4px" }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: "4px" }}>
           <Typography variant="h6">
             {!isDoctor ? (
@@ -179,19 +179,19 @@ const AppointmentCard = ({
               borderRadius: "8px",
             }}
           >
-            <Typography variant="body1">{t(`my_account.my_appointments.status.${status}`)}</Typography>
+            <Typography variant="body1" sx={{ fontWeight: 500 }}>{t(`my_account.my_appointments.status.${status}`)}</Typography>
           </div>
         </div>
-        <div style={{ display: "flex", flexDirection: "column", gap: "4px"  }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
           <Typography variant="body">
-            {t('my_account.my_appointments.office')}: <Chip color='primary' label={Office.number} />
+            {t('my_account.my_appointments.office')}: <Chip label={Office.number} />
           </Typography>
           <Typography variant="body">
             {
               `${t('my_account.my_appointments.date')}: ` 
               // ${arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')}`
             }
-            <Chip color='primary' label={arrivalTime ? moment(arrivalTime).utc().format('llll') : moment(appt.extraAppt).utc().format('ll')} />
+            <Chip label={arrivalTime ? _.capitalize(moment(arrivalTime).utc().format('LLLL')) : moment(appt.extraAppt).utc().format('ll')} />
           </Typography>
         </div>
         {/* <Typography variant="body">
@@ -199,8 +199,16 @@ const AppointmentCard = ({
         </Typography> */}
       </CardContent>
 
-      <CardActions>
-        {!isDoctor && status === "to_confirm" ? (
+      <CardActions sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button
+          size="small"
+          color="error"
+          variant="contained"
+          onClick={() => handleCancelClickOpen(id)}
+        >
+          {t('my_account.my_appointments.cancel')}
+        </Button>
+        {!isDoctor && status === "to_confirm" && (
           <Button
             size="small"
             color="success"
@@ -209,8 +217,18 @@ const AppointmentCard = ({
           >
             {t('my_account.my_appointments.confirm')}
           </Button>
-        ) : (
-          <></>
+        )}
+        {!isDoctor && (
+          <Button
+            size="small"
+            variant="outlined"
+            onClick={() =>
+              navigate(`/my-account/${id}/edit`, { state: { appt } })
+            }
+            disabled={!moment().add(3, 'days').isBefore(moment(appt.arrivalTime))}
+          >
+            {t('my_account.my_appointments.modify')}
+          </Button>
         )}
         <Button
           size="small"
@@ -219,28 +237,6 @@ const AppointmentCard = ({
           disabled={!canStartChat()}
         >
           {t('my_account.my_appointments.send_message')}
-        </Button>
-        {!isDoctor ? (
-          <Button
-            size="small"
-            variant="contained"
-            onClick={() =>
-              navigate(`/my-account/${id}/edit`, { state: { appt } })
-            }
-            disabled={!moment().add(3, 'days').isBefore(moment(appt.arrivalTime))}
-          >
-            {t('my_account.my_appointments.modify')}
-          </Button>
-        ) : (
-          <></>
-        )}
-        <Button
-          size="small"
-          color="error"
-          variant="contained"
-          onClick={() => handleCancelClickOpen(id)}
-        >
-          {t('my_account.my_appointments.cancel')}
         </Button>
       </CardActions>
 

@@ -22,7 +22,7 @@ const MyMessages = ({ isDoctor, markMsgsReadCallback }) => {
   }, []);
 
   return (
-    <Container>
+    <Container sx={{ padding: 4, display: "flex", flexDirection: "column" }}>
       {conversations.length > 0 ? (
         conversations.map((conv) => (
           <Conversation

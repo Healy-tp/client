@@ -106,7 +106,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
         />
       ) : !isDoctor ? (
         appointments.length > 0 ? (
-          <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
+          <Box sx={{ width: "100%", bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
             <Tabs value={tabValue} onChange={handleTabChange} centered>
               {_.map(TABS, (tab, i) => (
                 <Tab key={i} label={tab.label} />

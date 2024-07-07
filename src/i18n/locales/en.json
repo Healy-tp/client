@@ -76,6 +76,7 @@
     "home": "Home",
     "my_info": {
       "title": "My info",
+      "edit_title": "Account info",
       "first_name": "First name",
       "last_name": "Last name",
       "agenda": "My agenda",
@@ -84,9 +85,11 @@
       "update_button": "Update info",
       "update_success": "Info updated successfully",
       "update_error": "Could not update info",
-      "version_mismatch_error": "Your info was updated by an administrator. Please login again."
+      "version_mismatch_error": "Your info was updated by an administrator. Please login again.",
+      "max_length_error": "Max length exceeded"
     },
     "edit_appointment": {
+      "title": "Edit appointment",
       "new_date": "New date"
     },
     "my_appointments": {
