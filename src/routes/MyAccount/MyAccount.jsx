@@ -1,6 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 
@@ -36,7 +36,7 @@ import {
 const drawerWidth = 240;
 const itemIconStyle = { minWidth: "20px", marginRight: "5px" };
 
-const MENU_OPTIONS = {
+export const MENU_OPTIONS = {
   MY_INFO: "my-info",
   MY_APPOINTMENTS: "my-appointments",
   MY_AVAILABILITIES: "my-availabilities",
@@ -47,6 +47,9 @@ const MENU_OPTIONS = {
 function ResponsiveDrawer(props) {
   const [t] = useTranslation();
   const { window } = props;
+
+  const { state } = useLocation();
+  const defaultMenuOption = state?.defaultMenuOption || "";
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -56,7 +59,7 @@ function ResponsiveDrawer(props) {
   const { currentUser } = useContext(UserContext);
   const navigate = useNavigate();
 
-  const [selectedMenu, setSelectedMenu] = useState("");
+  const [selectedMenu, setSelectedMenu] = useState(defaultMenuOption);
   const [unreadMessages, setUnreadMessages] = useState(0);
 
   const goToMyMessages = () => {

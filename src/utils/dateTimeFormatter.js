@@ -5,9 +5,7 @@ const dateToString = (date) => {
     return null;
   }
 
-  // TODO: update to moment if possible
-  // return moment(date).format('DD-MM-YYYY');
-  return date.toJSON().slice(0, 10);
+  return moment(date).format('YYYY-MM-DD');
 };
 
 const dateToStringForDisplay = (date) => {

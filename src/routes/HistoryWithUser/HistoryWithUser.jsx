@@ -21,6 +21,7 @@ import {
   exportToPDF,
 } from "../../services/appointments";
 import Snackbar from "../../components/Snackbar";
+import { MENU_OPTIONS } from "../MyAccount/MyAccount";
 
 const HistoryWithUser = () => {
   const location = useLocation();
@@ -132,7 +133,7 @@ const HistoryWithUser = () => {
 
   return (
     <Container sx={{ spacing: 2 }}>
-      <Button sx={{ marginY: 2 }} onClick={() => navigate("/my-account")}>{t("actions.go_back")}</Button>
+      <Button sx={{ marginY: 2 }} onClick={() => navigate("/my-account", { state: { defaultMenuOption: MENU_OPTIONS.MY_APPOINTMENTS } })}>{t("actions.go_back")}</Button>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Typography variant="h3">
           {t("my_account.history_with_user.title")} {isDoctor ? t("my_account.history_with_user.patient") : t("my_account.history_with_user.dr")}{" "}
@@ -142,7 +143,7 @@ const HistoryWithUser = () => {
       <div style={{ display: "flex", flexDirection: 'column', alignItems: "center" }}>
         {appointments.filter(filterFn).map((a, index) => {
           return (
-            <Card key={a?.id} sx={{ marginTop: 4, padding: 2, width: "60%" }}>
+            <Card key={a?.id} sx={{ marginTop: 4, padding: 2, width: "60%", boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px" }}>
               <div style={{ display: "flex", justifyContent: "space-between" }}>
                 <Typography variant="h5">
                   {t("my_account.history_with_user.appointment")} #{index + 1}

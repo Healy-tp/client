@@ -1,4 +1,4 @@
-import { Button, Container, Box, Grid, Chip, TextField } from "@mui/material";
+import { Button, Container, Box, Grid, Chip, TextField, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
+import { MENU_OPTIONS } from "../MyAccount/MyAccount";
 import {
   getAvailabilities,
   getAllAppointments,
@@ -85,8 +86,8 @@ const EditAppointment = () => {
         doctorId: doctorId,
         officeId: selectedData.selectedOffice,
       });
+      navigate('/my-account', { state: { defaultMenuOption: MENU_OPTIONS.MY_APPOINTMENTS } });
       // setSnackbar({ type: 'success', open: true, message: 'Turno modificado correctamente.' });
-      navigate("/my-account");
     } catch (error) {
       // setSnackbar({ type: 'error', open: true, message: error.response.data.message });
     }
@@ -99,9 +100,15 @@ const EditAppointment = () => {
           container
           spacing={2}
           maxWidth={"xs"}
+          flexDirection="column"
           justifyContent="center"
           alignItems="center"
         >
+          <Grid item marginBottom={2}>
+            <Typography variant="h3">
+              {t('my_account.edit_appointment.title')} 
+            </Typography>
+          </Grid>
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -151,7 +158,7 @@ const EditAppointment = () => {
               variant="contained"
               color="error"
               style={{ marginRight: 10 }}
-              onClick={() => navigate("/my-account")}
+              onClick={() => navigate('/my-account', { state: { defaultMenuOption: MENU_OPTIONS.MY_APPOINTMENTS } })}
             >
               {t('actions.go_back')}
             </Button>

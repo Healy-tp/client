@@ -29,7 +29,7 @@ const AccountMenu = ({ currentUser }) => {
   };
 
   return (
-    <div>
+    <div style={{ maxWidth: "250px", display: "flex", textOverflow: "ellipsis", flexGrow: 0, whiteSpace: "nowrap", overflow: "hidden" }}>
       <IconButton
         size="small"
         aria-label="account of current user"

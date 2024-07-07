@@ -10,6 +10,7 @@ import {
   Button,
   CardActions,
   Link,
+  Chip
 } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 import SendIcon from "@mui/icons-material/Send";
@@ -128,11 +129,15 @@ const Conversation = ({ convData, isDoctor, markMsgsReadCallback }) => {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>
-          {t('my_account.chat.title')}:{" "}
-          {isDoctor ? convData.User.firstName : convData.Doctor.firstName}{" "}
-          {isDoctor ? convData.User.lastName : convData.Doctor.lastName}
-        </Typography>
+        <div style={{ display: "flex", flexDirection: "row", justifyContent: "center", alignItems: "center", gap: 4 }}>
+          <Typography>
+            {t('my_account.chat.title')}: 
+          </Typography>
+          <Chip label={isDoctor 
+            ? ` ${convData.User.firstName} ${convData.User.lastName}`
+            : ` ${convData.Doctor.firstName} ${convData.Doctor.lastName}`}
+          />
+        </div>
       </AccordionSummary>
       <AccordionDetails>
         {messages.map((m) => {

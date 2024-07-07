@@ -76,6 +76,7 @@
     "home": "Inicio",
     "my_info": {
       "title": "Mi información",
+      "edit_title": "Información de la cuenta",
       "first_name": "Nombre",
       "last_name": "Apellido",
       "email": "Correo electrónico",
@@ -84,7 +85,8 @@
       "update_button": "Actualizar información",
       "update_success": "Información actualizada con éxito",
       "update_error": "No se pudo actualizar la información",
-      "version_mismatch_error": "Tu informacion fue actualizada por un administrador. Porfavor inicia sesion nuevamente"
+      "version_mismatch_error": "Tu informacion fue actualizada por un administrador. Porfavor inicia sesion nuevamente",
+      "max_length_error": "Se excedió la longitud máxima"
     },
     "chat": {
       "title": "Chatear con",
@@ -93,6 +95,7 @@
       "start_chat_fail": "Could not start new chat"
     },
     "edit_appointment": {
+      "title": "Editar turno",
       "new_date": "Nueva fecha"
     },
     "my_appointments": {
