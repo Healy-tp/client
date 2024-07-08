@@ -106,7 +106,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
         />
       ) : !isDoctor ? (
         appointments.length > 0 ? (
-          <Box sx={{ width: "100%", bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+          <Box sx={{ width: "100%", mb: 8, bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 1 }}>
             <Tabs value={tabValue} onChange={handleTabChange} centered>
               {_.map(TABS, (tab, i) => (
                 <Tab key={i} label={tab.label} />
@@ -132,19 +132,21 @@ const MyAppointments = ({ nav, isDoctor }) => {
           />
         )
       ) : appointments.length > 0 ? (
-        appointments
-          .filter(filterAppointmentsByDate)
-          .map((a) => (
-            <AppointmentCard 
-              key={a.id} 
-              appt={a} 
-              nav={nav}
-              appointmentsList={filteredAppointments}
-              setAppointments={setAppointments}
-              setFilteredAppointments={setFilteredAppointments}
-              setIsLoading={setIsLoading}
-            />
-          ))
+        <Box sx={{ width: "100%", mt: 2, mb: 8, bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 1 }}>
+          {appointments
+            .filter(filterAppointmentsByDate)
+            .map((a) => (
+              <AppointmentCard 
+                key={a.id} 
+                appt={a} 
+                nav={nav}
+                appointmentsList={filteredAppointments}
+                setAppointments={setAppointments}
+                setFilteredAppointments={setFilteredAppointments}
+                setIsLoading={setIsLoading}
+              />
+            ))}
+        </Box>
       ) : (
         <WelcomePage
           icon="appts"

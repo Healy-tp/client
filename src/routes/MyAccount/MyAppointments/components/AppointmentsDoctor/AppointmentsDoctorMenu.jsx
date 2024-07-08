@@ -75,7 +75,7 @@ const AppointmentsDoctorMenu = ({
         </LocalizationProvider>
       </Grid>
       <Grid item>
-        <Button variant="filled" onClick={handleMenu}>
+        <Button variant="outlined" onClick={handleMenu}>
           {t('my_account.my_appointments.doctor.manage_agenda')}
         </Button>
         <Menu
@@ -83,7 +83,7 @@ const AppointmentsDoctorMenu = ({
           anchorEl={anchorEl}
           anchorOrigin={{
             vertical: "bottom",
-            horizontal: "center",
+            horizontal: "right"
           }}
           keepMounted
           transformOrigin={{

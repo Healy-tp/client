@@ -203,7 +203,7 @@ const AppointmentCard = ({
         <Button
           size="small"
           color="error"
-          variant="contained"
+          variant="outlined"
           onClick={() => handleCancelClickOpen(id)}
         >
           {t('my_account.my_appointments.cancel')}
@@ -244,8 +244,12 @@ const AppointmentCard = ({
         open={messageDialogOpen}
         handleAccept={handleMessageAccept}
         handleClose={handleClose}
-        title={t('my_account.my_appointments.dialogs.start_chat')}
-        msg={t('my_account.my_appointments.dialogs.start_chat_content')}
+        title={t('my_account.my_appointments.dialogs.start_chat', {
+          userType: isDoctor ? t('user_types.patient') : t('user_types.doctor')
+        })}
+        msg={t('my_account.my_appointments.dialogs.start_chat_content', {
+          userType: isDoctor ? t('user_types.patient') : t('user_types.doctor')
+        })}
       />
 
       <DialogAlert

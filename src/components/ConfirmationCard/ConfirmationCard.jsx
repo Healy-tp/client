@@ -50,8 +50,8 @@ const ConfirmationCard = ({
         </Typography>
       </CardContent>
 
-      <CardActions>
-        <Button variant="contained" color="secondary" onClick={handleCancel}>
+      <CardActions sx={{ display: 'flex', justifyContent: "flex-end" }}>
+        <Button variant="outlined" color="error" onClick={handleCancel}>
           {t('checkout.go_back')}
         </Button>
         <Button variant="contained" color="primary" onClick={handleSubmit}>

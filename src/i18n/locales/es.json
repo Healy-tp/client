@@ -118,8 +118,8 @@
         "attended": "Asistido"
       },
       "dialogs": {
-        "start_chat": "Comenzar chat con el doctor?",
-        "start_chat_content": "Si aceptas, iniciaras una conversacion con el doctor seleccionado. El chat quedara abierto hasta 15 dias luego del turno.",
+        "start_chat": "Comenzar chat con el {{userType}}?",
+        "start_chat_content": "Si aceptas, iniciaras una conversacion con el {{userType}} seleccionado. El chat quedara abierto hasta 15 dias luego del turno.",
         "cancel_appointment": "Cancelar turno con el doctor?",
         "cancel_appointment_content": "Si cancelas el turno, el mismo quedara disponible para otros usuarios",
         "confirm_appointment": "Confirmar turno con el doctor?",
@@ -130,7 +130,7 @@
         }
       },
       "doctor": {
-        "manage_agenda": "Administrar agenda para la fecha seleccionada",
+        "manage_agenda": "Administrar agenda",
         "cancel_all_appointments": "Cancelar todos los turnos"
       }
     },
@@ -262,5 +262,9 @@
     "modify": "Modificar",
     "go_back": "Volver",
     "submit": "Enviar"
+  },
+  "user_types": {
+    "doctor": "doctor",
+    "patient": "paciente"
   }
 }

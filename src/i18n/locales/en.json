@@ -112,7 +112,7 @@
         "attended": "Attended"
       },
       "dialogs": {
-        "start_chat": "Start chat with the doctor?",
+        "start_chat": "Start chat with the {{userType}}?",
         "start_chat_content": "If you accept, you will start a conversation with the selected doctor. The chat will remain open for 15 days after the appointment.",
         "cancel_appointment": "Cancel appointment with the doctor?",
         "cancel_appointment_content": "If you accept, the appointment will be canceled and the slot will be available for other users",
@@ -124,7 +124,7 @@
         }
       },
       "doctor": {
-        "manage_agenda": "Manage Agenda for selected date",
+        "manage_agenda": "Manage Agenda",
         "cancel_all_appointments": "Cancel all appointments"
       }
     },
@@ -262,5 +262,9 @@
     "modify": "Modify",
     "go_back": "Go back",
     "submit": "Submit"
+  },
+  "user_types": {
+    "doctor": "doctor",
+    "patient": "patient"
   }
 }

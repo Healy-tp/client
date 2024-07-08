@@ -126,7 +126,7 @@ const EditAppointment = () => {
               />
             </LocalizationProvider>
           </Grid>
-          <Grid container margin={2} justifyContent={"center"}>
+          <Grid container margin={1} justifyContent={"center"}>
             {availableTimes.map((t) => {
               return (
                 <Chip
@@ -155,9 +155,9 @@ const EditAppointment = () => {
           </Grid>
           <Grid container justifyContent={"center"}>
             <Button
-              variant="contained"
+              variant="outlined"
               color="error"
-              style={{ marginRight: 10 }}
+              style={{ marginRight: 6 }}
               onClick={() => navigate('/my-account', { state: { defaultMenuOption: MENU_OPTIONS.MY_APPOINTMENTS } })}
             >
               {t('actions.go_back')}
