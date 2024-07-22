@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { useEffect, useState } from "react";
 import { useTranslation } from 'react-i18next';
-import { CircularProgress, Container, Box, Tab, Tabs } from "@mui/material";
+import { CircularProgress, Container, Box, Tab, Tabs, Typography } from "@mui/material";
 
 import { getAppointmentByUserId } from "../../../services/appointments";
 import { dateToString } from "../../../utils/dateTimeFormatter";
@@ -83,6 +83,9 @@ const MyAppointments = ({ nav, isDoctor }) => {
     }
   };
 
+  const hasAppointments = appointments.length > 0;
+  const hasAppointmentsOnDate = filteredAppointments.some(filterAppointmentsByDate);
+
   return (
     <Container>
       {isLoading ? (
@@ -105,7 +108,7 @@ const MyAppointments = ({ nav, isDoctor }) => {
           sx={{ position: "absolute", top: "40%", left: "50%" }}
         />
       ) : !isDoctor ? (
-        appointments.length > 0 ? (
+        hasAppointments ? (
           <Box sx={{ width: "100%", mb: 8, bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 1 }}>
             <Tabs value={tabValue} onChange={handleTabChange} centered>
               {_.map(TABS, (tab, i) => (
@@ -131,21 +134,27 @@ const MyAppointments = ({ nav, isDoctor }) => {
             subtitle={t('my_account.my_appointments.no_appointments_title')}
           />
         )
-      ) : appointments.length > 0 ? (
+      ) : hasAppointments ? (
         <Box sx={{ width: "100%", mt: 2, mb: 8, bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 1 }}>
-          {appointments
-            .filter(filterAppointmentsByDate)
-            .map((a) => (
-              <AppointmentCard 
-                key={a.id} 
-                appt={a} 
-                nav={nav}
-                appointmentsList={filteredAppointments}
-                setAppointments={setAppointments}
-                setFilteredAppointments={setFilteredAppointments}
-                setIsLoading={setIsLoading}
-              />
-            ))}
+          {hasAppointmentsOnDate && (
+            appointments
+              .filter(filterAppointmentsByDate)
+              .map((a) => (
+                <AppointmentCard 
+                  key={a.id} 
+                  appt={a} 
+                  nav={nav}
+                  appointmentsList={filteredAppointments}
+                  setAppointments={setAppointments}
+                  setFilteredAppointments={setFilteredAppointments}
+                  setIsLoading={setIsLoading}
+                />
+              ))) || (
+                <Typography variant="h6">
+                  {t('my_account.my_appointments.no_appointments_on_date')}
+                </Typography>
+            )
+          }
         </Box>
       ) : (
         <WelcomePage

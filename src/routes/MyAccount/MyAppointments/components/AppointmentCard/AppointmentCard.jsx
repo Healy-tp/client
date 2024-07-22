@@ -256,7 +256,9 @@ const AppointmentCard = ({
         open={cancelDialogOpen}
         handleAccept={handleCancelAccept}
         handleClose={handleClose}
-        title={t('my_account.my_appointments.dialogs.cancel_appointment')}
+        title={t('my_account.my_appointments.dialogs.cancel_appointment', {
+          userType: isDoctor ? t('user_types.patient') : t('user_types.doctor')
+        })}
         msg={t('my_account.my_appointments.dialogs.cancel_appointment_content')}
       />
 

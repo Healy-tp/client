@@ -32,15 +32,15 @@ const MyAvailabilities = ({ nav }) => {
   return (
     <>
       {!newAvailabilityPage ? (
-        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} sx={{ marginTop: 2 }}>
-          <Typography color="primary" variant="h3">
+        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} sx={{ marginTop: 2, marginBottom: 4 }}>
+          <Typography color="primary" variant="h3" style={{ marginBottom: 4 }}>
             {t('my_account.my_availabilities.your_schedules')}
           </Typography>
           {availabilities.length > 0 ? (
             availabilities.map((availability) => (
             <AvailabilityCard
               key={availability.id}
-              av={availability}
+              availability={availability}
               nav={nav}
             />)
           )
@@ -52,7 +52,7 @@ const MyAvailabilities = ({ nav }) => {
           )}
             <Button
               variant="contained"
-              sx={{ marginTop: 2 }}
+              sx={{ marginTop: 4 }}
               onClick={changePage}
             >
               {t('my_account.my_availabilities.new_availability')}

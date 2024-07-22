@@ -25,7 +25,7 @@ const DialogAlert = ({ open, handleClose, handleAccept, title, msg }) => {
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>{t('actions.cancel')}</Button>
+        <Button color='error' onClick={handleClose}>{t('actions.cancel')}</Button>
         <Button onClick={handleAccept} autoFocus>{t('actions.accept')}</Button>
       </DialogActions>
     </Dialog>

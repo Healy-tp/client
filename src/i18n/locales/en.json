@@ -114,7 +114,7 @@
       "dialogs": {
         "start_chat": "Start chat with the {{userType}}?",
         "start_chat_content": "If you accept, you will start a conversation with the selected doctor. The chat will remain open for 15 days after the appointment.",
-        "cancel_appointment": "Cancel appointment with the doctor?",
+        "cancel_appointment": "Cancel appointment with the {{userType}}?",
         "cancel_appointment_content": "If you accept, the appointment will be canceled and the slot will be available for other users",
         "confirm_appointment": "Confirm appointment with the doctor?",
         "confirm_appointment_content": "If you accept, the appointment will be confirmed",
@@ -124,9 +124,11 @@
         }
       },
       "doctor": {
+        "title": "Agenda",
         "manage_agenda": "Manage Agenda",
         "cancel_all_appointments": "Cancel all appointments"
-      }
+      },
+      "no_appointments_on_date": "You don't have any appointments on this date"
     },
     "chat": {
       "title": "Chat with",
@@ -163,7 +165,15 @@
         "request_availability": "Request availability",
         "request_availability_alert_title": "Request availability?",
         "invalid_start_end_hours": "Invalid start and end hours",
-        "new_availability_error": "Error requesting new availability"
+        "new_availability_error": "Error requesting new availability",
+        "request_availability_body": "{{day}} from {{startHour}}hs to {{endHour}}hs. Frequency each {{frequency}} minutes. Valid until {{validUntil}}."
+      },
+      "availability_card": {
+        "office_no": "Office: #{{officeId}}",
+        "start_hour": "Start time: {{startHour}}",
+        "end_hour": "End time: {{endHour}}",
+        "frequency": "Frequency: {{frequency}} minutes",
+        "valid_until": "Valid until: {{validUntil}}"
       }
     },
     "history_with_user": {
@@ -176,7 +186,8 @@
       "edit_notes": "Edit notes",
       "update_notes": "Update notes",
       "export_to_pdf": "Export to PDF",
-      "cancel_edit": "Cancel edit"
+      "cancel_edit": "Cancel edit",
+      "overshift": "Overshift"
     },
     "notes": {
       "update_fail": "Error updating notes",
