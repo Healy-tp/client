@@ -1,5 +1,5 @@
 import moment from "moment";
-import { Button, TextField, Grid, Menu, MenuItem } from "@mui/material";
+import { Button, TextField, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
@@ -55,11 +55,18 @@ const AppointmentsDoctorMenu = ({
       container
       spacing={2}
       maxWidth={"xs"}
+      display="flex"
+      flexDirection="column"
       justifyContent="center"
       alignItems="center"
       sx={{ marginTop: 2 }}
     >
-      <Grid item>
+      <Grid item marginBottom={2}>
+        <Typography variant="h3">
+          {t('my_account.my_appointments.doctor.title')} 
+        </Typography>
+      </Grid>
+      <Grid item style={{ display: 'flex', gap: 10 }}>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DatePicker
             label="Date"
@@ -73,8 +80,7 @@ const AppointmentsDoctorMenu = ({
             }}
           />
         </LocalizationProvider>
-      </Grid>
-      <Grid item>
+
         <Button variant="outlined" onClick={handleMenu}>
           {t('my_account.my_appointments.doctor.manage_agenda')}
         </Button>

@@ -120,7 +120,7 @@
       "dialogs": {
         "start_chat": "Comenzar chat con el {{userType}}?",
         "start_chat_content": "Si aceptas, iniciaras una conversacion con el {{userType}} seleccionado. El chat quedara abierto hasta 15 dias luego del turno.",
-        "cancel_appointment": "Cancelar turno con el doctor?",
+        "cancel_appointment": "Cancelar turno con el {{userType}}?",
         "cancel_appointment_content": "Si cancelas el turno, el mismo quedara disponible para otros usuarios",
         "confirm_appointment": "Confirmar turno con el doctor?",
         "confirm_appointment_content": "Si aceptas, el turno quedara confirmado",
@@ -130,9 +130,11 @@
         }
       },
       "doctor": {
+        "title": "Agenda",
         "manage_agenda": "Administrar agenda",
         "cancel_all_appointments": "Cancelar todos los turnos"
-      }
+      },
+      "no_appointments_on_date": "No tienes turnos en esta fecha"
     },
     "my_messages": {
       "title": "Mensajes",
@@ -143,7 +145,7 @@
       "title": "Mis disponibilidades",
       "no_availabilities_subtitle": "Podes crear uno nuevo desde el boton",
       "no_availabilities_title": "Todavia no tienes horarios de atencion",
-      "new_availability": "Crear disponibilidad",
+      "new_availability": "Crear nueva disponibilidad",
       "new_availability_page": {
         "title": "Programa un nuevo horario de atención",
         "office": "Consultorio",
@@ -157,13 +159,21 @@
         "frequency": "Frecuencia",
         "frequency_of_each_appointment": "Frecuencia de cada turno",
         "select_frequency": "Por favor, selecciona la frecuencia (en minutos) con la que queres recibir turnos",
-        "select_month": "Por favor selecciona hasta que mes queres que sea valida la atención",
+        "select_month": "Por favor selecciona hasta que mes queres que sea valida la disponibilidad",
         "select_month_helper": "Hasta este mes (no inclusive) sera valida la atencion seleccionada",
         "month": "Mes",
         "request_availability": "Solicitar Horario de atencion",
         "request_availability_alert_title": "Solicitar horario de atención?",
         "invalid_start_end_hours": "Comienzo y salida invalidos",
-        "new_availability_error": "Error al solicitar nuevo horario de atención"
+        "new_availability_error": "Error al solicitar nuevo horario de atención",
+        "request_availability_body": "{{day}} de {{startHour}}hs hasta {{endHour}}hs. Frecuencia cada {{frequency}} minutos. Valido hasta {{validUntil}}."
+      },
+      "availability_card": {
+        "office_no": "Consultorio: #{{officeId}}",
+        "start_hour": "Comienzo del día: {{startHour}}",
+        "end_hour": "Fin del día: {{endHour}}",
+        "frequency": "Frecuencia: {{frequency}} minutos",
+        "valid_until": "Valido hasta: {{validUntil}}"
       }
     },
     "history_with_user": {
@@ -176,7 +186,8 @@
       "edit_notes": "Editar notas",
       "update_notes": "Actualizar notas",
       "export_to_pdf": "Exportar a PDF",
-      "cancel_edit": "Cancelar edición"
+      "cancel_edit": "Cancelar edición",
+      "overshift": "Sobre turno"
     },
     "notes": {
       "update_fail": "Error actualizando las notas",

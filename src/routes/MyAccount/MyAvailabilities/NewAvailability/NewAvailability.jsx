@@ -201,8 +201,8 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
   };
 
   return (
-    <Container sx={{ padding: 2, paddingBottom: 5 }}>
-      <Button variant="outlined" sx={{ marginTop: 2 }} onClick={goBack}>
+    <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, paddingLeft: 4, marginBottom: 10 }}>
+      <Button variant="outlined" sx={{ marginTop: 2, alignSelf: 'flex-start' }} onClick={goBack}>
         {t('actions.go_back')}
       </Button>
       <Box
@@ -218,9 +218,8 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
         </Typography>
         <CalendarMonthIcon color="primary" sx={{ fontSize: 80, marginTop: 1 }} />
       </Box>
-      <Grid container spacing={2} sx={{ marginTop: 2 }}>
+      <Grid container spacing={2} sx={{ marginTop: 2, maxWidth: "500px" }}>
         <AvailabilityInput
-          disabled={false}
           value={selectedOffice}
           defaultValue={-1}
           handleChange={handleChangeOffice}
@@ -247,8 +246,8 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              {availableRanges.map((c) => (
-                <Chip key={c} label={c} sx={{ marginRight: .5 }} />
+              {availableRanges.map((range) => (
+                <Chip key={range} label={range} sx={{ marginRight: .5 }} />
               ))}
             </Grid>
             <Grid item xs={12} justifyContent={"center"}>
@@ -257,13 +256,12 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
               </Typography>
             </Grid>
             <AvailabilityInput
-              disabled={false}
               value={startHour}
               defaultValue={-1}
               handleChange={handleChangeStartHour}
               elements={TIMES}
               kind={"same-as-label"}
-              labelSuffix={"HS"}
+              labelSuffix={"hs"}
               inputLabel={t('my_account.my_availabilities.new_availability_page.start')}
               helperText={t('my_account.my_availabilities.new_availability_page.start_time_of_office')}
             />
@@ -272,9 +270,9 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
               value={endHour}
               defaultValue={-1}
               handleChange={handleChangeEndHour}
-              elements={TIMES}
+              elements={TIMES.filter((t) => t > startHour)}
               kind={"same-as-label"}
-              labelSuffix={"HS"}
+              labelSuffix={"hs"}
               inputLabel={t('my_account.my_availabilities.new_availability_page.exit')}
               helperText={t('my_account.my_availabilities.new_availability_page.exit_time_of_office')}
             />
@@ -294,7 +292,7 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
               handleChange={handleChangeFrquency}
               elements={FREQUENCIES}
               kind={"same-as-label"}
-              labelSuffix={"MIN"}
+              labelSuffix={"min"}
               inputLabel={t('my_account.my_availabilities.new_availability_page.frequency')}
               helperText={t('my_account.my_availabilities.new_availability_page.frequency_of_each_appointment')}
             />
@@ -314,18 +312,17 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
               handleChange={handleChangeMonth}
               elements={MONTHS}
               labels={MONTH_LABELS}
-              labelSuffix={""}
               inputLabel={t('my_account.my_availabilities.new_availability_page.month')}
               helperText={t('my_account.my_availabilities.new_availability_page.select_month_helper')}
             />
           </>
         )}
         {month !== -1 && (
-            <Grid item xs={12} justifyContent={"center"} marginBottom={10}>
-              <Button onClick={handleSubmit} variant="contained">
-                {t('my_account.my_availabilities.new_availability_page.request_availability')}
-              </Button>
-            </Grid>
+          <Grid item xs={12} justifyContent={"center"} style={{ display: 'flex', justifyContent: 'center' }}>
+            <Button onClick={handleSubmit} variant="contained">
+              {t('my_account.my_availabilities.new_availability_page.request_availability')}
+            </Button>
+          </Grid>
         )}
       </Grid>
       <DialogAlert
@@ -333,8 +330,13 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
         handleClose={handleClose}
         handleAccept={submitAvailabilityReq}
         title={t('my_account.my_availabilities.new_availability_page.request_availability_alert_title')}
-        msg={`Dias ${DAY_LABELS[weekday]} de ${startHour} hs hasta ${endHour} hs.\n 
-        Turnos cada ${frequency} min. Valido hasta ${MONTH_LABELS[month]}`}
+        msg={t('my_account.my_availabilities.new_availability_page.request_availability_body', {
+          day: DAY_LABELS[weekday] || "",
+          startHour,
+          endHour,
+          frequency,
+          validUntil: MONTH_LABELS[month] || ""
+        })}
       />
       <Snackbar
         open={open}

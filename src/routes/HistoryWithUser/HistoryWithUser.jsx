@@ -133,9 +133,9 @@ const HistoryWithUser = () => {
 
   return (
     <Container sx={{ spacing: 2 }}>
-      <Button sx={{ marginY: 2 }} onClick={() => navigate("/my-account", { state: { defaultMenuOption: MENU_OPTIONS.MY_APPOINTMENTS } })}>{t("actions.go_back")}</Button>
+      <Button variant='outlined' sx={{ marginY: 2 }} onClick={() => navigate("/my-account", { state: { defaultMenuOption: MENU_OPTIONS.MY_APPOINTMENTS } })}>{t("actions.go_back")}</Button>
       <div style={{ display: "flex", justifyContent: "center" }}>
-        <Typography variant="h3">
+        <Typography variant="h4">
           {t("my_account.history_with_user.title")} {isDoctor ? t("my_account.history_with_user.patient") : t("my_account.history_with_user.dr")}{" "}
           {isDoctor ? userFullName : doctorFullName}
         </Typography>
@@ -149,7 +149,7 @@ const HistoryWithUser = () => {
                   {t("my_account.history_with_user.appointment")} #{index + 1}
                 </Typography>
                 <Typography variant="h5">
-                  {a.extraAppt ? `${_.capitalize(moment(a.extraAppt).format('ll'))} Sobreturno` : _.capitalize(moment(a.arrivalTime).utc().format('LLLL'))}
+                  {a.extraAppt ? `${_.capitalize(moment(a.extraAppt).format('ll'))} ${t("my_account.history_with_user.overshift")}` : _.capitalize(moment(a.arrivalTime).utc().format('LLLL'))}
                 </Typography>
               </div>
 
@@ -167,11 +167,13 @@ const HistoryWithUser = () => {
               {isDoctor && (
                 <Box
                   component="form"
-                  onSubmit={() => {}}
                   sx={{
                     display: "flex",
+                    flexDirection: "column",
                     justifyContent: "center",
-                    marginTop: 10,
+                    alignItems: "center",
+                    marginTop: 6,
+                    gap: 1
                   }}
                 >
                   <TextField
@@ -179,53 +181,55 @@ const HistoryWithUser = () => {
                     fullWidth
                     defaultValue={!editMode ? "" : a.notes}
                     maxRows="5"
-                    helperText={t("my_account.history_with_user.edit_notes")}
                     onChange={(event) => {
                       setInputText(event.target.value);
                     }}
                     multiline
+                    placeholder={t("my_account.history_with_user.edit_notes")}
                   />
-                  <Button
-                    onClick={() => handleEditClick(a.id)}
-                    variant="contained"
-                    component="label"
-                    size="small"
-                    endIcon={<EditIcon />}
-                    sx={{ justifyContent: "center" }}
-                  >
-                    {editMode && selectedAppointment === a.id
-                      ? t("my_account.history_with_user.cancel_edit")
-                      : t("my_account.history_with_user.edit_notes")}
-                  </Button>
-                  {editMode && selectedAppointment === a.id && (
+                  <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'flex-end', gap: 4, width: '100%' }}>
                     <Button
-                      onClick={handleSubmit}
-                      variant="contained"
+                      onClick={() => handleEditClick(a.id)}
+                      variant={editMode && selectedAppointment === a.id ? "outlined" : "contained"}
                       component="label"
                       size="small"
-                      endIcon={<UpgradeIcon />}
-                      sx={{ justifyContent: "center" }}
+                      endIcon={<EditIcon />}
+                      sx={{ justifyContent: "center", maxHeight: "50px" }}
                     >
-                      {t("my_account.history_with_user.update_notes")}
+                      {editMode && selectedAppointment === a.id
+                        ? t("my_account.history_with_user.cancel_edit")
+                        : t("my_account.history_with_user.edit_notes")}
                     </Button>
-                  )}
+                    {editMode && selectedAppointment === a.id && (
+                      <Button
+                        onClick={handleSubmit}
+                        variant="contained"
+                        component="label"
+                        size="small"
+                        endIcon={<UpgradeIcon />}
+                        sx={{ justifyContent: "center", maxHeight: "50px" }}
+                      >
+                        {t("my_account.history_with_user.update_notes")}
+                      </Button>
+                    )}
+                    {notesToExport && (
+                      <Button
+                        onClick={handleExportToPDF}
+                        variant="contained"
+                        component="label"
+                        size="small"
+                        sx={{ justifyContent: "center" }}
+                      >
+                        {t("my_account.history_with_user.export_to_pdf")}
+                      </Button>
+                    )}
+                  </div>
                 </Box>
               )}
             </Card>
           );
         })}
       </div>
-      {notesToExport && (
-        <Button
-          onClick={handleExportToPDF}
-          variant="contained"
-          component="label"
-          size="small"
-          sx={{ justifyContent: "center" }}
-        >
-          {t("my_account.history_with_user.export_to_pdf")}
-        </Button>
-      )}
       <Snackbar
         open={open}
         handleClose={handleCloseSnackbar}
