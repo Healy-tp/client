@@ -32,8 +32,8 @@ const MyAvailabilities = ({ nav }) => {
   return (
     <>
       {!newAvailabilityPage ? (
-        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} sx={{ marginTop: 2, marginBottom: 4 }}>
-          <Typography color="primary" variant="h3" style={{ marginBottom: 4 }}>
+        <Container style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }} sx={{ marginTop: 6, marginBottom: 6 }}>
+          <Typography color="primary" variant="h3" style={{ marginBottom: 6, marginTop: 6 }}>
             {t('my_account.my_availabilities.your_schedules')}
           </Typography>
           {availabilities.length > 0 ? (

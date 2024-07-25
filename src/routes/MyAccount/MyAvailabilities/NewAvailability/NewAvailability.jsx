@@ -13,9 +13,8 @@ import { getOffices } from "../../../../services/offices";
 import {
   FREQUENCIES,
   DAYS,
-  DAY_LABELS,
   TIMES,
-  MONTH_LABELS,
+  MONTHS as monthsIndexes,
 } from "../../../../utils/constants";
 import AvailabilityInput from "../components/AvailabilityInput";
 import DialogAlert from "../../../../components/Dialog/Dialog";
@@ -200,6 +199,12 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
     setMonth(event.target.value);
   };
 
+  const translatedDaysLabels = {};
+  DAYS.map((day) => translatedDaysLabels[day] = t(`days.${day}`));
+
+  const translatedMonthsLabels = {};
+  monthsIndexes.map((month) => translatedMonthsLabels[month] = t(`months.${month}`));
+
   return (
     <Container sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', padding: 2, paddingLeft: 4, marginBottom: 10 }}>
       <Button variant="outlined" sx={{ marginTop: 2, alignSelf: 'flex-start' }} onClick={goBack}>
@@ -234,7 +239,7 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
           defaultValue={-1}
           handleChange={handleChangeDay}
           elements={DAYS}
-          labels={DAY_LABELS}
+          labels={translatedDaysLabels}
           labelSuffix={""}
           inputLabel={t('my_account.my_availabilities.new_availability_page.day')}
         />
@@ -311,7 +316,7 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
               defaultValue={-1}
               handleChange={handleChangeMonth}
               elements={MONTHS}
-              labels={MONTH_LABELS}
+              labels={translatedMonthsLabels}
               inputLabel={t('my_account.my_availabilities.new_availability_page.month')}
               helperText={t('my_account.my_availabilities.new_availability_page.select_month_helper')}
             />
@@ -331,11 +336,11 @@ const NewAvailability = ({ goBack, availabilitiesArray, setAvailabilitiesArray }
         handleAccept={submitAvailabilityReq}
         title={t('my_account.my_availabilities.new_availability_page.request_availability_alert_title')}
         msg={t('my_account.my_availabilities.new_availability_page.request_availability_body', {
-          day: DAY_LABELS[weekday] || "",
+          day: t(`days.${weekday}`) || "",
           startHour,
           endHour,
           frequency,
-          validUntil: MONTH_LABELS[month] || ""
+          validUntil: t(`months.${month}`) || ""
         })}
       />
       <Snackbar

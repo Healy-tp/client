@@ -82,6 +82,7 @@
       "email": "Correo electrónico",
       "agenda": "Mi agenda",
       "phone": "Teléfono",
+      "user_type": "Tipo de usuario",
       "update_button": "Actualizar información",
       "update_success": "Información actualizada con éxito",
       "update_error": "No se pudo actualizar la información",
@@ -169,11 +170,11 @@
         "request_availability_body": "{{day}} de {{startHour}}hs hasta {{endHour}}hs. Frecuencia cada {{frequency}} minutos. Valido hasta {{validUntil}}."
       },
       "availability_card": {
-        "office_no": "Consultorio: #{{officeId}}",
-        "start_hour": "Comienzo del día: {{startHour}}",
-        "end_hour": "Fin del día: {{endHour}}",
-        "frequency": "Frecuencia: {{frequency}} minutos",
-        "valid_until": "Valido hasta: {{validUntil}}"
+        "office_no": "Consultorio:",
+        "start_hour": "Comienzo del día:",
+        "end_hour": "Fin del día:",
+        "frequency": "Frecuencia (mins):",
+        "valid_until": "Valido hasta:"
       }
     },
     "history_with_user": {
@@ -273,6 +274,28 @@
     "modify": "Modificar",
     "go_back": "Volver",
     "submit": "Enviar"
+  },
+  "days": {
+    "1": "Lunes",
+    "2": "Martes",
+    "3": "Miércoles",
+    "4": "Jueves",
+    "5": "Viernes",
+    "6": "Sábado"
+  },
+  "months": {
+    "0": "Enero",
+    "1": "Febrero",
+    "2": "Marzo",
+    "3": "Abril",
+    "4": "Mayo",
+    "5": "Junio",
+    "6": "Julio",
+    "7": "Agosto",
+    "8": "Septiembre",
+    "9": "Octubre",
+    "10": "Noviembre",
+    "11": "Diciembre"
   },
   "user_types": {
     "doctor": "doctor",

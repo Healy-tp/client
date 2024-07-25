@@ -157,6 +157,17 @@ const MyInfo = () => {
             style={{ width: `${fieldsWidth}px` }}
           />
         </Grid>
+        <Grid item xs={6}>
+          <TextField
+            disabled
+            defaultValue={currentUser?.isDoctor 
+              ? _.capitalize(t('user_types.doctor')) 
+              : _.capitalize(t('user_types.patient'))
+            }
+            label={t('my_account.my_info.user_type')}
+            style={{ width: `${fieldsWidth}px` }}
+          />
+        </Grid>
         <div
           style={{
             display: "flex",

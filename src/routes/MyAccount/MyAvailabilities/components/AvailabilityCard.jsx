@@ -1,7 +1,6 @@
 import React from "react";
 import { useTranslation } from 'react-i18next';
-import { Card, CardContent, Typography } from "@mui/material";
-import { DAY_LABELS } from "../../../../utils/constants";
+import { Card, CardContent, Typography, Chip } from "@mui/material";
 
 const cardWidth = 500;
 
@@ -15,37 +14,25 @@ const AvailabilityCard = ({ availability }) => {
     >
       <CardContent>
         <div style={{ display: "flex", marginBottom: 4 }}>
-          <Typography variant="h6">{DAY_LABELS[weekday]}</Typography>
+          <Typography variant="h6">{t(`days.${weekday}`)}</Typography>
         </div>
-        <Typography variant="body">
-          {t('my_account.my_availabilities.availability_card.office_no', {
-            officeId: Office.number,
-          })}
-        </Typography>
-        <br />
-        <Typography variant="body">
-          {t('my_account.my_availabilities.availability_card.start_hour', {
-            startHour: startHour.slice(0, 5),
-          })}
-        </Typography>
-        <br />
-        <Typography variant="body">
-          {t('my_account.my_availabilities.availability_card.end_hour', {
-            endHour: endHour.slice(0, 5),
-          })}
-        </Typography>
-        <br />
-        <Typography variant="body">
-          {t('my_account.my_availabilities.availability_card.frequency', {
-            frequency,
-          })}
-        </Typography>
-        <br />
-        <Typography variant="body">
-          {t('my_account.my_availabilities.availability_card.valid_until', {
-            validUntil,
-          })}
-        </Typography>
+        <div style={{ display: "flex", flexDirection: 'column', gap: 4 }}>
+          <Typography variant="body">
+            {t('my_account.my_availabilities.availability_card.office_no')} <Chip label={Office.number} />
+          </Typography>
+          <Typography variant="body">
+            {t('my_account.my_availabilities.availability_card.start_hour')} <Chip label={`${startHour.slice(0, 5)}hs`} />
+          </Typography>
+          <Typography variant="body">
+            {t('my_account.my_availabilities.availability_card.end_hour')} <Chip label={`${endHour.slice(0, 5)}hs`} />
+          </Typography>
+          <Typography variant="body">
+            {t('my_account.my_availabilities.availability_card.frequency')} <Chip label={frequency} />
+          </Typography>
+          <Typography variant="body">
+            {t('my_account.my_availabilities.availability_card.valid_until')} <Chip label={validUntil} />
+          </Typography>
+        </div>
       </CardContent>
     </Card>
   );
