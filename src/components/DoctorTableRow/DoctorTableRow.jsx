@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { Button, Menu, MenuItem, TableCell, TableRow } from "@mui/material";
 import { useContext } from "react";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
@@ -6,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { deleteDoctor } from "../../services/admin";
 
 const DoctorTableRow = ({ doctor }) => {
+  const [t] = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const { selectedData, setSelectedData } = useContext(AppointmentContext);
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ const DoctorTableRow = ({ doctor }) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClick = () => {
+  const handleCreateAppointmentForUser = () => {
     setSelectedData({
       ...selectedData,
       doctorId: doctor.id,
@@ -25,7 +27,7 @@ const DoctorTableRow = ({ doctor }) => {
     navigate("/admin/appointment-for-user");
   };
 
-  const handleClickDeleteDoctor = async () => {
+  const handleDeleteDoctor = async () => {
     try {
       await deleteDoctor(doctor.id)
     } catch (err) {
@@ -54,7 +56,7 @@ const DoctorTableRow = ({ doctor }) => {
           aria-expanded={open ? "true" : undefined}
           onClick={showMenu}
         >
-          Options
+          {t("admin.doctors.row.options")}
         </Button>
         <Menu
           id="basic-menu"
@@ -65,11 +67,11 @@ const DoctorTableRow = ({ doctor }) => {
             "aria-labelledby": "basic-button",
           }}
         >
-          <MenuItem id={doctor.id} onClick={handleClick}>
-            Make appointment for user
+          <MenuItem id={doctor.id} onClick={handleCreateAppointmentForUser}>
+            {t("admin.doctors.row.make_appointment_for_user")}
           </MenuItem>
-          <MenuItem id={doctor.id} onClick={handleClickDeleteDoctor}>
-            Delete Doctor
+          <MenuItem id={doctor.id} onClick={handleDeleteDoctor}>
+            {t("admin.doctors.row.delete")}
           </MenuItem>
         </Menu>
       </TableCell>

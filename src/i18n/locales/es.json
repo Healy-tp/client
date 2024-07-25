@@ -36,7 +36,8 @@
   },
   "scheduler": {
     "schedule_appointment": "Agendar turno",
-    "date_placeholder": "Fecha"
+    "date_placeholder": "Fecha",
+    "overshift": "Sobre turno"
   },
   "checkout": {
     "go_back": "Volver",
@@ -261,6 +262,35 @@
         "success": "Consultorio creado con éxito",
         "error": "No se pudo crear el consultorio"
       }
+    },
+    "doctors": {
+      "new_doctor": {
+        "create_button": "Crear",
+        "title": "Crea un nuevo doctor",
+        "first_name": "Nombre",
+        "last_name": "Apellido",
+        "email": "Correo electrónico",
+        "phone": "Teléfono",
+        "specialty": "Especialidad",
+        "submit": "Crear"
+      },
+      "row": {
+        "headers": {
+          "name": "Nombre",
+          "specialty": "Especialidad"
+        },
+        "options": "Opciones",
+        "make_appointment_for_user": "Crear turno para usuario",
+        "delete": "Borrar doctor"
+      },
+      "create_appointment_for_user": {
+        "title": "Crear turno para usuario",
+        "user": "Usuario",
+        "date": "Fecha",
+        "schedule": "Agendar turno",
+        "success": "Turno creado con éxito",
+        "error": "Error al crear el turno"
+      }
     }
   },
   "actions": {
@@ -299,6 +329,7 @@
   },
   "user_types": {
     "doctor": "doctor",
-    "patient": "paciente"
+    "patient": "paciente",
+    "admin": "administrador"
   }
 }

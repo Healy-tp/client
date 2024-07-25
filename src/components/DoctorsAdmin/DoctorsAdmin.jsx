@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import { ButtonGroup, Button } from "@mui/material";
 import { getDoctors } from "../../services/appointments";
 import AdminTable from "../AdminTable";
 
 export default function DoctorsAdmin() {
-  const headers = ["Name", "Specialty"];
-
+  const [t] = useTranslation();
   const [doctors, setDoctors] = useState([]);
   const navigate = useNavigate();
+
+  const headers = [
+    t("admin.doctors.row.headers.name"),
+    t("admin.doctors.row.headers.specialty")
+  ];
 
   useEffect(() => {
     const getDoctorsApi = async () => {
@@ -28,9 +33,11 @@ export default function DoctorsAdmin() {
       <ButtonGroup
         variant="contained"
         aria-label="outlined primary button group"
-        style={{ marginLeft: 8 }}
+        style={{ marginLeft: 10 }}
       >
-        <Button onClick={() => navigate("/admin/new-doctor")}>New</Button>
+        <Button variant="outlined" onClick={() => navigate("/admin/new-doctor")}>
+          {t("admin.doctors.new_doctor.create_button")}
+        </Button>
       </ButtonGroup>
       <AdminTable headers={headers} rows={doctors} kind={"doctor"} />
     </>

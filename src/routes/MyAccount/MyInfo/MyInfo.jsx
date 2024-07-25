@@ -85,6 +85,15 @@ const MyInfo = () => {
 
   const { firstName, lastName, email, phoneNumber } = formFields;
 
+  const getUserType = () => {
+    if (currentUser.isDoctor) {
+      return _.capitalize(t('user_types.doctor'));
+    } else if (currentUser.isAdmin) {
+      return _.capitalize(t('user_types.admin'));
+    }
+    return _.capitalize(t('user_types.patient'));
+  }
+
   return (
     <Box
       component="form"
@@ -160,10 +169,7 @@ const MyInfo = () => {
         <Grid item xs={6}>
           <TextField
             disabled
-            defaultValue={currentUser?.isDoctor 
-              ? _.capitalize(t('user_types.doctor')) 
-              : _.capitalize(t('user_types.patient'))
-            }
+            defaultValue={getUserType()}
             label={t('my_account.my_info.user_type')}
             style={{ width: `${fieldsWidth}px` }}
           />

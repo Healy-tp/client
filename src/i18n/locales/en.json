@@ -36,7 +36,8 @@
   },
   "scheduler": {
     "schedule_appointment": "Schedule appointment",
-    "date_placeholder": "Date"
+    "date_placeholder": "Date",
+    "overshift": "Overshift"
   },
   "checkout": {
     "go_back": "Go back",
@@ -261,6 +262,35 @@
         "success": "Office created successfully",
         "error": "Could not create new office"
       }
+    },
+    "doctors": {
+      "new_doctor": {
+        "create_button": "New",
+        "title": "New doctor",
+        "first_name": "Name",
+        "last_name": "Last name",
+        "email": "Email",
+        "phone": "Phone",
+        "specialty": "Specialty",
+        "submit": "Submit"
+      },
+      "row": {
+        "headers": {
+          "name": "Name",
+          "specialty": "Specialty"
+        },
+        "options": "Options",
+        "make_appointment_for_user": "Make appointment for user",
+        "delete": "Delete"
+      },
+      "create_appointment_for_user": {
+        "title": "Create appointment for user",
+        "user": "User",
+        "date": "Date",
+        "schedule": "Schedule appointment",
+        "success": "Appointment successfully created",
+        "error": "Error creating appointment"
+      }
     }
   },
   "actions": {
@@ -299,6 +329,7 @@
   },
   "user_types": {
     "doctor": "doctor",
-    "patient": "patient"
+    "patient": "patient",
+    "admin": "administrator"
   }
 }

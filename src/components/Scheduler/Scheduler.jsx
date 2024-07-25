@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from "react-router-dom";
 import {
   Box,
   Grid,
@@ -11,6 +12,7 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
+  Typography,
 } from "@mui/material";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
@@ -30,13 +32,28 @@ const Scheduler = ({
   handleCheckboxChange,
 }) => {
   const [t] = useTranslation();
+  const navigate = useNavigate();
   const { selectedData, setSelectedData } = useContext(AppointmentContext);
 
+  const handleCancel = () => {
+    navigate("/admin");
+  }
+
   return (
-    <Container component="main">
+    <Container component="main" style={{ padding: 16 }}>
+      {isAdmin && (
+        <>
+          <Button variant="outlined" color="error" onClick={handleCancel} style={{ alignSelf: 'flex-start' }}>
+            {t('actions.go_back')}
+          </Button>
+          <Typography variant="h4" align="center" style={{ padding: 16 }}>
+            {t('admin.doctors.create_appointment_for_user.title')}
+          </Typography>
+        </>
+      )}
       <Box
         sx={{
-          marginTop: 8,
+          marginTop: isAdmin ? 0 : 8,
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
@@ -83,7 +100,7 @@ const Scheduler = ({
               />
             </LocalizationProvider>
           </Grid>
-          <Grid container marginTop={5} justifyContent={"center"}>
+          <Grid container marginTop={isAdmin ? 0 : 4} justifyContent={"center"}>
             <Grid>
               {availableTimes.map((t) => {
                 return (
@@ -128,17 +145,15 @@ const Scheduler = ({
               {t('scheduler.schedule_appointment')}
             </Button>
           </Grid>
-          {isAdmin ? (
+          {isAdmin && (
             <Grid item>
               <FormGroup>
                 <FormControlLabel
                   control={<Checkbox onChange={handleCheckboxChange} />}
-                  label="Sobreturno"
+                  label={t('scheduler.overshift')}
                 />
               </FormGroup>
             </Grid>
-          ) : (
-            <></>
           )}
         </Grid>
       </Box>

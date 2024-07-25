@@ -1,4 +1,5 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { useTranslation } from 'react-i18next';
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +14,8 @@ const defaultFormFields = {
 };
 
 const NewDoctor = () => {
+  const [t] = useTranslation();
+
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { firstName, lastName, phoneNumber, email, specialty } = formFields;
   const navigate = useNavigate();
@@ -40,13 +43,18 @@ const NewDoctor = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/admin");
+  }
+
   return (
     <Box
       sx={{
-        marginTop: 8,
+        margin: 4,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center"
       }}
     >
       {/* <Snackbar
@@ -55,68 +63,67 @@ const NewDoctor = () => {
         message={message}
         type={"error"}
       /> */}
+      <Button variant="outlined" color="error" onClick={handleCancel} style={{ alignSelf: 'flex-start' }}>
+        {t('actions.go_back')}
+      </Button>
       <Typography component="h1" variant="h5">
-        Create New Doctor
+        {t("admin.doctors.new_doctor.title")}
       </Typography>
-      <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
+      <Box component="form" sx={{ mt: 1, maxWidth: '500px' }} onSubmit={handleSubmit}>
         <TextField
           margin="normal"
           required
           fullWidth
           id="firstName"
-          label="First Name"
+          label={t("admin.doctors.new_doctor.first_name")}
           name="firstName"
           value={firstName}
           onChange={handleChange}
           autoComplete="firstName"
           autoFocus
         />
-
         <TextField
           margin="normal"
           required
           fullWidth
           id="lastName"
-          label="Last Name"
+          label={t("admin.doctors.new_doctor.last_name")}
           name="lastName"
           value={lastName}
           onChange={handleChange}
           autoComplete="lastName"
           autoFocus
         />
-
         <TextField
           margin="normal"
           required
           fullWidth
           id="email"
-          label="Email Address"
+          label={t("admin.doctors.new_doctor.email")}
           name="email"
           value={email}
           onChange={handleChange}
           autoComplete="email"
           autoFocus
         />
-
         <TextField
           margin="normal"
           required
           fullWidth
           id="phoneNumber"
-          label="Phone Number"
+          label={t("admin.doctors.new_doctor.phone")}
           name="phoneNumber"
           value={phoneNumber}
           onChange={handleChange}
           autoComplete="phoneNumber"
           autoFocus
         />
-
         <TextField
           margin="normal"
           required
           fullWidth
           id="specialty"
-          label="Specialty"
+          label={t("admin.doctors.new_doctor.specialty")}
           name="specialty"
           value={specialty}
           onChange={handleChange}
@@ -129,7 +136,7 @@ const NewDoctor = () => {
           variant="contained"
           sx={{ mt: 3, mb: 2 }}
         >
-          Create
+          {t("admin.doctors.new_doctor.submit")}
         </Button>
       </Box>
     </Box>

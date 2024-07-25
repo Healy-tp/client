@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
 import Scheduler from "../../components/Scheduler/Scheduler";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
@@ -10,6 +11,7 @@ import {
 import { dateToString } from "../../utils/dateTimeFormatter";
 
 const AdminAppointmentForUser = () => {
+  const [t] = useTranslation();
   const { selectedData, setSelectedData } = useContext(AppointmentContext);
   const [users, setUsers] = useState([]);
   const [availabilities, setAvailabilities] = useState([]);
@@ -20,8 +22,10 @@ const AdminAppointmentForUser = () => {
   useEffect(() => {
     const getUsersFromApi = async () => {
       const response = await getUsers();
-      setUsers(response);
+      const filteredUsers = response.filter((user) => !user.isDoctor && !user.isAdmin);
+      setUsers(filteredUsers);
     };
+
     const getAvailabilitiesFromApi = async () => {
       const response = await getAvailabilities();
       setAvailabilities(response);
@@ -106,7 +110,7 @@ const AdminAppointmentForUser = () => {
       buttonOnClick={goToAppointmentCheckout}
       datePickerOnChange={onChangeDate}
       autoCompleteOnChange={autoCompleteOnChange}
-      autoCompleteFields={{ label: "User", options: users }}
+      autoCompleteFields={{ label: t('admin.doctors.create_appointment_for_user.user'), options: users }}
       isAdmin={true}
       handleCheckboxChange={handleCheckboxChange}
     />
