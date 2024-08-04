@@ -267,6 +267,25 @@
       }
     },
     "offices": {
+      "row": {
+        "headers": {
+          "id": "ID",
+          "specialties": "Especialidades",
+          "office_number": "Número de consultorio"
+        },
+        "actions": {
+          "edit": "Editar consultorio",
+          "delete": "Borrar consultorio"
+        },
+        "options": "Opciones"
+      },
+      "new_office": {
+        "create_button": "Crear",
+        "title": "Crea un nuevo consultorio",
+        "specialties": "Especialidades",
+        "office_number": "Número de consultorio",
+        "submit": "Crear"
+      },
       "edit": {
         "success": "Consultorio actualizado con éxito",
         "no_changes_made": "No se realizaron cambios",
@@ -348,5 +367,13 @@
     "doctor": "doctor",
     "patient": "paciente",
     "admin": "administrador"
+  },
+  "specialties": {
+    "cardiology": "Cardiología",
+    "dermathology": "Dermatología",
+    "ophthalmology": "Oftalmología",
+    "pediatrics": "Pediatría",
+    "psychiatry": "Psiquiatría",
+    "urology": "Urología"
   }
 }

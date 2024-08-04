@@ -78,13 +78,18 @@ const NewOffice = () => {
     }
   };
 
+  const handleCancel = () => {
+    navigate("/admin");
+  }
+
   return (
     <Box
       sx={{
-        marginTop: 8,
+        margin: 4,
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        justifyContent: "center"
       }}
     >
       <Snackbar
@@ -93,15 +98,18 @@ const NewOffice = () => {
         message={message}
         type={type}
       />
+      <Button variant="outlined" color="error" onClick={handleCancel} style={{ alignSelf: 'flex-start' }}>
+        {t('actions.go_back')}
+      </Button>
       <Typography component="h1" variant="h5">
-        Create New Office
+        {t("admin.offices.new_office.title")}
       </Typography>
       <Box
         component="form"
         sx={{ mt: 1, width: "450px" }}
         onSubmit={handleSubmit}
       >
-        <InputLabel id="specialties-label">Specialties</InputLabel>
+        <InputLabel id="specialties-label">{t('admin.offices.new_office.specialties')}</InputLabel>
         <Select
           labelId="specialties-label"
           id="multiple-specialties"
@@ -114,7 +122,7 @@ const NewOffice = () => {
           renderValue={(selected) => (
             <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
               {selected.map((value) => (
-                <Chip key={value} label={value} />
+                <Chip key={value} label={t(`specialties.${value.toLowerCase()}`)} />
               ))}
             </Box>
           )}
@@ -122,7 +130,7 @@ const NewOffice = () => {
         >
           {SPECIALTIES.map((specialty) => (
             <MenuItem key={specialty} value={specialty}>
-              {specialty}
+              {t(`specialties.${specialty.toLowerCase()}`)}
             </MenuItem>
           ))}
         </Select>
@@ -131,7 +139,7 @@ const NewOffice = () => {
           margin="normal"
           required
           fullWidth
-          label="Office number"
+          label={t("admin.offices.new_office.office_number")}
           value={officeNumber}
           placeholder="123"
           onChange={handleChange}
@@ -141,11 +149,12 @@ const NewOffice = () => {
 
         <div style={{ textAlign: "center" }}>
           <Button
+            fullWidth
             type="submit"
             variant="contained"
-            sx={{ mt: 3, mb: 2, width: 150 }}
+            sx={{ mt: 3, mb: 2 }}
           >
-            Create
+            {t("admin.offices.new_office.submit")}
           </Button>
         </div>
       </Box>

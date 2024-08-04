@@ -119,10 +119,10 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
         <TableCell>
           {editMode ? (
             <>
-              {_.map(editFields.specialties, (s, index) => (
+              {_.map(editFields.specialties, (specialty, index) => (
                 <Chip
                   key={index}
-                  label={s}
+                  label={t(`specialties.${specialty.toLowerCase()}`)}
                   style={{ margin: 2 }}
                   onDelete={() => handleDeleteSpecialty(index)}
                 />
@@ -138,20 +138,20 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
                 anchorEl={anchorElSpecialties}
                 onClose={handleCloseSpecialtiesList}
               >
-                {_.map(SPECIALTIES, (s, index) => (
+                {_.map(SPECIALTIES, (s) => (
                   <MenuItem
-                    key={index}
+                    key={s}
                     disabled={_.includes(editFields.specialties, s)}
                     onClick={() => handleAddSpecialty(s)}
                   >
-                    {s}
+                    {t(`specialties.${s.toLowerCase()}`)}
                   </MenuItem>
                 ))}
               </Menu>
             </>
           ) : (
-            _.map(specialties, (s, i) => (
-              <Chip key={i} label={s} style={{ margin: 2 }} />
+            _.map(specialties, (specialty) => (
+              <Chip key={specialty} label={t(`specialties.${specialty.toLowerCase()}`)} style={{ margin: 2 }} />
             ))
           )}
         </TableCell>
@@ -194,8 +194,8 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
                   "aria-labelledby": "basic-button",
                 }}
               >
-                <MenuItem onClick={handleEdit}>{t("admin.offices.edit.menu_option")}</MenuItem>
-                <MenuItem onClick={() => console.log("TODO")}>{t("actions.delete")}</MenuItem>
+                <MenuItem onClick={handleEdit}>{t("admin.offices.row.actions.edit")}</MenuItem>
+                <MenuItem onClick={() => console.log("TODO")}>{t("admin.offices.row.actions.delete")}</MenuItem>
               </Menu>
             </>
           )}

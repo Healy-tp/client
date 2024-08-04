@@ -267,6 +267,25 @@
       }
     },
     "offices": {
+      "row": {
+        "headers": {
+          "id": "ID",
+          "specialties": "Specialties",
+          "office_number": "Office number"
+        },
+        "actions": {
+          "edit": "Edit office",
+          "delete": "Delete office"
+        },
+        "options": "Options"
+      },
+      "new_office": {
+        "create_button": "New",
+        "title": "New office",
+        "specialties": "Specialties",
+        "office_number": "Office number",
+        "submit": "Submit"
+      },
       "edit": {
         "success": "Office successfully updated",
         "no_changes_made": "No changes were made",
@@ -348,5 +367,13 @@
     "doctor": "doctor",
     "patient": "patient",
     "admin": "administrator"
+  },
+  "specialties": {
+    "cardiology": "Cardiology",
+    "dermathology": "Dermatology",
+    "ophthalmology": "Ophthalmology",
+    "pediatrics": "Pediatrics",
+    "psychiatry": "Psychiatry",
+    "urology": "Urology"
   }
 }

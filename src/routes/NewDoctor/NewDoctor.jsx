@@ -1,9 +1,10 @@
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, Select, MenuItem } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createDoctor } from "../../services/admin";
+import { SPECIALTIES } from "../../utils/constants";
 
 const defaultFormFields = {
   firstName: "",
@@ -23,6 +24,10 @@ const NewDoctor = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
+  };
+
+  const handleSpecialtyChange = (event) => {
+    setFormFields({ ...formFields, specialty: event.target.value });
   };
 
   const handleSubmit = async (e) => {
@@ -119,18 +124,23 @@ const NewDoctor = () => {
           autoComplete="phoneNumber"
           autoFocus
         />
-        <TextField
-          margin="normal"
+        <Select
+          sx={{ mt: 2 }}
           required
+          autoFocus
+          margin="normal"
           fullWidth
           id="specialty"
-          label={t("admin.doctors.new_doctor.specialty")}
           name="specialty"
           value={specialty}
-          onChange={handleChange}
-          autoComplete="specialty"
-          autoFocus
-        />
+          onChange={handleSpecialtyChange}
+        >
+          {SPECIALTIES.map((specialty) => (
+            <MenuItem key={specialty} value={specialty}>
+              {t(`specialties.${specialty.toLowerCase()}`)}
+            </MenuItem>
+          ))}
+        </Select>
         <Button
           type="submit"
           fullWidth
