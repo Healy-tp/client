@@ -25,7 +25,8 @@ function Checkout({ from }) {
   };
 
   const handleGoBack = () => {
-    navigate("/");
+    const navigateTo = from === 'user' ? "/" : "/admin";
+    navigate(navigateTo);
   };
 
   const handleSubmit = async (e) => {

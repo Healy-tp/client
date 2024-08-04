@@ -34,6 +34,7 @@ const NewDoctor = () => {
         lastName,
         phoneNumber,
         email,
+        specialty,
       });
       // setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
       navigate("/admin");

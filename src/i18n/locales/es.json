@@ -1,7 +1,8 @@
 {
   "account_menu": {
     "logout": "Cerrar sesión",
-    "my_account": "Mi cuenta"
+    "my_account": "Mi cuenta",
+    "admin": "Admin"
   },
   "login": {
     "title": "Iniciar sesión",
@@ -37,7 +38,8 @@
   "scheduler": {
     "schedule_appointment": "Agendar turno",
     "date_placeholder": "Fecha",
-    "overshift": "Sobre turno"
+    "overshift": "Sobre turno",
+    "no_available_times": "No hay horarios disponibles, por favor disculpe las molestias"
   },
   "checkout": {
     "go_back": "Volver",
@@ -225,6 +227,21 @@
         "no_changes_made": "No se realizaron cambios",
         "error": "Error al actualizar el usuario",
         "version_mismatch_error": "La informacion fue actualizada for el usuario. Por favor refresque la pagina"
+      },
+      "row": {
+        "headers": {
+          "first_name": "Nombre",
+          "last_name": "Apellido",
+          "email": "Correo electrónico",
+          "phone": "Teléfono",
+          "status": "Estado"
+        },
+        "actions": {
+          "edit": "Editar usuario",
+          "delete": "Borrar usuario",
+          "create_appointment": "Crear turno para usuario"
+        },
+        "options": "Opciones"
       }
     },
     "appointments": {

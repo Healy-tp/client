@@ -78,6 +78,11 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
     setAnchorEl(null);
   };
 
+  const handleDelete = () => {
+    // TODO: implement delete user
+    setAnchorEl(null);
+  };
+
   const handleCancelEdit = () => {
     setEditFields(defaultEditFields);
     setEditMode(false);
@@ -86,6 +91,8 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const shouldShowCreateAppointment = !user.isAdmin && !user.isDoctor;
 
   return (
     <TableRow
@@ -161,7 +168,7 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
               aria-expanded={open ? "true" : undefined}
               onClick={showMenu}
             >
-              Options
+              {t("admin.users.row.options")}
             </Button>
             <Menu
               id="basic-menu"
@@ -172,10 +179,13 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
                 "aria-labelledby": "basic-button",
               }}
             >
-              <MenuItem id={user.id} onClick={handleClick}>
-                Action
-              </MenuItem>
-              <MenuItem onClick={handleEdit}>{t("admin.users.edit.menu_option")}</MenuItem>
+              {shouldShowCreateAppointment && (
+                <MenuItem id={user.id} onClick={handleClick}>
+                  {t("admin.users.row.actions.create_appointment")}
+                </MenuItem>
+              )}
+              <MenuItem onClick={handleEdit}>{t("admin.users.row.actions.edit")}</MenuItem>
+              <MenuItem onClick={handleDelete} sx={{ color: "red" }}>{t("admin.users.row.actions.delete")}</MenuItem>
             </Menu>
             </>   
           )

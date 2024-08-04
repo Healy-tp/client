@@ -70,7 +70,7 @@ const DoctorTableRow = ({ doctor }) => {
           <MenuItem id={doctor.id} onClick={handleCreateAppointmentForUser}>
             {t("admin.doctors.row.make_appointment_for_user")}
           </MenuItem>
-          <MenuItem id={doctor.id} onClick={handleDeleteDoctor}>
+          <MenuItem id={doctor.id} onClick={handleDeleteDoctor} sx={{ color: "red" }}>
             {t("admin.doctors.row.delete")}
           </MenuItem>
         </Menu>

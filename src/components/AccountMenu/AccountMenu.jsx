@@ -58,7 +58,12 @@ const AccountMenu = ({ currentUser }) => {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <MenuItem onClick={() => navigate("/my-account")}>{t('account_menu.my_account')}</MenuItem>
+        {!currentUser.isAdmin && (
+          <MenuItem onClick={() => navigate("/my-account")}>{t('account_menu.my_account')}</MenuItem>
+        )}
+        {currentUser.isAdmin && (
+          <MenuItem onClick={() => navigate("/admin")}>{t('account_menu.admin')}</MenuItem>
+        )}
         <MenuItem onClick={handleLogout}>{t('account_menu.logout')}</MenuItem>
       </Menu>
     </div>

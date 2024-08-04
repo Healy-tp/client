@@ -1,7 +1,8 @@
 {
   "account_menu": {
     "logout": "Logout",
-    "my_account": "My account"
+    "my_account": "My account",
+    "admin": "Admin"
   },
   "login": {
     "title": "Sign in",
@@ -37,7 +38,8 @@
   "scheduler": {
     "schedule_appointment": "Schedule appointment",
     "date_placeholder": "Date",
-    "overshift": "Overshift"
+    "overshift": "Overshift",
+    "no_available_times": "No available times, we're sorry for the inconvenience"
   },
   "checkout": {
     "go_back": "Go back",
@@ -225,6 +227,21 @@
         "no_changes_made": "No changes were made",
         "error": "Error updating user",
         "version_mismatch_error": "The info was updated by the user. Please refresh the page."
+      },
+      "row": {
+        "headers": {
+          "first_name": "First name",
+          "last_name": "Last name",
+          "email": "Email",
+          "phone": "Phone",
+          "status": "Status"
+        },
+        "actions": {
+          "edit": "Edit user",
+          "delete": "Delete user",
+          "create_appointment": "Create appointment for user"
+        },
+        "options": "Options"
       }
     },
     "appointments": {

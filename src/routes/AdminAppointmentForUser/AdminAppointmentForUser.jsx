@@ -87,15 +87,24 @@ const AdminAppointmentForUser = () => {
   };
 
   const autoCompleteOnChange = (event, newValue) => {
-    setSelectedData({
-      ...selectedData,
-      user: {
-        name: `${newValue.firstName} ${newValue.lastName}`,
-        id: newValue.id,
-      },
-      datePickerDisabled: newValue ? false : true,
-      selectedTime: null,
-    });
+    if (!newValue) {
+      setSelectedData({
+        ...selectedData,
+        user: null,
+        datePickerDisabled: true,
+        selectedTime: null,
+      });
+    } else {
+      setSelectedData({
+        ...selectedData,
+        user: {
+          name: `${newValue.firstName} ${newValue.lastName}`,
+          id: newValue.id,
+        },
+        datePickerDisabled: false,
+        selectedTime: null,
+      });
+    }
   };
 
   const handleCheckboxChange = (event) => {

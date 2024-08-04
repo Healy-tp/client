@@ -39,6 +39,9 @@ const Scheduler = ({
     navigate("/admin");
   }
 
+  const hasDoctorAvailabilities = selectedData.doctorId && availabilities.filter((availability) => availability.Doctor.id === selectedData.doctorId).length > 0;
+  const hasNotSelectedDoctor = !selectedData.doctorId;
+
   return (
     <Container component="main" style={{ padding: 16 }}>
       {isAdmin && (
@@ -66,12 +69,14 @@ const Scheduler = ({
           maxWidth={"xs"}
           justifyContent="center"
           alignItems="center"
+          display="flex"
+          flexDirection={hasNotSelectedDoctor || hasDoctorAvailabilities ? "row" : "column"}
         >
           <Grid item>
             <Autocomplete
               disablePortal
               getOptionLabel={(option) =>
-                `${option.firstName} ${option.lastName}`
+                `${option?.firstName} ${option?.lastName}`
               }
               onChange={autoCompleteOnChange}
               id="combo-box-demo"
@@ -82,79 +87,92 @@ const Scheduler = ({
               )}
             />
           </Grid>
-          <Grid item>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
-              <DatePicker
-                label={t('scheduler.date_placeholder')}
-                value={selectedData.date}
-                onChange={datePickerOnChange}
-                disabled={selectedData.datePickerDisabled}
-                disablePast={true}
-                renderInput={(params) => <TextField {...params} />}
-                shouldDisableDate={(date) => {
-                  const filteredDays = availabilities
-                    .filter((av) => av.Doctor.id === selectedData.doctorId)
-                    .map((av) => av.weekday);
-                  return !filteredDays.includes(date.getDay()); // || availabilities.filter(av => new Date(av.validUntil) < date).length > 0;
-                }}
-              />
-            </LocalizationProvider>
-          </Grid>
-          <Grid container marginTop={isAdmin ? 0 : 4} justifyContent={"center"}>
-            <Grid>
-              {availableTimes.map((t) => {
-                return (
-                  <Chip
-                    key={t}
-                    label={timeToString(t)}
-                    onClick={() =>
-                      setSelectedData({ ...selectedData, selectedTime: t })
-                    }
-                    clickable={true}
+          {
+            hasNotSelectedDoctor || hasDoctorAvailabilities ? (
+              <>
+                <Grid item>
+                  <LocalizationProvider dateAdapter={AdapterDateFns}>
+                    <DatePicker
+                      label={t('scheduler.date_placeholder')}
+                      value={selectedData.date}
+                      onChange={datePickerOnChange}
+                      disabled={selectedData.datePickerDisabled}
+                      disablePast={true}
+                      renderInput={(params) => <TextField {...params} />}
+                      shouldDisableDate={(date) => {
+                        const filteredDays = availabilities
+                          .filter((av) => av.Doctor.id === selectedData.doctorId)
+                          .map((av) => av.weekday);
+                        return !filteredDays.includes(date.getDay()); // || availabilities.filter(av => new Date(av.validUntil) < date).length > 0;
+                      }}
+                    />
+                  </LocalizationProvider>
+                </Grid>
+                <Grid container marginTop={isAdmin ? 2 : 4} justifyContent={"center"}>
+                  <Grid>
+                    {availableTimes.map((t) => {
+                      return (
+                        <Chip
+                          key={t}
+                          label={timeToString(t)}
+                          onClick={() =>
+                            setSelectedData({ ...selectedData, selectedTime: t })
+                          }
+                          clickable={true}
+                          color="primary"
+                          disabled={appointments
+                            .map((a) => ({
+                              doctorId: a.doctorId,
+                              date: new Date(a.arrivalTime).getTime(),
+                            }))
+                            .filter((a) => a.doctorId === selectedData.doctorId)
+                            .map((a) => a.date)
+                            .includes(t.getTime())}
+                          variant={
+                            t === selectedData.selectedTime ? "filled" : "outlined"
+                          }
+                          style={{ margin: 4 }}
+                        />
+                      );
+                    })}
+                  </Grid>
+                </Grid>
+                <Grid item>
+                  <Button
+                    variant="contained"
                     color="primary"
-                    disabled={appointments
-                      .map((a) => ({
-                        doctorId: a.doctorId,
-                        date: new Date(a.arrivalTime).getTime(),
-                      }))
-                      .filter((a) => a.doctorId === selectedData.doctorId)
-                      .map((a) => a.date)
-                      .includes(t.getTime())}
-                    variant={
-                      t === selectedData.selectedTime ? "filled" : "outlined"
+                    onClick={buttonOnClick}
+                    disabled={
+                      !selectedData.extraAppt
+                        ? !selectedData.selectedTime ||
+                          !selectedData.doctorId ||
+                          !selectedData.date ||
+                          !selectedData.user
+                        : !selectedData.doctorId || !selectedData.date || !selectedData.user
                     }
-                    style={{ margin: 4 }}
-                  />
-                );
-              })}
-            </Grid>
-          </Grid>
-          <Grid item>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={buttonOnClick}
-              disabled={
-                !selectedData.extraAppt
-                  ? !selectedData.selectedTime ||
-                    !selectedData.doctorId ||
-                    !selectedData.date
-                  : !selectedData.doctorId || !selectedData.date
-              }
-            >
-              {t('scheduler.schedule_appointment')}
-            </Button>
-          </Grid>
-          {isAdmin && (
-            <Grid item>
-              <FormGroup>
-                <FormControlLabel
-                  control={<Checkbox onChange={handleCheckboxChange} />}
-                  label={t('scheduler.overshift')}
-                />
-              </FormGroup>
-            </Grid>
-          )}
+                  >
+                    {t('scheduler.schedule_appointment')}
+                  </Button>
+                </Grid>
+                {isAdmin && (
+                  <Grid item>
+                    <FormGroup>
+                      <FormControlLabel
+                        control={<Checkbox onChange={handleCheckboxChange} />}
+                        label={t('scheduler.overshift')}
+                      />
+                    </FormGroup>
+                  </Grid>
+                )}
+              </>
+            ) : (
+              <Grid item sx={{ justifyContent: "center", alignItems: "center" }}>
+                <Typography variant="h6" align="center">
+                  {t('scheduler.no_available_times')}
+                </Typography>
+              </Grid>
+            )
+          }
         </Grid>
       </Box>
     </Container>
