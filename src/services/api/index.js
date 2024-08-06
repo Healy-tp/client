@@ -62,6 +62,12 @@ export class Api {
       ...headers,
     };
 
+    const healyData = window.localStorage.getItem("HEALY")
+    if (window.localStorage.getItem("HEALY")) {
+      const parsedData = JSON.parse(healyData);
+      headers["Authorization"] = `Bearer ${parsedData.accessToken}`;
+    }
+
     // make request
     return axios({
       method,
