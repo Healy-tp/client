@@ -146,8 +146,7 @@ const Scheduler = ({
                       !selectedData.extraAppt
                         ? !selectedData.selectedTime ||
                           !selectedData.doctorId ||
-                          !selectedData.date ||
-                          !selectedData.user
+                          !selectedData.date 
                         : !selectedData.doctorId || !selectedData.date || !selectedData.user
                     }
                   >
