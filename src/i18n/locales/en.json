@@ -26,6 +26,16 @@
     "success": "Successfully registered",
     "error": "Could not create new user"
   },
+  "confirm_account": {
+    "title": "Confirm your account",
+    "email_label": "Email",
+    "password_label": "Password",
+    "confirm_password_label": "Confirm password",
+    "invalid_code": "Invalid code",
+    "validating_code": "Validating code...",
+    "account_confirmed": "Congratulations, your account is confirmed",
+    "go_back": "Go back to homepage"
+  },
   "home": {
     "title": "Take care of your health",
     "subtitle": "Schedule appointments with the best medical professionals.",
@@ -308,7 +318,9 @@
         "email": "Email",
         "phone": "Phone",
         "specialty": "Specialty",
-        "submit": "Submit"
+        "submit": "Submit",
+        "doctor_created": "Doctor created successfully",
+        "doctor_created_msg": "You will receive an email with a link to set your password. Thanks for joining Healy!"
       },
       "row": {
         "headers": {

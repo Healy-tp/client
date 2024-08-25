@@ -7,6 +7,7 @@ import {
   CardContent,
   CardActions,
   Typography,
+  CircularProgress
 } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 import React, { useState } from "react";
@@ -27,6 +28,7 @@ const ConfirmationPage = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email, password, confirmPassword } = formFields;
 
+  const [isValidatingCode, setIsValidatingCode] = useState(false);
   const [validCode, setValidCode] = useState(false);
   const [confirmed, setConfirmed] = useState(false);
   const { confirmationCode } = useParams();
@@ -51,10 +53,16 @@ const ConfirmationPage = () => {
   useState(() => {
     const checkUserApi = async () => {
       try {
+        setIsValidatingCode(true);
         await checkUser(confirmationCode);
         setValidCode(true);
+        setIsValidatingCode(false);
       } catch (err) {
         console.log(err.response.status);
+        if (err.response.status === 404) {
+          setIsValidatingCode(false);
+          setValidCode(false);
+        }
       }
     };
     checkUserApi();
@@ -89,8 +97,31 @@ const ConfirmationPage = () => {
     setFormFields({ ...formFields, [name]: value });
   };
 
+  if (isValidatingCode) {
+    return (
+      <Container sx={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 2, marginTop: 2 }}>
+        <Typography variant="h4" align="center">
+          {t('confirm_account.validating_code')}
+        </Typography>
+        <CircularProgress
+          size={50}
+        />
+      </Container>
+    );
+  }
+
+  if (!validCode) {
+    return (
+      <Container sx={{ display: "flex", justifyContent: "center", alignItems: "center", marginTop: 2 }}>
+        <Typography variant="h4" align="center">
+          {t('confirm_account.invalid_code')}
+        </Typography>
+      </Container>
+    );
+  }
+
   return (
-    <Container>
+    <Container sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
       <Snackbar
         open={open}
         handleClose={handleCloseSnackbar}
@@ -98,13 +129,15 @@ const ConfirmationPage = () => {
         type={type}
       />
       {validCode && !confirmed ? (
-        <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
+        <Box component="form" sx={{ mt: 1, maxWidth: "300px", width: "100%", display: "flex", flexDirection: "column", gap: 2, marginTop: 2 }} onSubmit={handleSubmit}>
+          <Typography color="inherit" align="center" variant="h4" marked="center">
+            {t('confirm_account.title')}
+          </Typography>
           <TextField
-            margin="normal"
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label={t('confirm_account.email_label')}
             name="email"
             value={email}
             onChange={handleChange}
@@ -115,7 +148,7 @@ const ConfirmationPage = () => {
             required
             fullWidth
             name="password"
-            label="Password"
+            label={t('confirm_account.password_label')}
             type="password"
             id="password"
             onChange={handleChange}
@@ -125,7 +158,7 @@ const ConfirmationPage = () => {
             required
             fullWidth
             name="confirmPassword"
-            label="Confirm Password"
+            label={t('confirm_account.confirm_password_label')}
             type="password"
             onChange={handleChange}
             id="confirm-password"
@@ -134,27 +167,25 @@ const ConfirmationPage = () => {
             type="submit"
             fullWidth
             variant="contained"
-            sx={{ mt: 3, mb: 2 }}
           >
             {t('actions.submit')}
           </Button>
         </Box>
-      ) : validCode && confirmed ? (
+      ) : validCode && confirmed && (
         <Card
           sx={{ alignItems: "center", marginTop: 8, flexDirection: "column" }}
         >
           <CardContent>
             <Typography variant="h5" component="div">
               Congrats! Account confirmed.
+              {t('confirm_account.account_confirmed')}
             </Typography>
           </CardContent>
 
           <CardActions>
-            <Button onClick={() => navigate("/")}>Go back to home</Button>
+            <Button onClick={() => navigate("/")}>{t('confirm_account.go_back')}</Button>
           </CardActions>
         </Card>
-      ) : (
-        <></>
       )}
     </Container>
   );

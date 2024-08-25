@@ -26,6 +26,16 @@
     "success": "Usuario registrado con éxito",
     "error": "No pudimos crear el nuevo usuario"
   },
+  "confirm_account": {
+    "title": "Verifica tu cuenta",
+    "email_label": "Correo electrónico",
+    "password_label": "Contraseña",
+    "confirm_password_label": "Confirmar contraseña",
+    "invalid_code": "Código de verificación inválido",
+    "validating_code": "Validando código...",
+    "account_confirmed": "Cuenta confirmada con éxito",
+    "go_back": "Volver a la página de inicio"
+  },
   "home": {
     "title": "Cuida tu salud",
     "subtitle": "Reserva turnos con los mejores profesionales medicos.",
@@ -308,7 +318,9 @@
         "email": "Correo electrónico",
         "phone": "Teléfono",
         "specialty": "Especialidad",
-        "submit": "Crear"
+        "submit": "Crear",
+        "doctor_created": "Doctor creado con éxito",
+        "doctor_created_msg": "Usted recibirá un correo electrónico con el enlace para establecer la contraseña para el nuevo doctor"
       },
       "row": {
         "headers": {

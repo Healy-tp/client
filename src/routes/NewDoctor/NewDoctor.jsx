@@ -5,6 +5,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createDoctor } from "../../services/admin";
 import { SPECIALTIES } from "../../utils/constants";
+import DialogAlert from "../../components/Dialog";
 
 const defaultFormFields = {
   firstName: "",
@@ -18,6 +19,7 @@ const NewDoctor = () => {
   const [t] = useTranslation();
 
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [showNewDoctorDialog, setShowNewDoctorDialog] = useState(false);
   const { firstName, lastName, phoneNumber, email, specialty } = formFields;
   const navigate = useNavigate();
 
@@ -41,8 +43,9 @@ const NewDoctor = () => {
         email,
         specialty,
       });
+
+      setShowNewDoctorDialog(true);
       // setSnackbar({ type: 'success', open: true, message: 'Successfully registered' });
-      navigate("/admin");
     } catch (error) {
       console.log("Could not create new doctor", error);
       // setSnackbar({ type: 'error', open: true, message: error.response.data.errors[0].message });
@@ -150,6 +153,15 @@ const NewDoctor = () => {
           {t("admin.doctors.new_doctor.submit")}
         </Button>
       </Box>
+      <DialogAlert
+        open={showNewDoctorDialog}
+        handleAccept={() => {
+          setShowNewDoctorDialog(false)
+          navigate("/admin");
+        }}
+        title={t('admin.doctors.new_doctor.doctor_created')}
+        msg={t('admin.doctors.new_doctor.doctor_created_msg')}
+      />
     </Box>
   );
 };
