@@ -69,7 +69,17 @@
     "subtitle": "Please enter your email and we'll send you a link to reset your password.",
     "email": "Email",
     "send": "Send link",
+    "email_sent": "If an account for this email exists, you will receive a link to change your password",
     "back_to_login": "Back to login"
+  },
+  "reset_password": {
+    "title": "Reset Password",
+    "subtitle": "Please enter your new password (at least 8 characters).",
+    "new_password": "New Password",
+    "confirm_password": "Confirm Password",
+    "submit": "Reset Password",
+    "password_updated": "Password successfully updated",
+    "error": "Could not update password"
   },
   "components": {
     "layout": {},

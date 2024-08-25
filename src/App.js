@@ -24,6 +24,7 @@ import AdminAppointmentForUser from "./routes/AdminAppointmentForUser/AdminAppoi
 import EditAppointment from "./routes/EditAppointment";
 import HistoryWithUser from "./routes/HistoryWithUser";
 import ForgotPassword from "./routes/ForgotPassword/ForgotPassword";
+import ResetPassword from "./routes/ResetPassword/ResetPassword";
 
 function AuthRoutes() {
   return (
@@ -117,6 +118,7 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/sign-up" element={<SignUp />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
                 <Route
                   path="/sign/:confirmationCode"
                   element={<ConfirmationPage />}

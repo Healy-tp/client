@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-// import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
-// import _ from "lodash";
+import _ from "lodash";
 
-import { Box, Button, Link, TextField, Typography } from "@mui/material";
+import { Box, Button, Link, TextField, Typography, Card, CardContent } from "@mui/material";
+
+import { resetPassword } from "../../services/users";
 
 import Snackbar from "../../components/Snackbar";
 
@@ -15,48 +16,67 @@ const ForgotPassword = () => {
   const [t] = useTranslation();
   const [formFields, setFormFields] = useState(defaultFormFields);
   const { email } = formFields;
-  const [snackbar, setSnackBar] = useState({
+  const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
   });
+  const [showEmailAlreadySentModal, setShowEmailAlreadySentModal] = useState(false);
   const { open, message } = snackbar;
 
-  // const location = useLocation();
-  // const { from } = location.state || { from: { pathname: "/" } };
-
-  // const navigate = useNavigate();
-
   const handleClose = () => {
-    setSnackBar({ open: false, message: "" });
+    setSnackbar({ open: false, message: "" });
   };
-
-  // const resetFormFields = () => {
-  //   setFormFields(defaultFormFields);
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // TODO: Implement forgot password functionality
-    // try {
-    //   const user = await signIn(email, password);
-    //   signInUser(user);
-    //   resetFormFields();
-    //   navigate(from.pathname);
-    // } catch (e) {
-    //   const errorMsg = _.get(
-    //     e,
-    //     "response.data.errors[0].message",
-    //     "Something went wrong",
-    //   );
-    //   setSnackBar({ open: true, message: errorMsg });
-    // }
+    try {
+      const response = await resetPassword(email);
+      console.log('response', response);
+      setShowEmailAlreadySentModal(true);
+    } catch (e) {
+      setShowEmailAlreadySentModal(false);
+      const errorMsg = _.get(
+        e,
+        "response.data.errors[0].message",
+        t("errors.generic_error")
+      );
+      setSnackbar({ open: true, message: errorMsg });
+    }
   };
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
+
+  if (showEmailAlreadySentModal) {
+    return (
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "20px",
+      }}>
+        <Card
+          sx={{
+            borderRadius: "10px",
+            padding: "10px",
+            border: `1px solid `,
+          }}
+        >
+          <CardContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            <Typography>
+              {t('forgot_password.email_sent')}
+            </Typography>
+            <Link href="/login" variant="body2">
+              {t('forgot_password.back_to_login')}
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <Box
@@ -73,7 +93,7 @@ const ForgotPassword = () => {
         message={message}
         type={"error"}
       />
-      <Typography variant="h2">
+      <Typography variant="h3">
         {t('forgot_password.title')}
       </Typography>
       <Typography>
