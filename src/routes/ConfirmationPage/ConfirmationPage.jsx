@@ -177,7 +177,6 @@ const ConfirmationPage = () => {
         >
           <CardContent>
             <Typography variant="h5" component="div">
-              Congrats! Account confirmed.
               {t('confirm_account.account_confirmed')}
             </Typography>
           </CardContent>
