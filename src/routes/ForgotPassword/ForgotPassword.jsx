@@ -31,8 +31,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await resetPassword(email);
-      console.log('response', response);
+      await resetPassword(email);
       setShowEmailAlreadySentModal(true);
     } catch (e) {
       setShowEmailAlreadySentModal(false);
@@ -62,7 +61,6 @@ const ForgotPassword = () => {
           sx={{
             borderRadius: "10px",
             padding: "10px",
-            border: `1px solid `,
           }}
         >
           <CardContent sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -85,6 +83,7 @@ const ForgotPassword = () => {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
+        gap: 2,
       }}
     >
       <Snackbar
@@ -99,9 +98,8 @@ const ForgotPassword = () => {
       <Typography>
         {t('forgot_password.subtitle')}
       </Typography>
-      <Box component="form" sx={{ mt: 1 }} onSubmit={handleSubmit}>
+      <Box component="form" sx={{ mt: 4 }} onSubmit={handleSubmit}>
         <TextField
-          margin="normal"
           required
           fullWidth
           id="email"

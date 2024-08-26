@@ -78,7 +78,7 @@
     "new_password": "New Password",
     "confirm_password": "Confirm Password",
     "submit": "Reset Password",
-    "password_updated": "Password successfully updated",
+    "password_updated": "Password successfully updated!",
     "error": "Could not update password"
   },
   "components": {

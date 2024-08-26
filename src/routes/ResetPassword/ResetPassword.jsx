@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography, Card, CardContent, Link } from "@mui/material";
 
 import { updatePassword } from "../../services/users";
 
@@ -18,7 +18,9 @@ const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const [t] = useTranslation();
   const [formFields, setFormFields] = useState(defaultFormFields);
+  const [showPasswordResetSuccessCard, setShowPasswordResetSuccessCard] = useState(false);
   const { password, confirmPassword } = formFields;
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -26,7 +28,7 @@ const ResetPassword = () => {
 
   const { open, message } = snackbar;
 
-  const resetPasswordToken = searchParams.get("token");
+  const resetPasswordToken = searchParams.get("token") || "";
 
   const handleClose = () => {
     setSnackbar({ open: false, message: "" });
@@ -44,8 +46,8 @@ const ResetPassword = () => {
     }
 
     try {
-      const response = await updatePassword({ password, resetPasswordToken });
-      console.log('response', response);
+      await updatePassword({ password, resetPasswordToken });
+      setShowPasswordResetSuccessCard(true);
     } catch (e) {
       const errorMsg = _.get(
         e,
@@ -60,6 +62,34 @@ const ResetPassword = () => {
     const { name, value } = event.target;
     setFormFields({ ...formFields, [name]: value });
   };
+
+  if (showPasswordResetSuccessCard) {
+    return (
+      <div style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: "20px",
+      }}>
+        <Card
+          sx={{
+            borderRadius: "10px",
+            padding: "10px",
+            border: `1px`,
+          }}
+        >
+          <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}>
+            <Typography>
+              {t('reset_password.password_updated')}
+            </Typography>
+            <Link href="/login">
+              {t('forgot_password.back_to_login')}
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <Box
@@ -91,7 +121,8 @@ const ResetPassword = () => {
           name="password"
           value={password}
           onChange={handleChange}
-          autoComplete="email"
+          autoComplete="password"
+          type="password"
           autoFocus
         />
         <TextField
@@ -102,6 +133,7 @@ const ResetPassword = () => {
           value={confirmPassword}
           onChange={handleChange}
           autoComplete="confirmPassword"
+          type="password"
         />
         <Button
           type="submit"

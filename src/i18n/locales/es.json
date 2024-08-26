@@ -78,7 +78,7 @@
     "new_password": "Nueva contraseña",
     "confirm_password": "Confirmar contraseña",
     "submit": "Restablecer contraseña",
-    "password_updated": "Contraseña actualizada con éxito",
+    "password_updated": "Contraseña actualizada con éxito!",
     "error": "Error al restablecer la contraseña"
   },
   "components": {
