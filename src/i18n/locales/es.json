@@ -240,6 +240,13 @@
     "terms_and_conditions": "Términos y condiciones"
   },
   "admin": {
+    "labels": {
+      "users": "Usuarios",
+      "appointments": "Turnos",
+      "offices": "Consultorios",
+      "doctors": "Doctores",
+      "availabilities": "Disponibilidades"
+    },
     "users": {
       "edit": {
         "menu_option": "Editar usuario",
@@ -261,6 +268,10 @@
           "delete": "Borrar usuario",
           "create_appointment": "Crear turno para usuario"
         },
+        "status": {
+          "active": "Activo",
+          "inactive": "Inactivo"
+        },
         "options": "Opciones"
       }
     },
@@ -269,12 +280,23 @@
         "success": "Turno actualizado con éxito",
         "no_changes_made": "No se realizaron cambios",
         "error": "Error al actualizar el turno",
-        "success_mark_assistance": "Turno marcado como asistido",
-        "error_mark_assistance": "Error al marcar el turno como asistido",
+        "mark_assistance_success": "Turno marcado como asistido",
+        "mark_assistance_error": "Error al marcar el turno como asistido",
         "options": "Opciones",
         "menu_option": "Editar turno",
         "mark_assistance": "Marcar como asistido",
         "extra_appointment": "Sobre turno"
+      },
+      "row": {
+        "headers": {
+          "user_name": "Nombre del usuario",
+          "doctor_name": "Nombre del doctor",
+          "doctor_specialty": "Especialidad del doctor",
+          "office_number": "Número de consultorio",
+          "arrival_time": "Hora de llegada",
+          "status": "Estado",
+          "assisted": "Asistido"
+        }
       }
     },
     "availabilities": {
@@ -284,6 +306,18 @@
         "error": "Error al actualizar la disponibilidad",
         "options": "Opciones",
         "menu_option": "Editar disponibilidad"
+      },
+      "row": {
+        "headers": {
+          "doctor_name": "Nombre del doctor",
+          "doctor_specialty": "Especialidad del doctor",
+          "office_number": "Número de consultorio",
+          "weekday": "Día de la semana",
+          "start_hour": "Hora de inicio",
+          "end_hour": "Hora de fin",
+          "frequency": "Frecuencia",
+          "valid_until": "Válido hasta"
+        }
       }
     },
     "offices": {

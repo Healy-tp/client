@@ -1,25 +1,28 @@
+import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
+import _ from "lodash";
+
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import React, { useEffect, useState } from "react";
-import _ from "lodash";
 import { getAppointments } from "../../services/admin";
 import AdminTable from "../AdminTable";
 import { Container, TextField } from "@mui/material";
 
 const AppointmentsAdmin = () => {
+  const [t] = useTranslation();
   const [appointments, setAppointments] = useState([]);
   const [filteredAppointments, setFilteredAppointments] = useState([]);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [isLoading, setIsLoading] = useState(false);
 
   const headers = [
-    "Users Name",
-    "Doctors Name",
-    "Doctors Specialty",
-    "Office Number",
-    "Arrival Time",
-    "Status",
-    "Assisted",
+    t("admin.appointments.row.headers.user_name"),
+    t("admin.appointments.row.headers.doctor_name"),
+    t("admin.appointments.row.headers.doctor_specialty"),
+    t("admin.appointments.row.headers.office_number"),
+    t("admin.appointments.row.headers.arrival_time"),
+    t("admin.appointments.row.headers.status"),
+    t("admin.appointments.row.headers.assisted"),
   ];
 
   const fetchAppointments = async () => {

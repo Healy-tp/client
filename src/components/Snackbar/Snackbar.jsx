@@ -28,7 +28,7 @@ Snackbar.propTypes = {
   open: PropTypes.bool.isRequired,
   message: PropTypes.string.isRequired,
   timeout: PropTypes.number,
-  type: PropTypes.oneOf(["error", "warning", "info", "success"]),
+  type: PropTypes.oneOf(["error", "warning", "info", "success", ""]),
 };
 
 export default Snackbar;

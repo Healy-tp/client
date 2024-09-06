@@ -97,7 +97,7 @@ const OfficeTableRow = ({ office, setSnackbar, updateRows }) => {
       setSnackbar({
         type: "info",
         open: true,
-        message: t("admin.offices.edit.no_changes"),
+        message: t("admin.offices.edit.no_changes_made"),
       });
     }
   };

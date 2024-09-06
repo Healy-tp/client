@@ -29,7 +29,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
   const openMenu = Boolean(anchorEl);
 
   const { id, Doctor, User, Office, arrivalTime, status, assisted } = appt;
-  const [assitedCheckbox, setAssitedCheckbox] = useState(assisted);
+  const [assistedCheckbox, setAssistedCheckbox] = useState(assisted);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -85,7 +85,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
   const handleMarkAssistance = async (apptId) => {
     try {
       await markAssistance(apptId);
-      setAssitedCheckbox(true);
+      setAssistedCheckbox(true);
       setSnackbar({
         type: "success",
         open: true,
@@ -137,7 +137,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
         )}
       </TableCell>
       <TableCell>
-        <Checkbox disabled checked={assitedCheckbox} />
+        <Checkbox disabled checked={assistedCheckbox} />
       </TableCell>
       <TableCell>
         {editMode ? (
@@ -166,7 +166,7 @@ const AppointmentTableRow = ({ appt, updateRows, setSnackbar }) => {
               }}
             >
               <MenuItem onClick={handleEdit}>{t('admin.appointments.edit.menu_option')}</MenuItem>
-              <MenuItem onClick={() => handleMarkAssistance(id)}>
+              <MenuItem disabled={assistedCheckbox} onClick={() => handleMarkAssistance(id)}>
                {t('admin.appointments.edit.mark_assistance')}
               </MenuItem>
               <MenuItem onClick={() => console.log("TODO")}>{t('actions.delete')}</MenuItem>

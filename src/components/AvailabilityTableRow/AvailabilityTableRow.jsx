@@ -106,7 +106,7 @@ const AvailabilityTableRow = ({ availability, updateRows, setSnackbar }) => {
       </TableCell>
       <TableCell>{Doctor.specialty}</TableCell>
       <TableCell>{Office.number}</TableCell>
-      <TableCell>{moment().weekday(weekday).format("dddd")}</TableCell>
+      <TableCell>{_.capitalize(moment().weekday(weekday).format("dddd")) || ""}</TableCell>
       <TableCell>{startHour}</TableCell>
       <TableCell>{endHour}</TableCell>
       <TableCell>

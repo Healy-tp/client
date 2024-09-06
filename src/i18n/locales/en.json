@@ -240,6 +240,13 @@
     "terms_and_conditions": "Terms and conditions"
   },
   "admin": {
+    "labels": {
+      "users": "Users",
+      "appointments": "Appointments",
+      "offices": "Offices",
+      "doctors": "Doctors",
+      "availabilities": "Availabilities"
+    },
     "users": {
       "edit": {
         "menu_option": "Edit user",
@@ -261,6 +268,10 @@
           "delete": "Delete user",
           "create_appointment": "Create appointment for user"
         },
+        "status": {
+          "active": "Active",
+          "inactive": "Inactive"
+        },
         "options": "Options"
       }
     },
@@ -269,12 +280,23 @@
         "success": "Appointment successfully updated",
         "no_changes_made": "No changes were made",
         "error": "Error updating appointment",
-        "success_mark_assistance": "Successfully marked user assistance",
-        "error_mark_assistance": "Could not mark assistance for user",
+        "mark_assistance_success": "Successfully marked user assistance",
+        "mark_assistance_error": "Could not mark assistance for user",
         "options": "Options",
         "menu_option": "Edit appointment",
         "mark_assistance": "Mark assistance",
         "extra_appointment": "Extra appointment"
+      },
+      "row": {
+        "headers": {
+          "user_name": "User Name",
+          "doctor_name": "Doctor Name",
+          "doctor_specialty": "Doctors Specialty",
+          "office_number": "Office Number",
+          "arrival_time": "Arrival Time",
+          "status": "Status",
+          "assisted": "Assisted"
+        }
       }
     },
     "availabilities": {
@@ -284,6 +306,18 @@
         "error": "Error updating availability",
         "options": "Options",
         "menu_option": "Edit availability"
+      },
+      "row": {
+        "headers": {
+          "doctor_name": "Doctor Name",
+          "doctor_specialty": "Doctors Specialty",
+          "office_number": "Office Number",
+          "weekday": "Weekday",
+          "start_hour": "Start Hour",
+          "end_hour": "End Hour",
+          "frequency": "Frequency",
+          "valid_until": "Valid Until"
+        }
       }
     },
     "offices": {

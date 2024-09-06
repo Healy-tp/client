@@ -1,5 +1,7 @@
 import React, { useState, useContext } from "react";
 import _ from "lodash";
+import { useTranslation } from 'react-i18next';
+
 import ForbiddenPage from "../../components/ForbiddenPage";
 import { UserContext } from "../../contexts/UserContext";
 import { Box, Tab, Tabs } from "@mui/material";
@@ -38,6 +40,7 @@ const TABS = [
 ];
 
 const Admin = () => {
+  const [t] = useTranslation();
   const { currentUser } = useContext(UserContext);
   const [value, setValue] = useState(0);
 
@@ -53,7 +56,7 @@ const Admin = () => {
         <Box sx={{ width: "100%", bgcolor: "background.paper" }}>
           <Tabs value={value} onChange={handleChange} centered>
             {_.map(TABS, (tab, i) => (
-              <Tab key={i} label={tab.label} />
+              <Tab key={i} label={t(`admin.labels.${tab.label.toLowerCase()}`)} />
             ))}
           </Tabs>
           {TABS[value].component}

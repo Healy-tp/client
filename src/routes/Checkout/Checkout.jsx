@@ -41,11 +41,6 @@ function Checkout({ from }) {
           doctorId: selectedData.doctorId,
           officeId: selectedData.selectedOffice,
         });
-        setSnackbar({
-          type: "success",
-          open: true,
-          message: t("checkout.success"),
-        });
         setDefaultValues();
         navigate("/");
       } else {
@@ -67,7 +62,6 @@ function Checkout({ from }) {
         navigate("/admin");
       }
     } catch (error) {
-      console.log(error);
       setSnackbar({
         type: "error",
         open: true,

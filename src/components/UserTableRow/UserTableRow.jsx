@@ -63,7 +63,7 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
       setSnackbar({
         type: "info",
         open: true,
-        message: t("admin.users.edit.no_changes"),
+        message: t("admin.users.edit.no_changes_made"),
       });
     }
   };
@@ -151,7 +151,7 @@ const UserTableRow = ({ user, setSnackbar, updateRows }) => {
           ) : user.phoneNumber
         }
       </TableCell>
-      <TableCell>{user.status}</TableCell>
+      <TableCell>{t(`admin.users.row.status.${user.status}`)  }</TableCell>
       <TableCell>
         {
           editMode ? (

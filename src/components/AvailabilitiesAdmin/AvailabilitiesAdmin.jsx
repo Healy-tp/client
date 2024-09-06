@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from 'react-i18next';
 import _ from "lodash";
 import { getAvailabilities } from "../../services/admin";
 import AdminTable from "../AdminTable";
 
 const AvailabilitiesAdmin = () => {
+  const [t] = useTranslation();
   const [availabilities, setAvailabilities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const headers = [
-    "Doctors Name",
-    "Doctors Specialty",
-    "Office Number",
-    "Weekday",
-    "Start Hour",
-    "End Hour",
-    "Frequency",
-    "Valid Until",
+    t("admin.availabilities.row.headers.doctor_name"),
+    t("admin.availabilities.row.headers.doctor_specialty"),
+    t("admin.availabilities.row.headers.office_number"),
+    t("admin.availabilities.row.headers.weekday"),
+    t("admin.availabilities.row.headers.start_hour"),
+    t("admin.availabilities.row.headers.end_hour"),
+    t("admin.availabilities.row.headers.frequency"),
+    t("admin.availabilities.row.headers.valid_until"),
   ];
 
   const fetchAvailabilities = async () => {
