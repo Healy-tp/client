@@ -39,7 +39,9 @@
   "home": {
     "title": "Cuida tu salud",
     "subtitle": "Reserva turnos con los mejores profesionales medicos.",
-    "schedule_appointment": "Agenda tu turno"
+    "schedule_appointment": "Agenda tu turno",
+    "go_to_my_agenda": "Ir a mi agenda",
+    "doctor_welcome": "Bienvenido a Healy! Gestione sus turnos, su informacion y sus mensajes desde aqui."
   },
   "header": {
     "signup": "Registrarse",
@@ -156,7 +158,9 @@
       "doctor": {
         "title": "Agenda",
         "manage_agenda": "Administrar agenda",
-        "cancel_all_appointments": "Cancelar todos los turnos"
+        "cancel_all_appointments": "Cancelar todos los turnos",
+        "cancel_all_appointments_success": "Todos los turnos cancelados con éxito",
+        "cancel_all_appointments_error": "Error al cancelar todos los turnos"
       },
       "no_appointments_on_date": "No tienes turnos en esta fecha"
     },

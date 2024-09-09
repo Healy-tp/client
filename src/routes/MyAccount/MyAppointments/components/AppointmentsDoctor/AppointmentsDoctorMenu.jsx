@@ -1,21 +1,31 @@
+import React, { useState } from "react";
 import moment from "moment";
 import { Button, TextField, Grid, Menu, MenuItem, Typography } from "@mui/material";
 import { useTranslation } from 'react-i18next';
 
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import React, { useState } from "react";
 import DialogAlert from "../../../../../components/Dialog";
 import { doctorDayCancelation } from "../../../../../services/appointments";
+import Snackbar from "../../../../../components/Snackbar";
+import { APPOINTMENT_STATUS } from "../../../../../utils/constants";
 
 const AppointmentsDoctorMenu = ({
   appointments,
   selectedDate,
   handleChange,
+  refetchAppointments
 }) => {
   const [t] = useTranslation();
   const [anchorEl, setAnchorEl] = useState(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    type: "",
+  });
+  const { open, message, type } = snackbar;
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -39,8 +49,18 @@ const AppointmentsDoctorMenu = ({
         day: selectedDate.toJSON().slice(0, 10),
       });
       setDialogOpen(false);
+      setSnackbar({
+        type: "success",
+        open: true,
+        message: t('my_account.my_appointments.doctor.cancel_all_appointments_success')
+      });
+      await refetchAppointments();
     } catch (err) {
-      console.log("could not cancel day", err);
+      setSnackbar({
+        type: "error",
+        open: true,
+        message: t('my_account.my_appointments.doctor.cancel_all_appointments_error')
+      });
     }
   };
 
@@ -49,6 +69,16 @@ const AppointmentsDoctorMenu = ({
       .utc()
       .day();
   };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ open: false, message: "" });
+  };
+
+  const shouldDisableCancelAllAppointmentsOption = appointments
+    .filter((appt) => 
+      appt.arrivalTime.slice(0, 10) === selectedDate.toJSON().slice(0, 10) &&
+      appt.status !== APPOINTMENT_STATUS.CANCELLED
+    )?.length === 0;
 
   return (
     <Grid
@@ -61,6 +91,12 @@ const AppointmentsDoctorMenu = ({
       alignItems="center"
       sx={{ marginTop: 2 }}
     >
+      <Snackbar
+        open={open}
+        handleClose={handleCloseSnackbar}
+        message={message}
+        type={type}
+      />
       <Grid item marginBottom={2}>
         <Typography variant="h3">
           {t('my_account.my_appointments.doctor.title')} 
@@ -99,7 +135,7 @@ const AppointmentsDoctorMenu = ({
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          <MenuItem onClick={handleCancelClickOpen}>
+          <MenuItem onClick={handleCancelClickOpen} disabled={shouldDisableCancelAllAppointmentsOption}>
             {t('my_account.my_appointments.doctor.cancel_all_appointments')}
           </MenuItem>
         </Menu>

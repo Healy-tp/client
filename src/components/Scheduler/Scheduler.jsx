@@ -18,6 +18,7 @@ import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 
 import { AppointmentContext } from "../../contexts/AppointmentContext";
+import { UserContext } from "../../contexts/UserContext";
 import { timeToString } from "../../utils/dateTimeFormatter";
 
 const Scheduler = ({
@@ -34,6 +35,7 @@ const Scheduler = ({
   const [t] = useTranslation();
   const navigate = useNavigate();
   const { selectedData, setSelectedData } = useContext(AppointmentContext);
+  const { currentUser } = useContext(UserContext);
 
   const handleCancel = () => {
     navigate("/admin");
@@ -41,6 +43,10 @@ const Scheduler = ({
 
   const hasDoctorAvailabilities = selectedData.doctorId && availabilities.filter((availability) => availability.Doctor.id === selectedData.doctorId).length > 0;
   const hasNotSelectedDoctor = !selectedData.doctorId;
+
+  if (currentUser?.isDoctor) {
+    return null;
+  }
 
   return (
     <Container component="main" style={{ padding: 16 }}>

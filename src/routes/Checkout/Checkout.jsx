@@ -25,6 +25,7 @@ function Checkout({ from }) {
   };
 
   const handleGoBack = () => {
+    setDefaultValues();
     const navigateTo = from === 'user' ? "/" : "/admin";
     navigate(navigateTo);
   };

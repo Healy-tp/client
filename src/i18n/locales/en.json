@@ -39,7 +39,9 @@
   "home": {
     "title": "Take care of your health",
     "subtitle": "Schedule appointments with the best medical professionals.",
-    "schedule_appointment": "Schedule appointment"
+    "schedule_appointment": "Schedule appointment",
+    "go_to_my_agenda": "Go to my agenda",
+    "doctor_welcome": "Welcome to Healy! Manage your appointments, your information and messages from here."
   },
   "header": {
     "signup": "Sign up",
@@ -150,7 +152,9 @@
       "doctor": {
         "title": "Agenda",
         "manage_agenda": "Manage Agenda",
-        "cancel_all_appointments": "Cancel all appointments"
+        "cancel_all_appointments": "Cancel all appointments",
+        "cancel_all_appointments_success": "All appointments for the selected day were canceled",
+        "cancel_all_appointments_error": "Error canceling all appointments"
       },
       "no_appointments_on_date": "You don't have any appointments on this date"
     },

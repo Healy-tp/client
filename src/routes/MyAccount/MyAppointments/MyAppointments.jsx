@@ -28,23 +28,24 @@ const MyAppointments = ({ nav, isDoctor }) => {
     },
   ];
 
+  const getAppointmentsByUserId = async () => {
+    try {
+      setIsLoading(true);
+      const params = isDoctor ? { isDoctor } : {};
+      const response = await getAppointmentByUserId(params);
+      setAppointments(response);
+      const filtered = response.filter((a) =>
+        filterAppointmentsByPastOrUpcoming(a, tabValue),
+      );
+      setFilteredAppointments(filtered);
+    } catch (err) {
+      console.log("error getting user appointments", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
-    const getAppointmentsByUserId = async () => {
-      try {
-        setIsLoading(true);
-        const params = isDoctor ? { isDoctor: true } : {};
-        const response = await getAppointmentByUserId(params);
-        setAppointments(response);
-        const filtered = response.filter((a) =>
-          filterAppointmentsByPastOrUpcoming(a, tabValue),
-        );
-        setFilteredAppointments(filtered);
-      } catch (err) {
-        console.log("error getting user appointments", err);
-      } finally {
-        setIsLoading(false);
-      }
-    };
     getAppointmentsByUserId();
   }, [isDoctor]);
 
@@ -86,28 +87,26 @@ const MyAppointments = ({ nav, isDoctor }) => {
   const hasAppointments = appointments.length > 0;
   const hasAppointmentsOnDate = filteredAppointments.some(filterAppointmentsByDate);
 
+  if (isLoading) {
+    return (
+      <CircularProgress
+        size={60}
+        sx={{ position: "absolute", top: "40%", left: "50%" }}
+      />
+    );
+  }
+
   return (
     <Container>
-      {isLoading ? (
-        <CircularProgress
-          size={60}
-          sx={{ position: "absolute", top: "40%", left: "50%" }}
+      {isDoctor && (
+        <AppointmentsDoctorMenu
+          appointments={appointments}
+          selectedDate={selectedDate}
+          handleChange={handleDatePickerChange}
+          refetchAppointments={getAppointmentsByUserId}
         />
-      ) : (
-        isDoctor && (
-          <AppointmentsDoctorMenu
-            appointments={appointments}
-            selectedDate={selectedDate}
-            handleChange={handleDatePickerChange}
-          />
-        )
       )}
-      {isLoading ? (
-        <CircularProgress
-          size={60}
-          sx={{ position: "absolute", top: "40%", left: "50%" }}
-        />
-      ) : !isDoctor ? (
+      {!isDoctor ? (
         hasAppointments ? (
           <Box sx={{ width: "100%", mb: 8, bgcolor: "background.paper", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", gap: 1 }}>
             <Tabs value={tabValue} onChange={handleTabChange} centered>
