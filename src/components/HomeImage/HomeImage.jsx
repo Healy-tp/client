@@ -17,6 +17,10 @@ export default function HomeImage({ onClick }) {
   const handleGoToMyAgenda = () => {
     navigate("/my-account", { state: { defaultMenuOption: MENU_OPTIONS.MY_AGENDA } })
   }
+  
+  const handleGoToAdmin = () => {
+    navigate("/admin");
+  }
 
   return (
     <HomeImageLayout
@@ -35,7 +39,24 @@ export default function HomeImage({ onClick }) {
       <Typography color="inherit" align="center" variant="h2" marked="center">
         {t('home.title')}
       </Typography>
-      {currentUser?.isDoctor ? (
+      {currentUser?.isAdmin && (
+        <>
+          <Typography color="inherit" align="center" variant="h5" sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}>
+            {t('home.admin_welcome')}
+          </Typography>
+          <Button
+            onClick={handleGoToAdmin}
+            color="secondary"
+            variant="contained"
+            size="large"
+            component="a"
+            sx={{ minWidth: 200 }}
+          >
+            {t('home.go_to_admin')}
+          </Button>
+        </>
+      )}
+      {currentUser?.isDoctor && (
         <>
           <Typography color="inherit" align="center" variant="h5" sx={{ mb: 4, mt: { sx: 4, sm: 10 } }}>
             {t('home.doctor_welcome')}
@@ -51,9 +72,8 @@ export default function HomeImage({ onClick }) {
             {t('home.go_to_my_agenda')}
           </Button>
         </>
-        
-      ) 
-      : (
+      )}
+      {!currentUser.isAdmin && !currentUser.isDoctor && (
         <>
           <Typography
             color="inherit"

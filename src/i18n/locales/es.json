@@ -41,7 +41,9 @@
     "subtitle": "Reserva turnos con los mejores profesionales medicos.",
     "schedule_appointment": "Agenda tu turno",
     "go_to_my_agenda": "Ir a mi agenda",
-    "doctor_welcome": "Bienvenido a Healy! Gestione sus turnos, su informacion y sus mensajes desde aqui."
+    "doctor_welcome": "Bienvenido a Healy! Gestione sus turnos, su informacion y sus mensajes desde aqui.",
+    "go_to_admin": "Ir a la administración",
+    "admin_welcome": "Bienvenido a la administración de Healy! Administre usuarios, turnos, consultorios, doctores y disponibilidades desde aqui."
   },
   "header": {
     "signup": "Registrarse",

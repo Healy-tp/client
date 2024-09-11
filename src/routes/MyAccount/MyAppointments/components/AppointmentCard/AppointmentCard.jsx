@@ -1,9 +1,12 @@
 import React, { useState, useContext } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
+import _ from "lodash";
 import moment from 'moment';
 import 'moment/locale/es';
-import _ from "lodash";
+
+import { APPOINTMENT_STATUS } from "../../../../../utils/constants";
+
 
 import {
   Button,
@@ -234,7 +237,7 @@ const AppointmentCard = ({
           size="small"
           variant="contained"
           onClick={() => handleMessageClickOpen(id)}
-          disabled={!canStartChat()}
+          disabled={appt.status === APPOINTMENT_STATUS.TO_CONFIRM || appt.status === APPOINTMENT_STATUS.CANCELLED || !canStartChat()}
         >
           {t('my_account.my_appointments.send_message')}
         </Button>

@@ -44,7 +44,7 @@ const Scheduler = ({
   const hasDoctorAvailabilities = selectedData.doctorId && availabilities.filter((availability) => availability.Doctor.id === selectedData.doctorId).length > 0;
   const hasNotSelectedDoctor = !selectedData.doctorId;
 
-  if (currentUser?.isDoctor) {
+  if (currentUser?.isDoctor || currentUser?.isAdmin) {
     return null;
   }
 

@@ -41,7 +41,9 @@
     "subtitle": "Schedule appointments with the best medical professionals.",
     "schedule_appointment": "Schedule appointment",
     "go_to_my_agenda": "Go to my agenda",
-    "doctor_welcome": "Welcome to Healy! Manage your appointments, your information and messages from here."
+    "doctor_welcome": "Welcome to Healy! Manage your appointments, your information and messages from here.",
+    "go_to_admin": "Go to admin",
+    "admin_welcome": "Welcome to Healy! Manage users, appointments, offices and availabilities from here."
   },
   "header": {
     "signup": "Sign up",
