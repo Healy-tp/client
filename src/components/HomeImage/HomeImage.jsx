@@ -73,7 +73,7 @@ export default function HomeImage({ onClick }) {
           </Button>
         </>
       )}
-      {!currentUser.isAdmin && !currentUser.isDoctor && (
+      {!currentUser?.isAdmin && !currentUser?.isDoctor && (
         <>
           <Typography
             color="inherit"
