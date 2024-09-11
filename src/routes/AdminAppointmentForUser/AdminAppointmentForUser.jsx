@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from "react-router-dom";
+import { CircularProgress } from "@mui/material";
 import Scheduler from "../../components/Scheduler/Scheduler";
 import { AppointmentContext } from "../../contexts/AppointmentContext";
 import { getUsers } from "../../services/admin";
@@ -17,6 +18,7 @@ const AdminAppointmentForUser = () => {
   const [availabilities, setAvailabilities] = useState([]);
   const [availableTimes, setAvailableTimes] = useState([]);
   const [appointments, setAppointments] = useState([]);
+  const [isLoadingAvailabilities, setIsLoadingAvailabilities] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,8 +29,15 @@ const AdminAppointmentForUser = () => {
     };
 
     const getAvailabilitiesFromApi = async () => {
-      const response = await getAvailabilities();
-      setAvailabilities(response);
+      try {
+        setIsLoadingAvailabilities(true);
+        const response = await getAvailabilities();
+        setAvailabilities(response);
+      } catch (err) {
+        console.log("error fetching data from API", err);
+      } finally {
+        setIsLoadingAvailabilities(false);
+      }
     };
 
     const getAllAppointmentsFromApi = async () => {
@@ -110,6 +119,15 @@ const AdminAppointmentForUser = () => {
   const handleCheckboxChange = (event) => {
     setSelectedData({ ...selectedData, extraAppt: event.target.checked });
   };
+
+  if (isLoadingAvailabilities) {
+    return (
+      <CircularProgress
+        size={60}
+        sx={{ position: "absolute", top: "40%", left: "50%" }}
+      />
+    );
+  }
 
   return (
     <Scheduler
