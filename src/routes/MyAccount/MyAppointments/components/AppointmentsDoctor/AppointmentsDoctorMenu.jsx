@@ -76,7 +76,7 @@ const AppointmentsDoctorMenu = ({
 
   const shouldDisableCancelAllAppointmentsOption = appointments
     .filter((appt) => 
-      appt.arrivalTime.slice(0, 10) === selectedDate.toJSON().slice(0, 10) &&
+      appt.arrivalTime?.slice(0, 10) === selectedDate?.toJSON()?.slice(0, 10) &&
       appt.status !== APPOINTMENT_STATUS.CANCELLED
     )?.length === 0;
 
